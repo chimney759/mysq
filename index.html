@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>美柚省钱</title>
+<link rel="stylesheet" href="src/styles/modules/base.css">
+<link rel="stylesheet" href="src/styles/components/global-header-actions.css">
+<link rel="stylesheet" href="src/styles/modules/life.css">
+<link rel="stylesheet" href="src/styles/modules/home.css">
+<link rel="stylesheet" href="src/styles/modules/mall.css">
+<link rel="stylesheet" href="src/styles/modules/subsidy.css">
+<link rel="stylesheet" href="src/styles/modules/mine.css">
+<link rel="stylesheet" href="src/styles/modules/wallet.css">
+<link rel="stylesheet" href="src/styles/modules/pending-orders.css">
+<link rel="stylesheet" href="src/styles/modules/withdrawn-details.css">
+<link rel="stylesheet" href="src/styles/modules/cashback-red-packets.css">
+<link rel="stylesheet" href="src/styles/modules/exclusive-coupon.css">
+<link rel="stylesheet" href="src/styles/modules/exclusive-coupon-overrides.css">
+<link rel="stylesheet" href="src/styles/modules/states.css">
+<!-- Consolidated styles provide the base; the theme layer intentionally loads last. -->
+<link rel="stylesheet" href="src/styles/app.css">
+<link rel="stylesheet" href="src/styles/modules/theme.css">
+<link rel="stylesheet" href="src/styles/modules/search.css">
+<link rel="stylesheet" href="src/styles/modules/product-detail.css">
+</head>
+<body>
+
+<div class="status-bar">
+  <span>9:41</span>
+  <div class="status-icons">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><rect x="2" y="10" width="3" height="10" rx="1"/><rect x="7" y="7" width="3" height="13" rx="1"/><rect x="12" y="4" width="3" height="16" rx="1"/><rect x="17" y="1" width="3" height="19" rx="1"/></svg>
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>
+    <svg viewBox="0 0 24 24" width="20" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="6" width="18" height="12" rx="2"/><rect x="3" y="8" width="13" height="8" rx="1" fill="currentColor" stroke="none"/><path d="M21 10v4a2 2 0 000-4z" fill="currentColor" stroke="none"/></svg>
+  </div>
+</div>
+
+<div class="header">
+  <div class="savings">已省: <strong>8762.52元</strong><span class="savings-chevron" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="m5.5 3.5 4.5 4.5-4.5 4.5"/></svg></span></div>
+</div>
+
+<div class="search-bar">
+  <div class="search-inner">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#aaa" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" placeholder="搜全网商品，查隐藏优惠" readonly>
+    <svg class="search-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-label="拍照搜索"><path d="M4 7h3l1.5-2h7L17 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z"/><circle cx="12" cy="13" r="3.5"/></svg>
+    <button class="search-btn">搜索</button>
+  </div>
+</div>
+
+<!-- 底部导航对应的页面内容 -->
+<div id="page-home" class="tab-page active">
+<div class="content">
+
+<div class="quick-nav">
+  <div class="quick-nav-grid">
+    <div class="nav-item">
+      <div class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-label="我的红包"><path d="M5 5.5 12 3l7 2.5v13A2.5 2.5 0 0 1 16.5 21h-9A2.5 2.5 0 0 1 5 18.5v-13Z"/><path d="M5 9h14M12 3v6M9.5 6.2c0-1 .8-1.8 1.8-1.8.3 0 .5.1.7.2.2-.1.4-.2.7-.2 1 0 1.8.8 1.8 1.8 0 1.2-1.5 1.8-2.5 2-1-.2-2.5-.8-2.5-2Z"/><path d="M12 12.2v4.2M10.5 13.2c.4-.7 1-.9 1.5-.9.8 0 1.5.5 1.5 1.2s-.7 1.2-1.5 1.2-1.5.5-1.5 1.2.7 1.2 1.5 1.2c.6 0 1.2-.3 1.5-.9"/></svg>
+        <span class="badge">99元</span>
+      </div>
+      <span class="nav-label">我的红包</span>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-label="购物券"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5V9a2.5 2.5 0 0 0 0 6v2.5a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 17.5V15a2.5 2.5 0 0 0 0-6Z"/><path d="M9 8v1M9 15v1M9 11.5h6"/></svg>
+      </div>
+      <span class="nav-label">专属优惠券</span>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="9" cy="21" r="1"/>
+          <circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+      </div>
+      <span class="nav-label">购物车返现</span>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h13A2.5 2.5 0 0 1 21 7.5v9a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 16.5z"/>
+          <path d="M3 8h14.5A2.5 2.5 0 0 1 20 10.5V16h-5a3 3 0 0 0 0-6h6M15 13h.01"/>
+        </svg>
+      </div>
+      <span class="nav-label">领现金</span>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-label="省钱秘籍">
+          <path d="M9 18h6M10 21h4"/>
+          <path d="M8.3 14.5A7 7 0 1 1 15.7 14.5c-.9.7-1.5 1.5-1.7 2.5h-4c-.2-1-.8-1.8-1.7-2.5Z"/>
+          <path d="M12 5v3M5.6 8.2l2.1 1.2M18.4 8.2l-2.1 1.2M12 11.5l1.2 1.2 2.3-2.4"/>
+        </svg>
+      </div>
+      <span class="nav-label">省钱秘籍</span>
+    </div>
+  </div>
+</div>
+
+<div class="alert-banner">
+  <span class="alert-text"><span class="alert-icon alert-coupon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v2a2 2 0 0 0 0 4v2a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 14.5v-2a2 2.5 0 0 0 0-4v-2Z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></span>有3个红包即将过期，去查看 &gt;</span>
+  <span class="alert-time">23:45 后过期</span>
+</div>
+
+<div class="category-tabs">
+  <div class="tabs-row" id="categoryTabs">
+    <span class="tab active" data-panel="panel-hot">热门</span>
+    <span class="tab" data-panel="panel-waimai">外卖</span>
+    <span class="tab" data-panel="panel-dache">打车</span>
+    <span class="tab" data-panel="panel-taobao">淘宝</span>
+    <span class="tab" data-panel="panel-jd">京东</span>
+    <span class="tab" data-panel="panel-douyin">抖音</span>
+    <span class="tab" data-panel="panel-vip">唯品会</span>
+  </div>
+</div>
+
+<div id="panel-hot" class="tab-page active">
+  <div class="section-card platform-entry-card">
+    <div class="section-title home-section-heading">
+      <span>商城返现</span>
+      <button class="home-section-more" type="button">全部商城 <span class="home-inline-arrow" aria-hidden="true"><svg viewBox="0 0 14 22" fill="none"><path d="m4.5 5.5 5.5 5.5-5.5 5.5"/></svg></span></button>
+    </div>
+    <div class="icon-grid">
+      <div class="icon-item"><div class="app-icon platform-icon"><img class="user-svg-icon" src="taobao.svg" alt="淘宝"></div><span class="icon-label">淘宝</span></div>
+      <div class="icon-item"><div class="app-icon platform-icon"><img class="user-svg-icon" src="jd.svg" alt="京东"></div><span class="icon-label">京东</span></div>
+      <div class="icon-item"><div class="app-icon platform-icon"><img class="user-svg-icon" src="douyin.svg" alt="抖音"></div><span class="icon-label">抖音</span></div>
+      <div class="icon-item"><div class="app-icon platform-icon"><img class="user-svg-icon" src="vip.svg" alt="唯品会"></div><span class="icon-label">唯品会</span></div>
+      <div class="icon-item"><div class="app-icon platform-icon"><img class="user-svg-icon" src="pinduoduo.svg" alt="拼多多"></div><span class="icon-label">拼多多</span></div>
+    </div>
+    <div class="icon-grid platform-entry-grid-second-row">
+      <div class="icon-item"><div class="app-icon platform-icon"><img class="user-svg-icon" src="taobao-shanggou.svg" alt="闪购隐藏券"></div><span class="icon-label">闪购隐藏券</span></div>
+      <div class="icon-item"><div class="app-icon platform-icon"><img class="user-svg-icon" src="meituan-waimai.svg" alt="美团神券"></div><span class="icon-label">美团神券</span></div>
+      <div class="icon-item"><div class="app-icon platform-icon"><img class="user-svg-icon" src="jd-waimai.svg" alt="京东外卖"></div><span class="icon-label">京东外卖</span></div>
+      <div class="icon-item"><div class="app-icon platform-icon"><img class="user-svg-icon" src="didi.svg" alt="滴滴打车"></div><span class="icon-label">滴滴打车</span></div>
+      <div class="icon-item"><div class="app-icon platform-icon"><img class="user-svg-icon" src="gaode-dache.svg" alt="高德打车"></div><span class="icon-label">高德打车</span></div>
+    </div>
+  </div>
+  <div class="section-card">
+    <div class="section-title">今日值得买</div>
+    <div class="home-product-feed">
+      <article class="home-product-card">
+        <div class="home-product-image"><img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="维生素营养片"></div>
+        <div class="home-product-body">
+          <div class="home-product-name">复合维生素营养片，日常轻松补充多种营养</div>
+          <div class="home-product-tags"><span>满30-5元</span><span>补贴0.7元</span></div>
+          <div class="home-product-bottom"><div class="home-product-price"><small>到手¥</small>16.8 <span class="home-product-original">¥29.9</span></div></div>
+          <div class="home-product-meta"><span class="home-product-channel"><span class="home-product-source">天猫</span></span></div>
+        </div>
+      </article>
+      <article class="home-product-card">
+        <div class="home-product-image"><img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="轻薄防晒衣"></div>
+        <div class="home-product-body">
+          <div class="home-product-name">夏季轻薄防晒衣，透气舒适日常通勤可穿</div>
+          <div class="home-product-tags"><span>满60-8元</span><span>补贴1.6元</span></div>
+          <div class="home-product-bottom"><div class="home-product-price"><small>到手¥</small>39.9 <span class="home-product-original">¥79</span></div></div>
+          <div class="home-product-meta"><span class="home-product-channel"><span class="home-product-source">淘宝</span></span></div>
+        </div>
+      </article>
+      <article class="home-product-card">
+        <div class="home-product-image"><img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="护肤洁面套装"></div>
+        <div class="home-product-body">
+          <div class="home-product-name">温和洁面护肤套装，清爽不紧绷适合日常使用</div>
+          <div class="home-product-tags"><span>满80-10元</span><span>补贴2元</span></div>
+          <div class="home-product-bottom"><div class="home-product-price"><small>到手¥</small>49 <span class="home-product-original">¥89</span></div></div>
+          <div class="home-product-meta"><span class="home-product-channel"><span class="home-product-source">京东</span></span></div>
+        </div>
+      </article>
+      <article class="home-product-card">
+        <div class="home-product-image"><img src="https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="家居收纳用品"></div>
+        <div class="home-product-body">
+          <div class="home-product-name">桌面收纳盒组合，简洁好用让小空间更整齐</div>
+          <div class="home-product-tags"><span>满20-3元</span><span>补贴0.5元</span></div>
+          <div class="home-product-bottom"><div class="home-product-price"><small>到手¥</small>12.9 <span class="home-product-original">¥25.9</span></div></div>
+          <div class="home-product-meta"><span class="home-product-channel"><span class="home-product-source">拼多多</span></span></div>
+        </div>
+      </article>
+      <article class="home-product-card">
+        <div class="home-product-image"><img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="身体护理乳"></div>
+        <div class="home-product-body">
+          <div class="home-product-name">清爽身体乳，细腻滋润不黏腻的日常护理选择</div>
+          <div class="home-product-tags"><span>满50-6元</span><span>补贴1.3元</span></div>
+          <div class="home-product-bottom"><div class="home-product-price"><small>到手¥</small>32.5 <span class="home-product-original">¥59</span></div></div>
+          <div class="home-product-meta"><span class="home-product-channel"><span class="home-product-source">唯品会</span></span></div>
+        </div>
+      </article>
+      <article class="home-product-card">
+        <div class="home-product-image"><img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="休闲零食组合"></div>
+        <div class="home-product-body">
+          <div class="home-product-name">办公室休闲零食组合，追剧分享装方便囤货</div>
+          <div class="home-product-tags"><span>满35-5元</span><span>补贴1元</span></div>
+          <div class="home-product-bottom"><div class="home-product-price"><small>到手¥</small>24.9 <span class="home-product-original">¥45</span></div></div>
+          <div class="home-product-meta"><span class="home-product-channel"><span class="home-product-source">抖音</span></span></div>
+        </div>
+      </article>
+      <article class="home-product-card">
+        <div class="home-product-image"><img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="厨房收纳用品"></div>
+        <div class="home-product-body">
+          <div class="home-product-name">厨房置物收纳架，台面整洁好拿取不占空间</div>
+          <div class="home-product-tags"><span>满30-4元</span><span>补贴0.8元</span></div>
+          <div class="home-product-bottom"><div class="home-product-price"><small>到手¥</small>18.9 <span class="home-product-original">¥39.9</span></div></div>
+          <div class="home-product-meta"><span class="home-product-channel"><span class="home-product-source">淘宝闪购</span></span></div>
+        </div>
+      </article>
+      <article class="home-product-card">
+        <div class="home-product-image"><img src="https://images.unsplash.com/photo-1585232351009-aa87416fca90?auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="便携保温杯"></div>
+        <div class="home-product-body">
+          <div class="home-product-name">便携保温杯，通勤随身携带轻巧不漏水</div>
+          <div class="home-product-tags"><span>满50-6元</span><span>补贴1.2元</span></div>
+          <div class="home-product-bottom"><div class="home-product-price"><small>到手¥</small>29.9 <span class="home-product-original">¥69</span></div></div>
+          <div class="home-product-meta"><span class="home-product-channel"><span class="home-product-source">京东</span></span></div>
+        </div>
+      </article>
+      <article class="home-product-card">
+        <div class="home-product-image"><img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="护手霜礼盒"></div>
+        <div class="home-product-body">
+          <div class="home-product-name">滋润护手霜礼盒，清新香气适合随身补涂</div>
+          <div class="home-product-tags"><span>满40-5元</span><span>补贴1元</span></div>
+          <div class="home-product-bottom"><div class="home-product-price"><small>到手¥</small>25 <span class="home-product-original">¥49</span></div></div>
+          <div class="home-product-meta"><span class="home-product-channel"><span class="home-product-source">唯品会</span></span></div>
+        </div>
+      </article>
+      <article class="home-product-card">
+        <div class="home-product-image"><img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="柔软家居四件套"></div>
+        <div class="home-product-body">
+          <div class="home-product-name">柔软亲肤家居四件套，舒适睡眠换季好选择</div>
+          <div class="home-product-tags"><span>满100-15元</span><span>补贴2.4元</span></div>
+          <div class="home-product-bottom"><div class="home-product-price"><small>到手¥</small>59.9 <span class="home-product-original">¥129</span></div></div>
+          <div class="home-product-meta"><span class="home-product-channel"><span class="home-product-source">拼多多</span></span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</div>
+
+<div id="panel-waimai" class="tab-page">
+  <div class="waimai-page">
+    <section class="waimai-section">
+      <div class="waimai-section-head"><span class="waimai-head-icon"><svg viewBox="0 0 24 24"><path d="M7 3h10l2 3v14H5V6l2-3Zm0 5h10M9 3v5m6-5v5"/></svg></span><strong>天降红包</strong><small>手慢无</small></div>
+      <div class="waimai-red-grid">
+        <article class="waimai-red-card">
+          <span class="waimai-brand"><img src="taobao-shanggou.svg" alt="淘宝闪购">淘宝闪购</span>
+          <div class="waimai-red-copy"><span class="label">最高</span><b><small>¥</small>14</b><p>满15元立减</p></div>
+          <button class="waimai-claim" type="button">马上抢</button>
+        </article>
+        <article class="waimai-red-card">
+          <span class="waimai-brand"><img src="meituan-waimai.svg" alt="美团外卖">美团外卖</span>
+          <div class="waimai-red-copy"><span class="label">最高</span><b><small>¥</small>288</b><p>惊喜红包</p></div>
+          <button class="waimai-claim" type="button">马上抢</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="waimai-section">
+      <div class="waimai-section-head"><span class="waimai-head-icon waimai-head-icon-fire" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.2 21c4.2 0 7.3-2.7 7.3-6.7 0-3.1-1.8-5.5-4.1-7.8.1 2-1 3.4-2.5 4.3.2-3.5-1.5-6.7-4.8-8.8.3 3.1-2.7 5.1-3.1 8.6C4.5 15.4 7.3 21 12.2 21Z"/><path d="M12 21c-1.9-1.1-2.8-2.7-2.6-4.5.1-1.1.7-2.1 1.8-3.1.2 1.2.8 2.1 1.8 2.7.9-.8 1.3-1.8 1.2-3.1 1.1 1.3 1.6 2.5 1.5 3.7-.2 1.9-1.4 3.5-3.7 4.3Z"/></svg></span><strong>今日必抢</strong></div>
+      <div class="waimai-today-grid">
+        <article class="waimai-feature">
+          <span class="waimai-brand"><img src="meituan-waimai.svg" alt="甄选好店">甄选好店</span>
+          <strong>¥13 <small style="font-size:11px;color:#a07e6c;">满28可用</small></strong>
+          <p>大额神券直降</p>
+          <span class="waimai-feature-button">GO <span class="home-inline-arrow" aria-hidden="true"><svg viewBox="0 0 14 22" fill="none"><path d="m4.5 5.5 5.5 5.5-5.5 5.5"/></svg></span></span>
+        </article>
+        <div class="waimai-side-grid">
+          <article class="waimai-side-card green">
+            <span class="waimai-brand"><img src="taobao-shanggou.svg" alt="奶茶免单卡">奶茶免单卡</span>
+            <strong>限时立减</strong><span class="side-button">去看看 <span class="home-inline-arrow" aria-hidden="true"><svg viewBox="0 0 14 22" fill="none"><path d="m4.5 5.5 5.5 5.5-5.5 5.5"/></svg></span></span>
+          </article>
+          <article class="waimai-side-card yellow">
+            <span class="waimai-brand"><img src="meituan-waimai.svg" alt="零食专场">零食专场</span>
+            <strong>满18减18元</strong><span class="side-button">去看看 <span class="home-inline-arrow" aria-hidden="true"><svg viewBox="0 0 14 22" fill="none"><path d="m4.5 5.5 5.5 5.5-5.5 5.5"/></svg></span></span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="waimai-section" style="padding:9px;">
+      <div class="waimai-list">
+        <article class="waimai-list-card">
+          <div class="waimai-list-art"><img src="jd-waimai.svg" alt="京东外卖"></div>
+          <div class="waimai-list-copy"><span class="source">京东外卖</span><strong>满15立减10元红包</strong></div>
+          <button class="waimai-list-button" type="button">马上抢</button>
+        </article>
+        <article class="waimai-list-card">
+          <div class="waimai-list-art"><img src="taobao-shanggou.svg" alt="淘宝闪购"></div>
+          <div class="waimai-list-copy"><span class="source">淘宝闪购</span><strong>超市好物，爆款低价</strong></div>
+          <button class="waimai-list-button" type="button">去捡漏</button>
+        </article>
+        <article class="waimai-list-card">
+          <div class="waimai-list-art"><img src="taobao-shanggou.svg" alt="淘宝闪购"></div>
+          <div class="waimai-list-copy"><span class="source">淘宝闪购</span><strong>夜宵免单，20:00开抢</strong></div>
+          <button class="waimai-list-button" type="button">去看看</button>
+        </article>
+      </div>
+    </section>
+  </div>
+</div>
+<div id="panel-dache" class="tab-page">
+  <div class="page-placeholder">打车优惠内容</div>
+</div>
+<div id="panel-taobao" class="tab-page">
+  <div class="page-placeholder">淘宝专区内容</div>
+</div>
+<div id="panel-jd" class="tab-page">
+  <div class="page-placeholder">京东专区内容</div>
+</div>
+<div id="panel-douyin" class="tab-page">
+  <div class="page-placeholder">抖音专区内容</div>
+</div>
+<div id="panel-vip" class="tab-page">
+  <div class="page-placeholder">唯品会专区内容</div>
+</div>
+
+</div><!-- end content -->
+</div><!-- end page-home -->
+
+<div id="page-life" class="tab-page">
+  <div class="content" style="padding:0;background:#f5f5f5;overflow-y:auto;">
+    <div class="life-new">
+      <div class="life-top">
+        <div class="life-location" id="lifeLocation" role="button" tabindex="0">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <span id="locationText">集美区</span><span class="life-location-chevron" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="m3 4.5 3 3 3-3"/></svg></span>
+        </div>
+        <div class="life-search" role="search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4-4"/></svg>
+          <span id="lifeSearchText">搜附近商家和外卖</span>
+          <button id="lifeSearchButton" type="button">搜索</button>
+        </div>
+      </div>
+
+      <div class="life-banner">
+        <div class="life-ad-copy">
+          <span class="life-ad-kicker">美柚生活福利</span>
+          <div class="life-banner-title">外卖返现，餐餐省</div>
+          <div class="life-banner-sub">精选附近好店 · 下单即享优惠</div>
+        </div>
+        <div class="life-ad-art" aria-hidden="true"><svg viewBox="0 0 120 92" fill="none"><path d="M22 17h61l-6 49H29L22 17Z" fill="rgba(255,255,255,.22)"/><path d="M29 29h47M32 41h38M35 53h18" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".9"/><circle cx="91" cy="25" r="17" fill="#fff" fill-opacity=".22"/><path d="M85 25h12M91 19v12" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path d="m79 67 10 10 21-27" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+
+      <div class="life-tags">
+        <div class="life-tags-row" id="lifeTags">
+          <span class="life-tag active" data-type="全部">全部</span>
+          <span class="life-tag" data-type="快餐简餐">快餐简餐</span>
+          <span class="life-tag" data-type="全球美食">全球美食</span>
+          <span class="life-tag" data-type="地方菜系">地方菜系</span>
+          <span class="life-tag" data-type="火锅烧烤">火锅烧烤</span>
+          <span class="life-tag" data-type="甜品饮品">甜品饮品</span>
+        </div>
+      </div>
+
+      <div class="life-filters" id="lifeFilters">
+        <span class="life-filter active" data-filter="推荐"><span>推荐</span><span class="life-filter-chevron" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="m3 4.5 3 3 3-3"/></svg></span></span>
+        <span class="life-filter" data-filter="高返利"><svg class="life-filter-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.2 21c4.2 0 7.3-2.7 7.3-6.7 0-3.1-1.8-5.5-4.1-7.8.1 2-1 3.4-2.5 4.3.2-3.5-1.5-6.7-4.8-8.8.3 3.1-2.7 5.1-3.1 8.6C4.5 15.4 7.3 21 12.2 21Z"/><path d="M12 21c-1.9-1.1-2.8-2.7-2.6-4.5.1-1.1.7-2.1 1.8-3.1.2 1.2.8 2.1 1.8 2.7.9-.8 1.3-1.8 1.2-3.1 1.1 1.3 1.6 2.5 1.5 3.7-.2 1.9-1.4 3.5-3.7 4.3Z"/></svg> 高返利</span>
+        <span class="life-filter" data-filter="无需评价">无需评价</span>
+        <span class="life-filter" data-filter="附近3km">附近3km</span>
+        <span class="life-filter-spacer"></span>
+        <span class="life-filter" data-filter="筛选"><span>筛选</span><span class="life-filter-chevron" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="m3 4.5 3 3 3-3"/></svg></span></span>
+      </div>
+
+      <div class="life-section-title">附近商家 <span style="color:#ff6b35;font-size:12px;font-weight:500;">5元吃外卖</span></div>
+      <div class="life-feed" id="lifeFeed">
+        <div class="life-card" data-type="快餐简餐">
+          <div class="life-card-image"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=180&q=80" alt="披萨美食"></div>
+          <div class="life-card-main"><div class="life-card-name">灶北北·炖罐·盖码饭（软三店）</div><div class="life-card-meta"><span>京东外卖 · 17:00-20:00可抢</span><span>距您2.0km</span></div><div class="life-card-tags"><span class="life-card-tag">新人全额返</span><span class="life-card-tag">满20返20</span></div><div class="life-card-footer"><span class="life-card-return">还剩 <b>1份</b></span></div></div>
+        </div>
+        <div class="life-card" data-type="地方菜系">
+          <div class="life-card-image"><img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=180&q=80" alt="米粉美食"></div>
+          <div class="life-card-main"><div class="life-card-name">黄采采·桂林米粉（集美软件园店）</div><div class="life-card-meta"><span>美团 · 全天可抢</span><span>距您2.5km</span></div><div class="life-card-tags"><span class="life-card-tag">无实付要求</span><span class="life-card-tag green">新人返利</span></div><div class="life-card-footer"><span class="life-card-return">共 <b>2个活动</b></span></div></div>
+        </div>
+        <div class="life-card" data-type="火锅烧烤">
+          <div class="life-card-image"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=180&q=80" alt="烧烤美食"></div>
+          <div class="life-card-main"><div class="life-card-name">炭火烧烤·夜宵专场</div><div class="life-card-meta"><span>饿了么 · 18:00-23:59</span><span>距您1.8km</span></div><div class="life-card-tags"><span class="life-card-tag">满30返10</span><span class="life-card-tag green">高返利</span></div><div class="life-card-footer"><span class="life-card-return">还剩 <b>4份</b></span></div></div>
+        </div>
+        <div class="life-card" data-type="全球美食">
+          <div class="life-card-image"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=180&q=80" alt="意式披萨"></div>
+          <div class="life-card-main"><div class="life-card-name">芝士工厂·手作披萨（万达店）</div><div class="life-card-meta"><span>美团 · 11:00-22:00可抢</span><span>距您2.2km</span></div><div class="life-card-tags"><span class="life-card-tag">满50返15</span><span class="life-card-tag green">高返利</span></div><div class="life-card-footer"><span class="life-card-return">还剩 <b>6份</b></span></div></div>
+        </div>
+        <div class="life-card" data-type="快餐简餐">
+          <div class="life-card-image"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=180&q=80" alt="汉堡套餐"></div>
+          <div class="life-card-main"><div class="life-card-name">麦香汉堡·超值双人套餐</div><div class="life-card-meta"><span>京东外卖 · 全天可抢</span><span>距您1.2km</span></div><div class="life-card-tags"><span class="life-card-tag">新人全额返</span><span class="life-card-tag green">无需评价</span></div><div class="life-card-footer"><span class="life-card-return">共 <b>3个活动</b></span></div></div>
+        </div>
+        <div class="life-card" data-type="甜品饮品">
+          <div class="life-card-image"><img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=180&q=80" alt="甜品蛋糕"></div>
+          <div class="life-card-main"><div class="life-card-name">甜心烘焙·下午茶蛋糕专场</div><div class="life-card-meta"><span>饿了么 · 12:00-21:30</span><span>距您2.8km</span></div><div class="life-card-tags"><span class="life-card-tag">满35返12</span><span class="life-card-tag green">新人返利</span></div><div class="life-card-footer"><span class="life-card-return">还剩 <b>8份</b></span></div></div>
+        </div>
+        <div class="life-card" data-type="地方菜系">
+          <div class="life-card-image"><img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=180&q=80" alt="地方小吃"></div>
+          <div class="life-card-main"><div class="life-card-name">老街小馆·家常菜外卖精选</div><div class="life-card-meta"><span>美团 · 10:30-20:30</span><span>距您3.0km</span></div><div class="life-card-tags"><span class="life-card-tag">满40返16</span><span class="life-card-tag green">无需评价</span></div><div class="life-card-footer"><span class="life-card-return">共 <b>2个活动</b></span></div></div>
+        </div>
+        <div class="life-card" data-type="火锅烧烤">
+          <div class="life-card-image"><img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=180&q=80" alt="火锅餐厅"></div>
+          <div class="life-card-main"><div class="life-card-name">沸腾火锅·双人套餐限时返</div><div class="life-card-meta"><span>京东外卖 · 16:00-22:00</span><span>距您2.6km</span></div><div class="life-card-tags"><span class="life-card-tag">满80返25</span><span class="life-card-tag green">高返利</span></div><div class="life-card-footer"><span class="life-card-return">还剩 <b>2份</b></span></div></div>
+        </div>
+        <div class="life-card" data-type="全球美食">
+          <div class="life-card-image"><img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=180&q=80" alt="意面美食"></div>
+          <div class="life-card-main"><div class="life-card-name">意面时光·经典意式套餐</div><div class="life-card-meta"><span>饿了么 · 11:30-21:00</span><span>距您1.6km</span></div><div class="life-card-tags"><span class="life-card-tag">满45返15</span><span class="life-card-tag green">新人返利</span></div><div class="life-card-footer"><span class="life-card-return">还剩 <b>5份</b></span></div></div>
+        </div>
+      </div>
+    </div>
+    <!-- 搜索栏 -->
+    <div style="background:#fff;padding:12px 16px 10px;display:flex;align-items:center;gap:10px;">
+      <div style="flex:1;background:#f2f2f2;border-radius:20px;display:flex;align-items:center;padding:8px 12px;gap:6px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <span style="font-size:14px;color:#999;">搜索生活服务</span>
+      </div>
+    </div>
+    <!-- 主要服务图标 -->
+    <div style="background:#fff;margin-top:8px;padding:16px 8px;">
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px 0;">
+        <!-- 外卖 -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#ff6b35,#ff8c42);display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          </div>
+          <span style="font-size:12px;color:#333;">外卖</span>
+        </div>
+        <!-- 打车 -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#4facfe,#00f2fe);display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+          </div>
+          <span style="font-size:12px;color:#333;">打车</span>
+        </div>
+        <!-- 酒店 -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#f093fb,#f5576c);display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z"/></svg>
+          </div>
+          <span style="font-size:12px;color:#333;">酒店</span>
+        </div>
+        <!-- 机票 -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#43e97b,#38f9d7);display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+          </div>
+          <span style="font-size:12px;color:#333;">机票</span>
+        </div>
+        <!-- 火车票 -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#fa709a,#fee140);display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h12v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zm0 2c3.71 0 5.13.46 5.67 1H6.43C6.96 4.46 8.29 4 12 4zM6 7h5v3H6V7zm7 0h5v3h-5V7zm-7 5.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5S4.5 14.83 4.5 14 5.17 12.5 6 12.5zm12 0c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5z"/></svg>
+          </div>
+          <span style="font-size:12px;color:#333;">火车票</span>
+        </div>
+        <!-- 电影 -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#a18cd1,#fbc2eb);display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"/></svg>
+          </div>
+          <span style="font-size:12px;color:#333;">电影</span>
+        </div>
+        <!-- 美食 -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#ffecd2,#fcb69f);display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#e8703a"><path d="M18.06 22.99h1.66c.84 0 1.53-.64 1.63-1.46L23 5.05h-5V1h-1.97v4.05h-4.97l.3 2.34c1.71.47 3.31 1.32 4.27 2.26 1.44 1.42 2.43 2.89 2.43 5.29v8.05zM1 21.99V21h15.03v.99c0 .55-.45 1-1.01 1H2.01c-.56 0-1.01-.45-1.01-1zm15.03-7c0-8-15.03-8-15.03 0h15.03zM1.02 17h15v2H1.02v-2z"/></svg>
+          </div>
+          <span style="font-size:12px;color:#333;">美食</span>
+        </div>
+        <!-- 超市 -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#84fab0,#8fd3f4);display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 6.9 18 9 18h12v-2H9.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H19c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0 0 23.45 5H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+          </div>
+          <span style="font-size:12px;color:#333;">超市</span>
+        </div>
+        <!-- 充值 -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#f6d365,#fda085);display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+          </div>
+          <span style="font-size:12px;color:#333;">充值</span>
+        </div>
+        <!-- 更多 -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:#f2f2f2;display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#999"><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+          </div>
+          <span style="font-size:12px;color:#333;">更多</span>
+        </div>
+      </div>
+    </div>
+    <!-- 广告横幅 -->
+    <div style="margin:8px 12px;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,#ff6b81,#ff8e53);padding:16px;display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <div style="color:#fff;font-size:16px;font-weight:700;">会员专享优惠</div>
+        <div style="color:rgba(255,255,255,0.85);font-size:13px;margin-top:4px;">外卖·打车·酒店 全场8折</div>
+      </div>
+      <div style="background:#fff;color:#ff6b81;border-radius:20px;padding:8px 16px;font-size:13px;font-weight:600;">立即领取</div>
+    </div>
+    <!-- 附近服务 -->
+    <div style="background:#fff;margin-top:8px;padding:14px 16px;">
+      <div style="font-size:15px;font-weight:600;color:#333;margin-bottom:12px;">附近服务</div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid #f5f5f5;">
+          <div style="width:56px;height:56px;border-radius:10px;background:#ffe8e8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="#ff6b81"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:14px;font-weight:500;color:#333;">美食广场</div>
+            <div style="font-size:12px;color:#999;margin-top:2px;">距您 320m · 营业中</div>
+          </div>
+          <div style="font-size:13px;color:#ff6b81;font-weight:500;">去逛逛</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid #f5f5f5;">
+          <div style="width:56px;height:56px;border-radius:10px;background:#e8f4ff;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="#4facfe"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:14px;font-weight:500;color:#333;">生活超市</div>
+            <div style="font-size:12px;color:#999;margin-top:2px;">距您 580m · 营业中</div>
+          </div>
+          <div style="font-size:13px;color:#ff6b81;font-weight:500;">去逛逛</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:56px;height:56px;border-radius:10px;background:#e8fff4;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="#43e97b"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:14px;font-weight:500;color:#333;">健康药房</div>
+            <div style="font-size:12px;color:#999;margin-top:2px;">距您 1.2km · 营业中</div>
+          </div>
+          <div style="font-size:13px;color:#ff6b81;font-weight:500;">去逛逛</div>
+        </div>
+      </div>
+    </div>
+    <!-- 热门活动 -->
+    <div style="background:#fff;margin-top:8px;padding:14px 16px 16px;">
+      <div style="font-size:15px;font-weight:600;color:#333;margin-bottom:12px;">热门活动</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div style="border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#667eea,#764ba2);padding:14px;min-height:80px;display:flex;flex-direction:column;justify-content:space-between;">
+          <div style="color:#fff;font-size:14px;font-weight:600;">外卖红包</div>
+          <div style="color:rgba(255,255,255,0.8);font-size:12px;">满20减5</div>
+        </div>
+        <div style="border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f093fb,#f5576c);padding:14px;min-height:80px;display:flex;flex-direction:column;justify-content:space-between;">
+          <div style="color:#fff;font-size:14px;font-weight:600;">打车优惠</div>
+          <div style="color:rgba(255,255,255,0.8);font-size:12px;">新用户立减10元</div>
+        </div>
+        <div style="border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#4facfe,#00f2fe);padding:14px;min-height:80px;display:flex;flex-direction:column;justify-content:space-between;">
+          <div style="color:#fff;font-size:14px;font-weight:600;">酒店特惠</div>
+          <div style="color:rgba(255,255,255,0.8);font-size:12px;">周末低至5折</div>
+        </div>
+        <div style="border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#43e97b,#38f9d7);padding:14px;min-height:80px;display:flex;flex-direction:column;justify-content:space-between;">
+          <div style="color:#fff;font-size:14px;font-weight:600;">机票特价</div>
+          <div style="color:rgba(255,255,255,0.8);font-size:12px;">提前预订更优惠</div>
+        </div>
+      </div>
+    </div>
+    <div style="height:16px;"></div>
+  </div>
+</div>
+<div id="page-haojia" class="tab-page">
+  <div class="content">
+    <div class="mall-page">
+      <div class="mall-categories" aria-label="商城分类">
+        <span class="mall-category active">推荐</span><span class="mall-category">母婴</span><span class="mall-category">美食</span><span class="mall-category">卫生巾</span><span class="mall-category">美妆</span><span class="mall-category">洗护</span><span class="mall-category">母婴好物</span>
+      </div>
+      <div class="mall-feed">
+        <section class="mall-puzzle-banner" aria-label="好物拼图展位">
+          <div class="mall-puzzle-main">
+            <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=760&q=85" alt="美妆好物精选">
+            <div class="mall-puzzle-copy"><strong>今日好物拼图</strong><span>人气美妆 低至3折</span></div>
+          </div>
+          <div class="mall-puzzle-side">
+            <div class="mall-puzzle-tile">
+              <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=400&q=80" alt="口红彩妆优惠">
+              <span>彩妆闪购</span><b>券后¥29.9</b>
+            </div>
+            <div class="mall-puzzle-tile">
+              <img src="https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?auto=format&fit=crop&w=400&q=80" alt="护肤套装优惠">
+              <span>护肤套装</span><b>满99减30</b>
+            </div>
+          </div>
+        </section>
+        <article class="mall-product"><div class="mall-product-image"><img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80" alt="妇炎洁凝胶"></div><div class="mall-product-body"><div class="mall-product-identity">天猫 <b>|</b> 150元券</div><div class="mall-product-name">妇炎洁医用妇科凝胶抑菌正品 温和清洁护理</div><div class="mall-product-tags"><span class="mall-product-tag-gift">专享礼金3.07元</span><span class="mall-product-tag-rebate">再返0.28元</span></div><div class="mall-product-price"><small>到手¥</small>16.83</div><div class="mall-product-meta"><span>¥169.9</span><span>已售1000+</span></div></div></article>
+        <article class="mall-product"><div class="mall-product-image"><img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&fit=crop&w=500&q=80" alt="洗衣液商品"></div><div class="mall-product-body"><div class="mall-product-identity">天猫 <b>|</b> 16元券</div><div class="mall-product-name">奥妙除菌除螨酵素洗衣液家庭装组合</div><div class="mall-product-tags"><span class="mall-product-tag-gift">专享礼金1.00元</span><span class="mall-product-tag-rebate">再返0.46元</span></div><div class="mall-product-price"><small>到手¥</small>35.01</div><div class="mall-product-meta"><span>¥62.9</span><span>已售20万+</span></div></div></article>
+        <article class="mall-product"><div class="mall-product-image"><img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=500&q=80" alt="护肤商品"></div><div class="mall-product-body"><div class="mall-product-identity">唯品会</div><div class="mall-product-name">温和保湿护肤套装，补水修护好价专享</div><div class="mall-product-tags"><span class="mall-product-tag-rebate">再返0.63元</span><span>限时特惠</span></div><div class="mall-product-price"><small>到手¥</small>49.9</div><div class="mall-product-meta"><span>¥99</span><span>已售8000+</span></div></div></article>
+        <article class="mall-product"><div class="mall-product-image"><img src="https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&fit=crop&w=500&q=80" alt="纸品商品"></div><div class="mall-product-body"><div class="mall-product-identity">京东 <b>|</b> 大额优惠券</div><div class="mall-product-name">家庭装柔韧抽纸，整箱囤货日用纸品</div><div class="mall-product-tags"><span class="mall-product-tag-rebate">再返0.35元</span></div><div class="mall-product-price"><small>到手¥</small>29.9</div><div class="mall-product-meta"><span>¥59</span><span>已售3万+</span></div></div></article>
+        <article class="mall-product"><div class="mall-product-image"><img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=500&q=80" alt="洁面护肤商品"></div><div class="mall-product-body"><div class="mall-product-identity">淘宝 <b>|</b> 隐藏券</div><div class="mall-product-name">温和氨基酸洁面乳，清爽控油不紧绷日常护理</div><div class="mall-product-tags"><span class="mall-product-tag-rebate">再返0.52元</span><span>限时立减</span></div><div class="mall-product-price"><small>到手¥</small>24.8</div><div class="mall-product-meta"><span>¥49.9</span><span>已售1万+</span></div></div></article>
+        <article class="mall-product"><div class="mall-product-image"><img src="https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?auto=format&fit=crop&w=500&q=80" alt="香水商品"></div><div class="mall-product-body"><div class="mall-product-identity">唯品会</div><div class="mall-product-name">清新淡香香水礼盒，轻盈花香适合日常通勤</div><div class="mall-product-tags"><span class="mall-product-tag-rebate">再返0.87元</span><span>品牌特卖</span><span>低至5折</span></div><div class="mall-product-price"><small>到手¥</small>59</div><div class="mall-product-meta"><span>¥129</span><span>已售5000+</span></div></div></article>
+        <article class="mall-product"><div class="mall-product-image"><img src="https://images.unsplash.com/photo-1585232351009-aa87416fca90?auto=format&fit=crop&w=500&q=80" alt="保温杯商品"></div><div class="mall-product-body"><div class="mall-product-identity">京东</div><div class="mall-product-name">便携保温杯，轻量设计通勤随身携带不漏水</div><div class="mall-product-tags"><span class="mall-product-tag-gift">专享礼金1.20元</span><span class="mall-product-tag-rebate">再返0.41元</span><span>满减</span></div><div class="mall-product-price"><small>到手¥</small>29.9</div><div class="mall-product-meta"><span>¥69</span><span>已售9000+</span></div></div></article>
+        <article class="mall-product"><div class="mall-product-image"><img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=500&q=80" alt="厨房收纳商品"></div><div class="mall-product-body"><div class="mall-product-identity">淘宝闪购</div><div class="mall-product-name">厨房置物收纳架，台面整洁好拿取不占空间</div><div class="mall-product-tags"><span class="mall-product-tag-gift">专享礼金1.00元</span><span class="mall-product-tag-rebate">再返0.24元</span><span>包邮</span></div><div class="mall-product-price"><small>到手¥</small>18.9</div><div class="mall-product-meta"><span>¥39.9</span><span>已售6000+</span></div></div></article>
+        <article class="mall-product"><div class="mall-product-image"><img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=500&q=80" alt="休闲零食商品"></div><div class="mall-product-body"><div class="mall-product-identity">抖音</div><div class="mall-product-name">办公室休闲零食组合，追剧分享装方便囤货</div><div class="mall-product-tags"><span class="mall-product-tag-rebate">再返0.73元</span><span>直播专享</span><span>立减</span></div><div class="mall-product-price"><small>到手¥</small>24.9</div><div class="mall-product-meta"><span>¥45</span><span>已售1万+</span></div></div></article>
+        <article class="mall-product"><div class="mall-product-image"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80" alt="时尚手表商品"></div><div class="mall-product-body"><div class="mall-product-identity">拼多多</div><div class="mall-product-name">简约时尚石英手表，轻便百搭适合日常通勤</div><div class="mall-product-tags"><span class="mall-product-tag-gift">专享礼金2.40元</span><span class="mall-product-tag-rebate">再返0.58元</span><span>限时特价</span></div><div class="mall-product-price"><small>到手¥</small>39.9</div><div class="mall-product-meta"><span>¥89</span><span>已售7000+</span></div></div></article>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="page-butie" class="tab-page">
+  <div class="content subsidy-content">
+    <div class="subsidy-page">
+      <section class="subsidy-hero">
+        <div class="subsidy-hero-copy"><span>累计领取补贴</span><strong>31.21<small>元</small></strong><em>获得后7天内有效</em><p>可用现金补贴：<b>82.79元</b> <span>明细 &gt;</span></p></div>
+        <div class="subsidy-hero-art" aria-hidden="true"><span class="subsidy-calendar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.2 4.2L19 7"/></svg></span><span class="subsidy-coins"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M9.5 9.5c.5-.8 1.3-1.2 2.4-1.2 1.4 0 2.4.7 2.4 1.7 0 1.1-1 1.5-2.3 1.9-1.3.4-2.3.8-2.3 1.9 0 1 .9 1.7 2.4 1.7 1.1 0 1.9-.4 2.4-1.2M12 7v10"/></svg></span></div>
+      </section>
+
+      <section class="subsidy-checkin">
+        <div class="subsidy-section-title"><div><strong>签到打卡，领下单现金补贴</strong><span>获得打卡现金补贴，下单和订单返现叠加到账</span></div><button type="button">规则 <b>?</b></button></div>
+        <div class="subsidy-days">
+          <div><div class="subsidy-day-card"><strong>¥ 0.09</strong><i aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="m5 12.5 4.2 4.2L19 7" /></svg></i></div><span>07.22</span></div><div class="missed"><div class="subsidy-day-card"><strong>¥ 0.10</strong><i aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="m5 12.5 4.2 4.2L19 7" /></svg></i><span class="subsidy-day-status">错过</span></div><span>07.23</span></div><div><div class="subsidy-day-card"><strong>¥ 0.11</strong><i aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="m5 12.5 4.2 4.2L19 7" /></svg></i></div><span>07.24</span></div><div><div class="subsidy-day-card"><strong>¥ 0.15</strong><i aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="m5 12.5 4.2 4.2L19 7" /></svg></i></div><span>07.25</span></div><div><div class="subsidy-day-card"><strong>¥ 0.15</strong><i aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="m5 12.5 4.2 4.2L19 7" /></svg></i></div><span>07.26</span></div><div><div class="subsidy-day-card"><strong>¥ 0.24</strong><i aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="m5 12.5 4.2 4.2L19 7" /></svg></i></div><span>07.27</span></div><div class="today"><div class="subsidy-day-card"><strong>¥ 0.20</strong><i aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="m5 12.5 4.2 4.2L19 7" /></svg></i></div><span>今天</span></div>
+        </div>
+        <button class="subsidy-order-button" type="button"><strong>去下单</strong><span>拿返现叠加补贴</span></button>
+      </section>
+
+      <section class="subsidy-benefits">
+        <h2>福利</h2>
+        <article class="benefit-row"><div class="benefit-icon benefit-icon-blue" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 4h10v16H7z"/><path d="M9.5 8h5M9.5 12h5M9.5 16h3"/></svg></div><div class="benefit-copy"><strong>粘贴商品拿奖励 <em>● 100</em></strong><span>每天粘贴拿金豆奖励，兑换现金红包</span></div><button class="benefit-button-muted" type="button">去签到</button></article>
+        <article class="benefit-row"><div class="benefit-icon benefit-icon-gold" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 2.5 5.1 5.6.8-4.1 4 1 5.6-5-2.7-5 2.7-1-5.6-4.1-4 5.6-.8L12 3Z"/></svg></div><div class="benefit-copy"><strong>浏览柚子街商品找红包 <em>● 50</em></strong><span>每日限量发放，先到先得</span></div><button class="benefit-button-muted" type="button">去领取</button></article>
+        <article class="benefit-row"><div class="benefit-icon benefit-icon-coral" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 7.5h14M7 4.5h10v15H7z"/><path d="M9 11h6M9 14.5h4"/></svg></div><div class="benefit-copy"><strong>晚餐补贴 <em>● 50</em></strong><span>从美柚省钱去点外卖，再瓜分现金</span></div><button class="benefit-button-muted" type="button">去领取</button></article>
+        <article class="benefit-row"><div class="benefit-icon benefit-icon-coral" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 7.5h14M7 4.5h10v15H7z"/><path d="M9 11h6M9 14.5h4"/></svg></div><div class="benefit-copy"><strong>午餐补贴 <em>● 50</em></strong><span>从美柚省钱去点外卖，再瓜分现金</span></div><button class="benefit-button-muted" type="button">去瓜分</button></article>
+        <article class="benefit-row"><div class="benefit-icon benefit-icon-gold" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4M8 10.5h5"/></svg></div><div class="benefit-copy"><strong>搜索商品拿奖励 <em>● 100</em></strong><span>每天搜索拿金豆奖励，兑换现金红包</span></div><button class="benefit-button-muted" type="button">立即领取</button></article>
+        <article class="benefit-row"><div class="benefit-icon benefit-icon-gold" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="9" r="3"/><circle cx="16.5" cy="10.5" r="2.5"/><path d="M3.5 19c.7-3 2.5-4.5 5.5-4.5s4.8 1.5 5.5 4.5M14 15c2.6-.2 4.6 1.1 5.5 4"/></svg></div><div class="benefit-copy"><strong>邀请好友 <em>● 8000</em></strong><span>邀请好友，一起拿现金</span></div><button class="benefit-button-muted" type="button">去邀请</button></article>
+      </section>
+    </div>
+  </div>
+</div>
+<div id="page-mine" class="tab-page">
+  <div class="content mine-content">
+    <section class="mine-profile" aria-label="个人信息">
+      <div class="mine-avatar" aria-hidden="true"><img src="avatar.png" alt=""></div>
+      <div class="mine-profile-copy"><strong>zcbmmbv</strong></div>
+      <div class="mine-top-actions" aria-label="快捷入口">
+      <button class="mine-message-action" type="button" aria-label="消息"><span class="mine-profile-action-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><b class="mine-message-badge" aria-hidden="true">99+</b></span><small>消息</small></button>
+      <button type="button" aria-label="客服"><span class="mine-profile-action-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 13v-1a7.5 7.5 0 0 1 15 0v1"/><path d="M4.5 13a2 2 0 0 0 2 2h1.5v-5H6.5a2 2 0 0 0-2 2ZM19.5 13a2 2 0 0 1-2 2H16v-5h1.5a2 2 0 0 1 2 2Z"/><path d="M16 18c-.9.8-2.2 1.2-4 1.2"/></svg></span><small>客服</small></button>
+      <button class="mine-settings-trigger" type="button" aria-label="设置" aria-expanded="false"><span class="mine-profile-action-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 1.1 1.9 2.2.5 1.8-1.1 1.6 1.6-1.1 1.8.5 2.2L20 11v2l-1.9 1.1-.5 2.2 1.1 1.8-1.6 1.6-1.8-1.1-2.2.5L12 21l-1.1-1.9-2.2-.5-1.8 1.1-1.6-1.6 1.1-1.8-.5-2.2L4 13v-2l1.9-1.1.5-2.2-1.1-1.8 1.6-1.6 1.8 1.1 2.2-.5L12 3Z"/><circle cx="12" cy="12" r="3"/></svg></span><small>设置</small></button>
+      </div>
+    </section>
+    <section class="mine-wallet-card" aria-label="钱包">
+      <div class="mine-wallet-header"><strong>钱包</strong></div>
+      <div class="mine-wallet-grid">
+        <div class="mine-wallet-item mine-wallet-withdrawable" role="button" tabindex="0"><strong>可提现余额</strong><b><span class="mine-wallet-currency">￥</span>867.25</b></div>
+        <div class="mine-wallet-item mine-pending-orders-trigger" role="button" tabindex="0"><strong>即将到账</strong><b><span class="mine-wallet-currency">￥</span>2.25</b></div>
+        <div class="mine-wallet-item mine-withdrawn-details-trigger" role="button" tabindex="0"><strong>已提现</strong><b><span class="mine-wallet-currency">￥</span>379</b></div>
+      </div>
+    </section>
+    <div class="mine-assets-group">
+      <section class="mine-benefits-card" aria-label="资产权益">
+        <div class="mine-benefits-grid">
+          <div class="mine-benefit-item mine-cashback-red-packets-trigger" role="button" tabindex="0"><strong>返现红包</strong><em>￥99.72<span class="mine-benefit-unit">元</span></em></div>
+          <div class="mine-benefit-item mine-subsidy-trigger" role="button" tabindex="0"><strong>签到补贴</strong><em>2.36<span class="mine-benefit-unit">元</span></em></div>
+          <div class="mine-benefit-item mine-exclusive-coupon-trigger" role="button" tabindex="0"><strong>专属优惠券</strong><em>18<span class="mine-benefit-unit">张</span></em></div>
+          <div class="mine-benefit-item" role="button" tabindex="0"><strong>金豆</strong><em>8763</em></div>
+        </div>
+      </section>
+    </div>
+    <section class="mine-orders" aria-label="我的订单">
+      <div class="mine-orders-header"><strong>我的订单</strong><span class="mine-recent-arrival" aria-label="最近到账 ￥0.19"><span id="mineRecentArrivalContent" class="mine-recent-arrival-content"><img id="mineRecentArrivalIcon" class="mine-recent-arrival-icon" src="taobao.svg" alt=""><span id="mineRecentArrivalText" class="mine-recent-arrival-text">￥0.19已到账</span></span></span><button type="button" aria-label="查看全部"><span class="mine-inline-arrow" aria-hidden="true"><svg viewBox="0 0 14 22" fill="none"><path d="m4.5 5.5 5.5 5.5-5.5 5.5"/></svg></span></button></div>
+    </section>
+    <section class="mine-entry-panel" aria-label="快捷入口">
+      <div class="mine-entry-grid" aria-label="基础功能">
+      <div class="mine-entry mine-entry-media" role="button" tabindex="0">
+        <span class="mine-row-icon mine-entry-favorite" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.2-8.7-8.5C2 8.1 4.2 5 7.2 5c1.9 0 3.6 1.1 4.8 2.5C13.2 6.1 14.9 5 16.8 5c3 0 5.2 3.1 3.9 6.5C19 15.8 12 20 12 20Z"/></svg></span>
+        <strong><b>8</b>收藏</strong>
+        <span class="mine-entry-products" aria-label="收藏商品"><img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&amp;fit=crop&amp;w=120&amp;q=80" alt=""><img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&amp;fit=crop&amp;w=120&amp;q=80" alt=""><img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&amp;fit=crop&amp;w=120&amp;q=80" alt=""><span class="mine-entry-products-more" role="button" aria-label="查看更多收藏商品">+5</span></span>
+      </div>
+      <div class="mine-entry mine-entry-media" role="button" tabindex="0">
+        <span class="mine-row-icon mine-entry-history" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4.5 5.5v4h4M12 8v4l2.5 1.5"/></svg></span>
+        <strong><b>10</b>足迹</strong>
+        <span class="mine-entry-products" aria-label="足迹商品"><img src="https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&amp;fit=crop&amp;w=120&amp;q=80" alt=""><img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&amp;fit=crop&amp;w=120&amp;q=80" alt=""><img src="https://images.unsplash.com/photo-1585232351009-aa87416fca90?auto=format&amp;fit=crop&amp;w=120&amp;q=80" alt=""><span class="mine-entry-products-more" role="button" aria-label="查看更多足迹商品">+7</span></span>
+      </div>
+      <div class="mine-entry" role="button" tabindex="0"><span class="mine-row-icon mine-entry-cart" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span><strong>购物车返现</strong></div>
+      <div class="mine-entry" role="button" tabindex="0"><span class="mine-row-icon mine-entry-cash" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h13A2.5 2.5 0 0 1 21 7.5v9a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 16.5z"/><path d="M3 8h14.5A2.5 2.5 0 0 1 20 10.5V16h-5a3 3 0 0 1 0-6h6M15 13h.01"/></svg></span><strong>领现金</strong></div>
+      <div class="mine-entry" role="button" tabindex="0"><span class="mine-row-icon mine-entry-guide" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M8.3 14.5A7 7 0 1 1 15.7 14.5c-.9.7-1.5 1.5-1.7 2.5h-4c-.2-1-.8-1.8-1.7-2.5Z"/><path d="M12 5v3M5.6 8.2l2.1 1.2M18.4 8.2l-2.1 1.2M12 11.5l1.2 1.2 2.3-2.4"/></svg></span><strong>省钱秘籍</strong></div>
+      <div class="mine-entry" role="button" tabindex="0"><span class="mine-row-icon mine-icon-policy" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"/><path d="M9.7 9.3a2.4 2.4 0 1 1 4 1.8c-.9.6-1.7 1-1.7 2.2M12 16.7h.01"/></svg></span><strong>常见问题</strong></div>
+      </div>
+    </section>
+    <section class="mine-marketing-panel" aria-label="营销资源区">
+      <div class="mine-marketing-content">资源运营区</div>
+    </section>
+  </div>
+</div>
+
+<div id="page-wallet" class="tab-page wallet-page" aria-label="钱包"></div>
+<div id="page-pending-orders" class="tab-page pending-orders-page" aria-label="返现订单"></div>
+<div id="page-withdrawn-details" class="tab-page withdrawn-details-page" aria-label="收支明细"></div>
+<div id="page-cashback-red-packets" class="tab-page cashback-red-packets-page" aria-label="我的返现红包"></div>
+<div id="page-exclusive-coupon" class="tab-page exclusive-coupon-page" aria-label="我的优惠"></div>
+
+<div id="page-mine-settings" class="tab-page mine-settings-page" aria-label="设置">
+  <div class="mine-settings-page-header">
+    <button class="mine-settings-back" type="button" aria-label="返回我的页面"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+    <h1>设置</h1>
+  </div>
+  <section class="mine-settings-list" aria-label="设置项">
+    <button class="mine-settings-row" type="button"><span>通知设置</span><span class="mine-chevron" aria-hidden="true"><svg viewBox="0 0 14 22" fill="none"><path d="m4.5 5.5 5.5 5.5-5.5 5.5"/></svg></span></button>
+    <button class="mine-settings-row" type="button"><span>账户绑定设置</span><span class="mine-chevron" aria-hidden="true"><svg viewBox="0 0 14 22" fill="none"><path d="m4.5 5.5 5.5 5.5-5.5 5.5"/></svg></span></button>
+    <button class="mine-settings-row" type="button"><span>帮助与反馈</span><span class="mine-chevron" aria-hidden="true"><svg viewBox="0 0 14 22" fill="none"><path d="m4.5 5.5 5.5 5.5-5.5 5.5"/></svg></span></button>
+  </section>
+  <section class="mine-settings-list mine-settings-privacy-list" aria-label="个人信息清单">
+    <button class="mine-settings-row" type="button"><span>个人信息收集清单</span><span class="mine-chevron" aria-hidden="true"><svg viewBox="0 0 14 22" fill="none"><path d="m4.5 5.5 5.5 5.5-5.5 5.5"/></svg></span></button>
+    <button class="mine-settings-row" type="button"><span>个人信息共享清单</span><span class="mine-chevron" aria-hidden="true"><svg viewBox="0 0 14 22" fill="none"><path d="m4.5 5.5 5.5 5.5-5.5 5.5"/></svg></span></button>
+  </section>
+</div>
+
+<div id="page-search" class="tab-page search-page" aria-label="搜优惠">
+  <div class="search-page-content">
+    <header class="search-page-header">
+      <button class="search-page-back" type="button" aria-label="返回首页">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <div class="search-page-brand" aria-label="美柚省钱">
+        <span class="search-page-brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><circle cx="15" cy="17" r="11" fill="#ffd21c"/><path d="M9 8c2.3-3.4 6.1-4.3 9-2.5-1.8 2.6-4.8 4.1-9 2.5Z" fill="#67c84c"/><circle cx="22.5" cy="19.5" r="4.5" fill="#ff7952"/><circle cx="24" cy="18" r="1.2" fill="#fff"/></svg></span>
+        <span>美柚省钱</span><i>·</i><strong>搜优惠拿返现</strong>
+      </div>
+      <span class="search-page-header-spacer" aria-hidden="true"></span>
+    </header>
+
+    <main class="search-page-main">
+      <section class="search-form-card" aria-label="搜索优惠">
+        <div class="search-form-field">
+          <textarea id="searchOfferInput" rows="3" placeholder="粘贴商品链接 / 搜商品名称" aria-label="商品链接或商品名称"></textarea>
+          <button id="searchPasteButton" class="search-paste-button" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5h6M9 3h6a1 1 0 0 1 1 1v2H8V4a1 1 0 0 1 1-1Z"/><rect x="5" y="5" width="14" height="16" rx="2"/><path d="M8 10h8M8 14h6"/></svg>
+            粘贴
+          </button>
+        </div>
+        <button id="searchOfferButton" class="search-offer-button" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          搜优惠
+        </button>
+      </section>
+
+      <section class="search-history" aria-label="历史搜索">
+        <div class="search-history-heading">
+          <h2>历史搜索</h2>
+          <button id="clearSearchHistory" type="button" aria-label="清空历史搜索">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>
+          </button>
+        </div>
+        <div id="searchHistoryList" class="search-history-list">
+          <button class="search-history-chip search-history-wide" type="button">高铁带娃神器！旅行玩具儿童仿真拉杆箱玩具过家...</button>
+          <button class="search-history-chip search-history-wide" type="button">【淘宝】假一赔四 https://e.tb.cn/h.8chmSXPXZ...</button>
+          <button class="search-history-chip" type="button">居家拖鞋</button>
+          <button class="search-history-chip" type="button">绿福摩猫粮</button>
+          <button class="search-history-chip" type="button">工程车</button>
+          <button class="search-history-chip" type="button">厨房遮阳帘</button>
+          <button class="search-history-chip search-history-long" type="button">长文本长文本长文本长文本</button>
+          <button class="search-history-chip" type="button">拖鞋</button>
+          <button class="search-history-chip" type="button">垃圾袋</button>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<div id="page-product-detail" class="tab-page product-detail-page" aria-label="商品详情">
+  <div class="product-detail-content">
+    <header class="product-detail-header">
+      <div id="productDetailCarousel" class="product-detail-carousel" aria-label="商品图片轮播">
+        <div id="productDetailHeroTrack" class="product-detail-hero-track">
+          <img id="productDetailHeroImage" class="product-detail-hero-image" src="" alt="">
+        </div>
+        <div id="productDetailHeroDots" class="product-detail-hero-dots" aria-label="商品图片页码"></div>
+        <span id="productDetailHeroCount" class="product-detail-hero-count" aria-live="polite">1/1</span>
+      </div>
+      <button class="product-detail-back" type="button" aria-label="返回柚子街">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+    </header>
+
+    <main class="product-detail-main">
+      <section class="product-detail-summary" aria-label="商品信息">
+        <img id="productDetailImage" src="" alt="">
+        <div class="product-detail-summary-copy">
+          <h2><span class="product-detail-source" id="productDetailSource">天猫</span><span id="productDetailTitle"></span></h2>
+          <div class="product-detail-price"><span>天猫价 <strong id="productDetailOriginalPrice">¥169.90</strong></span><span class="product-detail-store"><span id="productDetailStore">天猫旗舰店</span><i aria-hidden="true"></i><span id="productDetailSold">已售1000+</span></span></div>
+        </div>
+      </section>
+
+      <section class="product-saving-exclusive" aria-labelledby="productSavingExclusiveTitle">
+        <div class="product-saving-exclusive-heading">
+          <img class="product-saving-exclusive-icon" src="src/assets/sheng-icon.svg" alt="" aria-hidden="true">
+          <span class="product-hidden-coupon-copy"><strong id="productSavingExclusiveTitle">省钱专享</strong></span>
+        </div>
+        <button class="product-primary-offer" type="button">
+          <strong id="productDetailCoupon">¥16</strong>
+          <span><b>专享礼金</b><small>领取后下单自动抵扣</small></span>
+          <em>立即领取</em>
+        </button>
+        <button id="productRebateTrigger" class="product-rebate-row" type="button" aria-haspopup="dialog" aria-controls="productRebateSheet">
+          <span><b>下单预估再返</b></span><strong id="productDetailRebate">¥0.28</strong>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+      </section>
+      <p class="product-saving-tip"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M766.848 966.784H272.128c-112.256 0-203.392-91.008-203.392-203.392V268.672C68.736 156.288 159.872 65.28 272.128 65.28h494.72C879.232 65.28 970.24 156.288 970.24 268.672v494.72c0 112.256-91.008 203.392-203.392 203.392z" fill="#FFBC31"/><path d="M741.376 389.888c0-118.528-99.328-214.528-221.824-214.528-122.496 0-221.824 96-221.824 214.528 0 69.504 34.176 131.2 87.168 170.368 42.88 31.744 67.84 82.048 67.84 135.296 0 12.16 9.856 22.016 22.016 22.016h89.6c12.16 0 22.016-9.856 22.016-22.016 0-53.248 24.96-103.68 67.84-135.296 52.992-39.168 87.168-100.864 87.168-170.368zM577.792 765.568h-116.608c-8.576 0-15.488-6.912-15.488-15.488 0-8.576 6.912-15.488 15.488-15.488h116.608c8.576 0 15.488 6.912 15.488 15.488 0 8.576-6.912 15.488-15.488 15.488z" fill="#FFFFFF"/><path d="M608 434.688H431.104c-8.576 0-15.488 6.912-15.488 15.488 0 8.576 6.912 15.488 15.488 15.488h72.96v192.384c0 8.576 6.912 15.488 15.488 15.488 8.576 0 15.488-6.912 15.488-15.488V465.664h72.96c8.576 0 15.488-6.912 15.488-15.488 0-8.576-6.912-15.488-15.488-15.488z" fill="#FFBC31"/><path d="M563.584 813.568h-88.192c-8.576 0-15.488-6.912-15.488-15.488 0-8.576 6.912-15.488 15.488-15.488h88.192c8.576 0 15.488 6.912 15.488 15.488 0 8.576-6.912 15.488-15.488 15.488zM545.664 856.704h-52.224c-8.576 0-15.488-6.912-15.488-15.488 0-8.576 6.912-15.488 15.488-15.488h52.224c8.576 0 15.488 6.912 15.488 15.488 0 8.448-6.912 15.488-15.488 15.488z" fill="#FFFFFF"/></svg><span>省钱技巧：先领专享礼金，再领优惠，叠加更省钱</span></p>
+
+      <section class="product-offers" aria-label="优惠信息">
+        <div class="product-offers-heading"><strong>找到8个隐藏优惠</strong><span>优惠总价值：800元</span></div>
+        <div class="product-coupon-shell">
+          <div class="product-coupon-group" aria-label="当前可领取的优惠券">
+            <div class="product-coupon-row product-coupon-row-required"><i class="product-coupon-badge">必领</i><strong class="product-coupon-discount"><span><i>¥</i>7</span><small>满9元可用</small></strong><span><b>商品券</b><small class="product-coupon-required-copy">在商品详情页中领取<br>数量：10张</small></span></div>
+            <div class="product-coupon-row"><strong class="product-coupon-discount"><span><i>¥</i>5</span><small>满39可用</small></strong><span><b>店铺关注券</b><small>关注店铺后领取</small></span></div>
+            <div class="product-coupon-row"><strong class="product-coupon-discount"><span><i>¥</i>2</span><small>无使用门槛</small></strong><span><b>店铺券</b><small>在商品详情页中领取<br>数量：5张</small></span></div>
+            <div class="product-coupon-row"><strong>15%</strong><span><b>政府补贴</b><small>是否可使用以实际页面为准</small></span></div>
+          </div>
+          <div id="productMoreCouponsList" class="product-more-coupons-list" hidden>
+            <div class="product-coupon-row"><strong class="product-coupon-discount"><span><i>¥</i>5</span><small>无使用门槛</small></strong><span><b>超市加补购物券</b><small>部分用户可领，面额以实际领取为准</small></span></div>
+            <div class="product-coupon-row"><strong class="product-coupon-discount"><span><i>¥</i>50</span><small>满399可用</small></strong><span><b>店铺会员券</b><small>部分用户可领取</small></span></div>
+            <div class="product-coupon-row"><strong class="product-coupon-discount"><span><i>¥</i>2</span><small>无使用门槛</small></strong><span><b>88VIP专享立减</b><small>88VIP可用</small></span></div>
+          </div>
+          <button id="productMoreCouponsTrigger" class="product-more-coupons-trigger" type="button" aria-expanded="false" aria-controls="productMoreCouponsList"><span>更多优惠</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+          <button class="product-coupon-claim-button" type="button" data-coupon-claim>去抢券</button>
+        </div>
+        <button id="productOfferRulesTrigger" class="product-offers-notice" type="button" aria-haspopup="dialog" aria-controls="productOfferRulesPage">
+          <span>隐藏券数量有限，以实际页面领取为准</span>
+          <b>查看详情</b>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+        <p class="product-offer-activities">参与活动：官方立减3元 <i></i> 每件直降6元 <i></i> 88VIP95折 <i></i> 满2件8折</p>
+      </section>
+      <p class="product-detail-tip">最终返现金额受实际支付价格影响</p>
+    </main>
+
+    <footer class="product-detail-footer">
+      <button id="productHomeButton" class="product-footer-icon-button" type="button" aria-label="返回首页">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1Z"/></svg>
+        <span>首页</span>
+      </button>
+      <button id="productFavoriteButton" class="product-favorite-button" type="button" aria-label="收藏商品" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.78 5.63 6.22.91-4.5 4.39 1.06 6.2L12 17.2l-5.56 2.93 1.06-6.2L3 9.54l6.22-.91Z"/></svg>
+        <span class="product-favorite-label">收藏</span>
+      </button>
+      <div class="product-order-action">
+        <span class="product-order-coin-tip" role="status">淘金币叠加抵扣 ￥0.5元起</span>
+        <button id="productOrderButton" type="button"><span>去下单</span><small hidden></small></button>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<section id="productOfferRulesPage" class="product-offer-rules-page" role="dialog" aria-modal="true" aria-labelledby="productOfferRulesTitle" hidden>
+  <header class="product-offer-rules-header">
+    <button id="productOfferRulesBack" type="button" aria-label="返回优惠信息">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    <h1 id="productOfferRulesTitle">优惠领取说明</h1>
+  </header>
+  <main class="product-offer-rules-content">
+    <section>
+      <h2>优惠领取</h2>
+      <p>点击“去抢券”后，将前往商品详情页查看并领取对应优惠。页面展示的优惠券可按实际情况领取和使用。</p>
+    </section>
+    <section>
+      <h2>金额与资格</h2>
+      <p>商家可能临时调整优惠金额、使用门槛或领取资格；部分优惠仅对符合条件的用户开放，具体以商品详情页展示为准。</p>
+    </section>
+    <section>
+      <h2>参与活动</h2>
+      <p>商品参与的活动及具体优惠，以商品详情页和结算页实际展示为准。</p>
+    </section>
+  </main>
+</section>
+
+<div id="productRebateSheet" class="product-rebate-sheet" role="dialog" aria-modal="true" aria-labelledby="productRebateTitle" hidden>
+  <div class="product-rebate-backdrop" data-rebate-close></div>
+  <section class="product-rebate-panel">
+    <button class="product-rebate-close" type="button" aria-label="关闭" data-rebate-close>×</button>
+    <strong id="productRebateAmount">¥0.28</strong>
+    <h2 id="productRebateTitle">买后再返</h2>
+    <div class="product-rebate-breakdown">
+      <div><b id="productRebateBase">¥0.18</b><span>美柚加补</span></div>
+      <i>+</i>
+      <div><b id="productRebateReward">¥0.10</b><span>商品返现</span></div>
+      <p>打卡补贴 <b>¥0.10</b> 元 · 返现红包 <b>¥0.03</b> 元</p>
+    </div>
+  </section>
+</div>
+
+<div class="bottom-nav" id="bottomNav">
+  <div class="nav-tab active" data-page="page-home">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+    <span>美柚省钱</span>
+  </div>
+  <div class="nav-tab" data-page="page-butie">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    <span>福利</span>
+  </div>
+  <div class="nav-tab" data-page="page-haojia">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-label="柚子街"><path d="M5 8h14l-1 13H6L5 8Z"/><path d="M8 8a4 4 0 0 1 8 0"/><path d="M9 12h.01M15 12h.01"/></svg>
+    <span>柚子街</span>
+  </div>
+  <div class="nav-tab" data-page="page-mine">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span>我</span>
+  </div>
+</div>
+
+<script src="src/data/home-data.js"></script>
+<script src="src/data/life-data.js"></script>
+<script src="src/data/mall-data.js"></script>
+<script src="src/pages/wallet-page.js"></script>
+<script src="src/pages/pending-orders-page.js"></script>
+<script src="src/pages/withdrawn-details-page.js"></script>
+<script src="src/pages/cashback-red-packets-page.js"></script>
+<script src="src/pages/exclusive-coupon-page.js"></script>
+<script src="src/scripts/components/global-header-actions.js"></script>
+<script src="src/scripts/app.js"></script>
+</body>
+</html>
+<!--
+/* ===== 生活服务 ===== */
+.life-search-row { background:#fff; padding:10px 16px 10px; display:flex; align-items:center; gap:8px; }
+.life-loc { display:flex; align-items:center; gap:3px; font-size:13px; color:#333; font-weight:600; white-space:nowrap; cursor:pointer; }
+.life-loc svg { flex-shrink:0; }
+.life-sbox { flex:1; background:#f2f2f2; border-radius:20px; display:flex; align-items:center; padding:8px 12px; gap:6px; }
+.life-sbox span { font-size:13px; color:#999; }
+.life-banner { margin:8px 12px; border-radius:10px; background:linear-gradient(135deg,#ff4e50,#fc913a); height:96px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; overflow:hidden; position:relative; }
+.life-banner-txt { color:#fff; }
+.life-banner-txt .bt1 { font-size:22px; font-weight:900; letter-spacing:1px; }
+.life-banner-txt .bt2 { font-size:12px; margin-top:4px; opacity:.9; display:flex; gap:6px; }
+.life-banner-txt .bt2 span { background:rgba(255,255,255,.22); border-radius:10px; padding:2px 8px; }
+.life-banner-cta { background:rgba(255,255,255,.2); border:2px solid rgba(255,255,255,.6); border-radius:50%; width:52px; height:52px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:13px; font-weight:700; flex-shrink:0; }
+.life-tags-wrap { background:#fff; }
+.life-tags-row { display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding:10px 12px; }
+.life-tags-row::-webkit-scrollbar { display:none; }
+.life-tag { font-size:13px; color:#666; white-space:nowrap; padding:5px 14px; border-radius:20px; background:#f5f5f5; cursor:pointer; border:1.5px solid transparent; flex-shrink:0; }
+.life-tag.active { color:#ff6b35; background:#fff3ee; border-color:#ff6b35; font-weight:600; }
+.life-filter { background:#fff; padding:6px 12px 8px; display:flex; gap:8px; align-items:center; border-bottom:1px solid #f0f0f0; }
+.lf-btn { font-size:12px; color:#555; padding:4px 10px; border-radius:14px; background:#f5f5f5; cursor:pointer; display:flex; align-items:center; gap:3px; white-space:nowrap; }
+.lf-btn.hot { color:#ff6b35; background:#fff3ee; }
+.lf-sep { flex:1; }
+.lf-right { font-size:12px; color:#888; display:flex; align-items:center; gap:3px; cursor:pointer; }
+.life-coupon { margin:4px 12px 8px; background:linear-gradient(90deg,#ff6b35,#ff9a3c); border-radius:8px; padding:10px 14px; display:flex; align-items:center; gap:10px; }
+.lc-amt { color:#fff; font-size:24px; font-weight:900; line-height:1; }
+.lc-amt sup { font-size:13px; vertical-align:top; margin-top:3px; }
+.lc-info { flex:1; color:#fff; }
+.lc-info .lci1 { font-size:14px; font-weight:700; }
+.lc-info .lci2 { font-size:11px; opacity:.85; margin-top:2px; }
+.lc-btn { background:#fff; color:#ff6b35; font-size:13px; font-weight:700; border-radius:20px; padding:6px 14px; white-space:nowrap; cursor:pointer; }
+.life-sec-title { font-size:14px; font-weight:700; color:#222; padding:10px 12px 4px; }
+.life-feed { padding:0 12px 8px; display:flex; flex-direction:column; gap:10px; }
+.lcard { background:#fff; border-radius:10px; overflow:hidden; display:flex; gap:12px; padding:12px; }
+.lcard-img { width:88px; height:88px; border-radius:8px; background:#eee; flex-shrink:0; overflow:hidden; display:flex; align-items:center; justify-content:center; font-size:11px; color:#bbb; }
+.lcard-img img { width:100%; height:100%; object-fit:cover; }
+.lcard-body { flex:1; min-width:0; display:flex; flex-direction:column; justify-content:space-between; }
+.lcard-name { font-size:14px; font-weight:600; color:#222; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.lcard-meta { display:flex; align-items:center; gap:6px; margin-top:3px; }
+.lcard-platform { font-size:11px; color:#888; display:flex; align-items:center; gap:3px; }
+.lcard-dist { font-size:11px; color:#bbb; margin-left:auto; }
+.lcard-tags { display:flex; gap:5px; margin-top:6px; flex-wrap:wrap; }
+.ltag { font-size:11px; padding:2px 7px; border-radius:4px; font-weight:500; }
+.ltag-new { background:#fff0f3; color:#ff4d6d; border:1px solid #ffb3c1; }
+.ltag-promo { background:#fff7e6; color:#fa8c16; border:1px solid #ffd591; }
+.ltag-cash { background:#f6ffed; color:#52c41a; border:1px solid #b7eb8f; }
+.lcard-bottom { display:flex; align-items:center; justify-content:space-between; margin-top:8px; }
+.lcard-quota { font-size:11px; color:#bbb; }
+.lcard-quota em { color:#ff6b35; font-style:normal; font-weight:600; }
+.lcard-action { background:#ff6b35; color:#fff; font-size:13px; font-weight:600; border-radius:20px; padding:5px 14px; cursor:pointer; white-space:nowrap; }
+.life-help { margin:8px 12px 0; background:#fff8f2; border-radius:8px; padding:10px 14px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; border:1px solid #ffe5d0; }
+.life-help-l { display:flex; align-items:center; gap:8px; font-size:13px; color:#333; }
+.life-help-r { font-size:12px; color:#ff6b35; display:flex; align-items:center; gap:2px; }
+-->

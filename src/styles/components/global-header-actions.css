@@ -1,0 +1,12 @@
+.global-header-actions { position:fixed; top:30px; left:50%; z-index:120; display:flex; align-items:flex-start; justify-content:flex-end; gap:10px; width:min(390px,100%); height:42px; padding:0 18px; transform:translateX(-50%); pointer-events:none; }
+.global-header-action { display:flex; flex:0 0 34px; flex-direction:column; align-items:center; justify-content:center; width:34px; height:42px; gap:1px; padding:0; border:0; color:#4b4b4b; background:transparent; cursor:pointer; pointer-events:auto; }
+.global-header-action-icon { position:relative; display:flex; align-items:center; justify-content:center; width:22px; height:22px; }
+.global-header-action-icon svg { display:block; width:18px; height:18px; color:currentColor; stroke-linecap:round; stroke-linejoin:round; }
+.global-header-action small { display:block; color:#999; font-size:10px; line-height:14px; white-space:nowrap; }
+.global-order-badge { position:absolute; top:-7px; right:-9px; display:flex; min-width:18px; height:18px; align-items:center; justify-content:center; padding:0 4px; border:2px solid #fff; border-radius:10px; background:var(--my-brand-red,#ff4d88); color:#fff; font-size:10px; font-weight:600; line-height:14px; white-space:nowrap; }
+.global-message-badge { position:absolute; top:-3px; right:-5px; display:block; width:8px; min-width:8px; height:8px; border:1.5px solid #fff; border-radius:50%; background:var(--my-brand-red,#ff4d88); }
+
+/* 柚子街中的组件位置属于组件自身，页面模块不覆盖组件基础样式。 */
+body.mall-active > .global-header-actions .global-header-action[aria-label="消息"] { display:none; }
+body.mall-active:not(.mall-scroll-active) > .global-header-actions { top:38px; }
+body.mall-active.mall-scroll-active > .global-header-actions { top:31px; }

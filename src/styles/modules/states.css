@@ -1,0 +1,429 @@
+/* 收紧生活服务筛选栏与优惠券模块的衔接间距 */
+#page-life .life-filters {
+  padding-bottom: 2px;
+}
+
+#page-life .life-coupon {
+  margin-top: 8px;
+}
+
+/* 生活服务：状态栏与定位搜索行始终作为一个整体吸顶 */
+body.life-active > .status-bar {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 113;
+  width: min(390px, 100%);
+  transform: translateX(-50%);
+}
+
+body.life-active #page-life > .content {
+  padding-top: 0 !important;
+}
+
+body.life-active #page-life .life-new,
+body.life-active.life-scroll-active #page-life .life-new {
+  padding-top: 92px !important;
+}
+
+body.life-active.life-scroll-active #page-life .life-new {
+  padding-top: 84px !important;
+}
+
+body.life-active.life-scroll-active #page-life .life-new {
+  padding-top: 84px !important;
+}
+
+body.life-active #page-life .life-top,
+body.life-active.life-scroll-active #page-life .life-top {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  z-index: 112;
+  width: min(390px, 100%);
+  transform: translateX(-50%);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: rgba(255,255,255,.94);
+  border-bottom: 1px solid rgba(215,219,228,.45);
+  box-shadow: 0 1px 5px rgba(45,52,70,.08);
+  -webkit-backdrop-filter: saturate(140%) blur(18px);
+  backdrop-filter: saturate(140%) blur(18px);
+  transition: padding .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+
+body.life-active #page-life .life-new,
+body.life-active.life-scroll-active #page-life .life-new {
+  padding-top: 92px !important;
+}
+
+/* 搜索框统一为参考稿的白底橙色描边样式 */
+body:not(.life-active):not(.mall-active):not(.home-scroll-active) > .search-bar .search-inner {
+  height: 42px;
+  min-height: 42px;
+  padding: 2px 4px 2px 12px;
+  gap: 8px;
+  border: 1px solid var(--my-brand-red,#ff4d88);
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(255,90,31,.08);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+body:not(.life-active):not(.mall-active):not(.home-scroll-active) > .search-bar .search-inner > svg:first-child {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  color: var(--my-brand-red,#ff4d88);
+  stroke: var(--my-brand-red,#ff4d88);
+}
+
+body:not(.life-active):not(.mall-active):not(.home-scroll-active) > .search-bar .search-inner input {
+  min-width: 0;
+  height: 32px;
+  color: #333;
+  font-size: 14px;
+  line-height: 32px;
+}
+
+body:not(.life-active):not(.mall-active):not(.home-scroll-active) > .search-bar .search-btn {
+  height: 36px;
+  padding: 0 17px;
+  border-radius: 11px;
+  background: var(--my-brand-red,#ff4d88);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 36px;
+}
+
+#page-life .life-search {
+  height: 42px;
+  padding: 2px 4px 2px 12px;
+  gap: 8px;
+  border: 1px solid var(--my-brand-red,#ff4d88);
+  border-radius: 15px;
+  background: #fff;
+  color: #333;
+  box-shadow: 0 1px 3px rgba(255,90,31,.08);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+#page-life .life-search > svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  color: var(--my-brand-red,#ff4d88);
+  stroke: var(--my-brand-red,#ff4d88);
+}
+
+#page-life .life-search button {
+  width: 62px;
+  height: 36px;
+  padding: 0;
+  border-radius: 11px;
+  background: var(--my-brand-red,#ff4d88);
+  font-size: 14px;
+  line-height: 36px;
+}
+
+/* 生活服务顶部整体吸顶：状态栏与定位/搜索行始终连续固定 */
+body.life-active > .status-bar {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 113;
+  width: min(390px, 100%);
+  transform: translateX(-50%);
+  background: #fff;
+}
+
+body.life-active #page-life > .content {
+  padding-top: 92px;
+}
+
+body.life-active .life-top,
+body.life-active.life-scroll-active .life-top {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  width: min(390px, 100%);
+  transform: translateX(-50%);
+  z-index: 112;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: rgba(255,255,255,.94);
+  border-bottom: 1px solid rgba(215,219,228,.45);
+  box-shadow: 0 1px 5px rgba(45,52,70,.08);
+  -webkit-backdrop-filter: saturate(140%) blur(18px);
+  backdrop-filter: saturate(140%) blur(18px);
+}
+
+body.life-active.life-scroll-active #page-life .life-search {
+  height: 34px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 10px;
+  gap: 6px;
+  border-radius: 13px;
+  font-size: 12px;
+}
+
+body.life-active.life-scroll-active .life-location {
+  gap: 3px;
+  font-size: 12px;
+}
+
+body.life-active.life-scroll-active .life-location > svg {
+  width: 15px;
+  height: 15px;
+}
+
+body.life-active.life-scroll-active .life-location-chevron {
+  width: 10px;
+  height: 14px;
+}
+
+body.life-active.life-scroll-active .life-location-chevron svg {
+  width: 10px;
+  height: 10px;
+}
+
+body.life-active.life-scroll-active #page-life .life-search > svg {
+  width: 15px;
+  height: 15px;
+}
+
+body.life-active.life-scroll-active #page-life .life-search {
+  font-size: 12px;
+}
+
+body.life-active.life-scroll-active #page-life .life-search button {
+  width: 52px;
+  height: 28px;
+  border-radius: 10px;
+  line-height: 28px;
+  font-size: 12px;
+}
+
+/* 生活服务上滑紧凑态：顶部行本身同步收高 */
+body.life-active #page-life .life-top {
+  height: 62px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+body.life-active.life-scroll-active #page-life .life-top {
+  height: 48px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+body.life-active.life-scroll-active #page-life .life-location {
+  font-size: 11px;
+}
+
+body.life-active.life-scroll-active #page-life .life-location > svg {
+  width: 13px;
+  height: 13px;
+}
+
+body.life-active.life-scroll-active #page-life .life-search {
+  height: 34px;
+  font-size: 11px;
+}
+
+body.life-active.life-scroll-active #page-life .life-search button {
+  width: 50px;
+  height: 26px;
+  font-size: 11px;
+  line-height: 26px;
+}
+
+/* 柚子街上滑紧凑态：搜索栏整体收紧 */
+body.mall-active.mall-scroll-active > .search-bar {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  z-index: 112;
+  width: min(390px, 100%);
+  height: 45px;
+  padding: 4px 58px 5px 14px;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,.94);
+  border-bottom: 1px solid rgba(205,211,222,.55);
+  box-sizing: border-box;
+  -webkit-backdrop-filter: saturate(140%) blur(16px);
+  backdrop-filter: saturate(140%) blur(16px);
+}
+
+body.mall-active.mall-scroll-active > .search-bar .search-inner {
+  height: 36px;
+  min-height: 36px;
+  padding: 2px 3px 2px 10px;
+  gap: 6px;
+  border-radius: 12px;
+}
+
+body.mall-active.mall-scroll-active > .search-bar .search-inner > svg:first-child {
+  width: 16px;
+  height: 16px;
+}
+
+body.mall-active.mall-scroll-active > .search-bar .search-inner input {
+  height: 28px;
+  font-size: 12px;
+  line-height: 28px;
+}
+
+body.mall-active.mall-scroll-active > .search-bar .search-camera {
+  width: 16px;
+  height: 16px;
+}
+
+body.mall-active.mall-scroll-active > .search-bar .search-btn {
+  width: 52px;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 30px;
+}
+
+/* 柚子街：状态栏与搜索栏连续吸顶，顶部不留空白 */
+body.mall-active > .status-bar {
+  position: fixed !important;
+  top: 0;
+  left: 50%;
+  z-index: 1200;
+  width: min(390px, 100%);
+  height: 30px;
+  min-height: 30px;
+  padding: 12px 20px 0;
+  box-sizing: border-box;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,.96);
+  border-bottom: 0;
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  isolation: isolate;
+  -webkit-backdrop-filter: saturate(140%) blur(18px);
+  backdrop-filter: saturate(140%) blur(18px);
+}
+
+body.mall-active.mall-scroll-active > .search-bar {
+  position: fixed !important;
+  top: 30px;
+  left: 50%;
+  z-index: 1199;
+  width: min(390px, 100%);
+  height: 64px;
+  padding: 8px 58px 14px 14px;
+  margin: 0;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  border-bottom: 0;
+}
+
+body.mall-active > #page-haojia > .content {
+  padding-top: 96px !important;
+}
+
+body.mall-active:not(.mall-scroll-active) > .search-bar {
+  height: 64px;
+  padding: 8px 58px 14px 14px;
+}
+
+body.mall-active.mall-scroll-active > #page-haojia > .content {
+  padding-top: 82px !important;
+}
+
+body.mall-active.mall-scroll-active > .search-bar {
+  height: 45px;
+  padding: 4px 58px 5px 14px;
+}
+
+/* 底部导航最终状态：品牌红只用于当前选中项，未选中项保持中性灰 */
+.bottom-nav .nav-tab.active {
+  background:var(--my-brand-soft,rgba(255,77,136,.08));
+}
+
+.bottom-nav .nav-tab.active svg,
+.bottom-nav .nav-tab.active span {
+  color:var(--my-brand-red,#ff4d88);
+}
+
+/* 生活服务吸顶时作为整行导航承载层，边缘与屏幕齐平 */
+body.life-active #page-life .life-top,
+body.life-active.life-scroll-active #page-life .life-top {
+  border-radius:0;
+}
+
+/* 状态样式最终收口：保持吸顶尺寸，仅统一按钮语意色与文字层级 */
+body:not(.life-active):not(.mall-active):not(.home-scroll-active) > .search-bar .search-btn {
+  color:#fff;
+  background:var(--my-brand-red,#ff4d88);
+  box-shadow:0 2px 6px rgba(255,96,119,.18);
+}
+
+#page-life .life-search button,
+#page-life .life-card-button {
+  color:#fff;
+  background:var(--my-brand-red,#ff4d88);
+  box-shadow:0 2px 6px rgba(255,96,119,.18);
+  font-size:12px;
+  font-weight:500;
+}
+
+#page-life .life-coupon-button {
+  color:var(--my-brand-red,#ff4d88);
+  background:#fff;
+  border:1px solid rgba(255,96,119,.24);
+  box-shadow:none;
+  font-size:12px;
+  font-weight:500;
+}
+
+body.mall-active > .search-bar .search-btn,
+body.mall-active.mall-scroll-active > .search-bar .search-btn {
+  color:#fff;
+  background:var(--my-brand-red,#ff4d88);
+  box-shadow:0 2px 6px rgba(255,96,119,.18);
+}
+
+/* 搜索框统一收口：按钮与外框保持上下、右侧间距，避免边缘重叠 */
+body:not(.life-active):not(.mall-active):not(.home-scroll-active) > .search-bar .search-inner,
+#page-life .life-search,
+body.mall-active > .search-bar .search-inner {
+  box-sizing:border-box;
+  align-items:center;
+  padding-top:2px;
+  padding-bottom:2px;
+}
+
+body:not(.life-active):not(.mall-active):not(.home-scroll-active) > .search-bar .search-btn,
+#page-life .life-search button,
+body.mall-active > .search-bar .search-btn {
+  align-self:center;
+  box-sizing:border-box;
+  border:0;
+  border-radius:11px;
+  margin-top:0;
+  margin-bottom:0;
+}
+
+body.life-active.life-scroll-active #page-life .life-search button,
+body.mall-active.mall-scroll-active > .search-bar .search-btn {
+  align-self:center;
+  border-radius:10px;
+}
+
+body.life-active.life-scroll-active #page-life .life-search,
+body.mall-active.mall-scroll-active > .search-bar .search-inner {
+  box-sizing:border-box;
+  align-items:center;
+  padding-top:2px;
+  padding-bottom:2px;
+}

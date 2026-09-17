@@ -1,0 +1,38 @@
+/* 商品行动按钮统一使用“下单享 + 优惠金额”两行信息。 */
+.exclusive-coupon-product-action button {
+  display:flex;
+  flex:1;
+  height:100%;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:1px;
+  padding:0;
+  border:0;
+  color:#fff;
+  background:#ff4d76;
+  font:inherit;
+  font-size:12px;
+  line-height:16px;
+}
+.exclusive-coupon-product-action > span {
+  box-sizing:border-box;
+  flex:0 0 78px;
+  width:78px;
+  padding-right:6px;
+  white-space:nowrap;
+}
+.exclusive-coupon-product-action button span,
+.exclusive-coupon-product-action button b {
+  display:block;
+  font-size:12px;
+  font-weight:400;
+  line-height:16px;
+}
+@media (max-width:360px) {
+  .exclusive-coupon-product-action > span {
+    flex-basis:64px;
+    width:64px;
+    padding-right:4px;
+  }
+}

@@ -1,0 +1,1842 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>美柚省钱</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif; background: #f5f5f5; max-width: 390px; margin: 0 auto; min-height: 100vh; }
+.status-bar { background: #fff; padding: 12px 20px 0; display: flex; justify-content: space-between; align-items: center; font-size: 15px; font-weight: 600; }
+.status-icons { display: flex; gap: 6px; align-items: center; }
+.header { background: #fff; padding: 7px 18px 8px; display: flex; justify-content: space-between; align-items: center; }
+.savings { flex:1; display:flex; align-items:center; height:32px; margin-right:0; font-size:15px; line-height:20px; color:#333; }
+.header-icons { display: flex; align-items: center; gap: 11px; height:32px; }
+.header-action { display:flex; align-items:center; justify-content:center; width:26px; height:32px; color:#4b4b4b; cursor:pointer; }
+.header-action svg { display:block; width:20px; height:20px; color:currentColor; stroke-linecap:round; stroke-linejoin:round; }
+.search-bar { background: #fff; padding: 0 16px 14px; }
+.search-inner { background: #f2f2f2; border-radius: 24px; display: flex; align-items: center; padding: 10px 14px; gap: 8px; }
+.search-inner input { flex: 1; border: none; background: transparent; font-size: 14px; color: #999; outline: none; }
+.search-camera { display:none; }
+.search-btn { background: #ff6b81; color: #fff; border: none; border-radius: 20px; padding: 8px 18px; font-size: 15px; font-weight: 500; cursor: pointer; white-space: nowrap; }
+.quick-nav { background: #fff; margin: 8px 0 0; padding: 16px 0 8px; }
+.quick-nav-grid { display: flex; justify-content: space-around; padding: 0 8px; }
+.nav-item { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; }
+.nav-icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; position: relative; }
+.nav-icon svg { width: 27px; height: 27px; color: #4c4c4c; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.badge { position: absolute; top: 0; right: -4px; background: #ff4d4f; color: #fff; border-radius: 10px; font-size: 11px; padding: 1px 5px; font-weight: 600; }
+.nav-label { font-size: 12px; color: #555; }
+.alert-banner { background: #fff5f5; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #ffe0e0; border-bottom: 1px solid #ffe0e0; }
+.alert-text { font-size: 13px; color: #ff6b81; }
+.alert-time { font-size: 13px; color: #ff6b81; }
+.category-tabs { background: transparent; margin-top: 8px; padding: 14px 16px 0; }
+.tabs-row { display: flex; gap: 20px; overflow-x: auto; scrollbar-width: none; padding-bottom: 10px; }
+.tabs-row::-webkit-scrollbar { display: none; }
+.tab { position:relative; font-size:16px; color:#888; white-space:nowrap; cursor:pointer; padding:0 1px 8px; transition:color .2s ease, font-weight .2s ease; }
+.tab::after { content:""; position:absolute; left:50%; bottom:1px; width:0; height:2px; border-radius:2px; background:#222; transform:translateX(-50%); transition:width .2s ease; }
+.tab.active { color:#222; font-weight:700; }
+.tab.active::after { width:100%; }
+.section-card { background: #fff; margin: 8px 0 0; padding: 14px 16px; }
+.section-title { font-size: 16px; font-weight: 600; color: #222; margin-bottom: 14px; }
+.icon-grid { display: flex; justify-content: space-between; }
+.icon-item { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; flex: 1; }
+.app-icon { width: 56px; height: 56px; border-radius: 12px; }
+.icon-label { font-size: 12px; color: #555; }
+.picks-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.pick-placeholder { height: 160px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #aaa; }
+/* Tab pages */
+.tab-page { display: none; }
+.tab-page.active { display: block; animation:page-enter .2s ease both; }
+@keyframes page-enter { from { opacity:0; transform:translateY(4px); } to { opacity:1; transform:translateY(0); } }
+@media (prefers-reduced-motion:reduce) {
+  .tab, .tab::after, .nav-tab, .nav-tab svg { transition:none; }
+  .tab-page.active { animation:none; }
+}
+/* Bottom Nav */
+.bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 390px; background: #fff; border-top: 1px solid #eee; display: flex; justify-content: space-around; padding: 8px 0 20px; z-index: 100; }
+.nav-tab { display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; flex: 1; position: relative; }
+.nav-tab { transition:color .2s ease, transform .2s ease; }
+.nav-tab svg { width:24px; height:24px; color:#aaa; transition:color .2s ease, transform .2s ease; }
+.nav-tab.active svg { color: #ff6b81; }
+.nav-tab.active svg { transform:scale(1.06); }
+.nav-tab span { font-size: 11px; color: #aaa; }
+.nav-tab.active span { color: #ff6b81; }
+.nav-badge { position: absolute; top: -4px; left: 50%; transform: translateX(4px); background: #ff6b81; color: #fff !important; border-radius: 12px; font-size: 10px; padding: 2px 6px; font-weight: 600; white-space: nowrap; }
+.nav-tab.active .nav-badge { display: none; }
+.content { padding-bottom: 80px; }
+/* Page placeholders */
+.page-placeholder { padding: 60px 16px; text-align: center; color: #bbb; font-size: 15px; }
+
+/* 生活服务保留全局已省信息，仅隐藏首页专用搜索框 */
+body.life-active > .search-bar { display:none; }
+body.life-active > .header { display:none; }
+body.mall-active > .header { display:none; }
+
+/* 生活服务页 */
+#page-life { background:#f5f5f5; }
+#page-life > .content { padding:0 0 82px; }
+#page-life > .content > *:not(.life-new) { display:none !important; }
+.life-new { display:block; min-height:100vh; }
+.life-top { background:#fff; padding:10px 16px; display:flex; align-items:center; gap:10px; }
+.life-location { display:flex; align-items:center; gap:3px; color:#333; font-size:13px; font-weight:600; white-space:nowrap; }
+.life-location,
+.life-location svg,
+.life-location-chevron svg,
+.life-search,
+.life-search > svg,
+.life-search button { transition: all .2s ease; }
+.life-location svg { color:#ff6b35; }
+.life-location-chevron { display:inline-flex; align-items:center; justify-content:center; width:10px; height:14px; margin-left:1px; color:#555; }
+.life-location-chevron svg { display:block; width:10px; height:10px; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.life-search { flex:1; height:38px; background:#f3f3f3; border-radius:20px; display:flex; align-items:center; gap:6px; padding:0 10px 0 12px; color:#999; font-size:13px; }
+.life-search button { margin-left:auto; height:30px; padding:0 12px; border:0; border-radius:16px; background:#ff6b81; color:#fff; font-size:13px; font-weight:600; line-height:30px; white-space:nowrap; }
+.life-banner { margin:8px 12px; height:100px; padding:0 18px; display:flex; align-items:center; justify-content:space-between; border-radius:10px; overflow:hidden; background:linear-gradient(135deg,#ff3f3f,#ff8a35); color:#fff; }
+.life-banner-title { font-size:23px; font-weight:800; letter-spacing:1px; }
+.life-banner-sub { margin-top:6px; font-size:12px; opacity:.9; }
+.life-banner-action { width:54px; height:54px; border:2px solid rgba(255,255,255,.7); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; }
+.life-tags { background:#fff; padding:10px 12px 0; }
+.life-tags-row { display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding-bottom:10px; }
+.life-tags-row::-webkit-scrollbar { display:none; }
+.life-tag { padding:6px 13px; border:1px solid transparent; border-radius:18px; background:#f5f5f5; color:#666; font-size:13px; white-space:nowrap; }
+.life-tag.active { border-color:#ff6b35; background:#fff3ed; color:#ff6b35; font-weight:600; }
+.life-filters { background:#fff; padding:0 12px 6px; display:flex; align-items:center; gap:8px; border-bottom:1px solid #eee; }
+.life-filter { display:inline-flex; align-items:center; height:26px; padding:0 10px; border-radius:15px; background:#f5f5f5; color:#666; font-size:12px; line-height:1; white-space:nowrap; }
+.life-filter-chevron { display:inline-flex; align-items:center; justify-content:center; width:10px; height:12px; margin-left:3px; color:currentColor; }
+.life-filter-chevron svg { display:block; width:10px; height:10px; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.life-filter.active { background:#fff1ea; color:#ff6b35; }
+.life-filter-spacer { flex:1; }
+.life-help { margin:8px 12px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; border:1px solid #ffe1c9; border-radius:8px; background:#fff8f2; color:#333; font-size:13px; }
+.life-help-link { color:#ff6b35; font-size:12px; }
+.life-coupon { margin:0 12px 8px; padding:10px 14px; display:flex; align-items:center; gap:10px; border-radius:8px; background:linear-gradient(90deg,#ff6b35,#ff9a3c); color:#fff; }
+.life-coupon-price { font-size:24px; font-weight:800; }
+.life-coupon-copy { flex:1; }
+.life-coupon-copy strong { display:block; font-size:14px; }
+.life-coupon-copy small { display:block; margin-top:3px; font-size:11px; opacity:.9; }
+.life-coupon-button { padding:6px 13px; border-radius:18px; background:#fff; color:#ff6b35; font-size:13px; font-weight:700; white-space:nowrap; }
+.life-section-title { padding:4px 12px 8px; color:#222; font-size:15px; font-weight:700; }
+.life-feed { padding:0 12px; }
+.life-card { display:flex; align-items:stretch; gap:12px; min-height:114px; margin-bottom:10px; padding:12px; border-radius:10px; background:#fff; overflow:hidden; }
+.life-card-image { width:90px; height:90px; flex:0 0 90px; display:flex; align-items:center; justify-content:center; border-radius:8px; overflow:hidden; background:#ffe5d8; color:#d85b2b; font-size:24px; font-weight:800; }
+.life-card-image img { display:block; width:100%; height:100%; max-width:100%; max-height:100%; object-fit:cover; }
+.life-card:nth-child(2) .life-card-image { background:#fff0d4; color:#d88b25; }
+.life-card:nth-child(3) .life-card-image { background:#e2f4e9; color:#3c9b61; }
+.life-card-main { min-width:0; width:0; flex:1 1 auto; display:flex; flex-direction:column; }
+.life-card-name { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#222; font-size:14px; font-weight:700; line-height:20px; }
+.life-card-meta { display:flex; justify-content:space-between; gap:6px; min-width:0; margin-top:5px; color:#999; font-size:11px; }
+.life-card-meta span { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.life-card-tags { display:flex; gap:5px; min-width:0; margin-top:7px; overflow:hidden; }
+.life-card-tag { padding:2px 6px; border-radius:4px; color:#ff5638; background:#fff0ed; font-size:11px; }
+.life-card-tag.green { color:#43a15b; background:#eff9f0; }
+.life-card-footer { display:flex; align-items:center; justify-content:space-between; gap:6px; min-width:0; margin-top:auto; padding-top:8px; }
+.life-card-return { color:#999; font-size:11px; }
+.life-card-return b { color:#ff6b35; }
+.life-card-button { flex:0 0 auto; padding:6px 11px; border:0; border-radius:18px; background:#ff6b35; color:#fff; font-size:12px; font-weight:700; white-space:nowrap; }
+
+/* 首页布局规范化 */
+#page-home { background:#f4f5f7; }
+#page-home > .content { padding:0 0 96px; }
+#page-home ~ .bottom-nav { box-shadow:0 -2px 10px rgba(30,35,45,.05); }
+body:not(.life-active) > .search-bar { padding:0 16px 12px; }
+body:not(.life-active):not(.mall-active) > .search-bar { padding-top:3px; }
+body:not(.life-active) > .search-bar .search-inner { min-height:48px; padding:8px 12px; border:1px solid #ededee; }
+body:not(.life-active) > .search-bar .search-btn { padding:8px 17px; }
+#page-home .quick-nav { margin:8px 8px 0; border-radius:12px; padding:12px 8px 10px; box-shadow:0 1px 3px rgba(30,35,45,.04); }
+#page-home .quick-nav-grid { display:grid; grid-template-columns:repeat(5, minmax(0, 1fr)); gap:0; padding:0; }
+#page-home .nav-item { min-width:0; gap:4px; }
+#page-home .nav-icon { width:38px; height:38px; }
+#page-home .nav-icon svg { width:25px; height:25px; color:#3f3f3f; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+#page-home .nav-item:nth-child(4) .nav-icon svg { width:24px; height:24px; }
+#page-home .nav-item:nth-child(5) .nav-icon svg { width:25px; height:25px; }
+#page-home .badge { top:-1px; right:-3px; min-width:16px; height:16px; padding:0 4px; border-radius:8px; font-size:10px; line-height:16px; text-align:center; }
+#page-home .nav-label { width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; text-align:center; color:#555; }
+#page-home .alert-banner { margin:8px 10px 0; min-height:42px; border:1px solid #ffd6de; border-radius:9px; padding:8px 12px; background:#fff4f6; box-shadow:0 1px 3px rgba(255,107,129,.08); }
+#page-home .alert-text, #page-home .alert-time { font-size:12px; color:#ff5872; line-height:18px; }
+#page-home .alert-text { display:flex; align-items:center; gap:5px; font-weight:500; }
+#page-home .alert-icon { width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center; color:#ff6b81; flex:none; }
+#page-home .alert-icon svg { width:19px; height:19px; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+#page-home .alert-time { padding-left:8px; border-left:1px solid #ffc9d2; white-space:nowrap; }
+#page-home .category-tabs {
+  margin:4px 8px 0;
+  padding:10px 8px 0;
+}
+#page-home .tabs-row { gap:24px; padding:0 4px 9px; }
+#page-home .tab { font-size:15px; padding-bottom:9px; color:#777; }
+#page-home .tab.active { font-size:18px; color:#222; }
+#page-home .tab::after { bottom:1px; height:2px; }
+
+body.home-scroll-active #page-home .category-tabs {
+  position:fixed;
+  top:77px;
+  left:50%;
+  z-index:107;
+  width:min(390px,100%);
+  margin:0;
+  padding:8px 16px 0;
+  transform:translateX(-50%);
+  background:rgba(244,245,247,.96);
+  -webkit-backdrop-filter:saturate(135%) blur(12px);
+  backdrop-filter:saturate(135%) blur(12px);
+}
+
+body.home-scroll-active #page-home .category-tabs .tabs-row {
+  padding-bottom:9px;
+}
+
+#page-home .tab::after {
+  left:50%;
+  bottom:2px;
+  width:0;
+  height:2px;
+  border-radius:999px;
+}
+
+#page-home .tab.active::after {
+  width:22px;
+}
+#page-home .section-card { margin:9px 8px 0; padding:12px 10px 11px; border-radius:12px; border:1px solid #f0f0f1; box-shadow:0 1px 3px rgba(30,35,45,.035); }
+#page-home #panel-hot > .section-card + .section-card { margin-top:9px; }
+#page-home .section-title { margin-bottom:14px; font-size:16px; line-height:20px; }
+#page-home .platform-entry-card { padding-top:12px; padding-bottom:11px; }
+#page-home .platform-entry-grid-second-row { margin-top:14px; }
+#page-home .icon-grid { display:grid; grid-template-columns:repeat(5, minmax(0, 1fr)); column-gap:4px; }
+#page-home .icon-item { min-width:0; gap:4px; padding:1px 0 2px; border-radius:10px; transition:background-color .16s ease, transform .16s ease; }
+#page-home .icon-item:active { background:#faf1f3; transform:scale(.97); }
+#page-home .app-icon { width:42px; height:42px; border-radius:10px; box-shadow:inset 0 0 0 1px rgba(0,0,0,.03); }
+#page-home .app-icon.platform-icon { display:flex; align-items:center; justify-content:center; overflow:hidden; box-shadow:0 1px 3px rgba(30,35,45,.08); }
+#page-home .platform-icon > svg { display:block; width:100%; height:100%; filter:saturate(.5) brightness(1.04); opacity:1; }
+#page-home .platform-icon > img.user-svg-icon { display:block; width:40px; height:40px; object-fit:contain; filter:saturate(.5); opacity:1; }
+#page-home .platform-icon:has(> img.user-svg-icon) { background:transparent !important; background-image:none !important; filter:none !important; box-shadow:none; }
+#page-home .icon-label { width:100%; max-width:68px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#444; font-size:12px; line-height:17px; font-weight:500; text-align:center; }
+#page-home .rebate-rate { display:inline-block; max-width:100%; margin-top:0; padding:1px 4px; border-radius:4px; background:#fff0f5; color:#ff5570; font-size:10px; line-height:16px; font-weight:500; white-space:nowrap; }
+#page-home .picks-grid { gap:8px; }
+#page-home .pick-placeholder { height:148px; border-radius:10px; color:#999; font-size:12px; background:#e7e8eb !important; }
+#page-home .pick-placeholder:first-child { background:linear-gradient(145deg,#f0d4c5,#dfb4a1) !important; color:#8d5d4e; }
+#page-home .pick-placeholder:last-child { background:linear-gradient(145deg,#d7e1eb,#b6c8d8) !important; color:#5f7180; }
+#page-home .home-product-feed { display:flex; flex-direction:column; gap:8px; }
+#page-home .home-product-card { min-width:0; min-height:116px; display:flex; align-items:stretch; overflow:hidden; border-radius:11px; background:rgba(255,255,255,.9); border:1px solid rgba(255,255,255,.78); box-shadow:0 1px 4px rgba(45,52,70,.045); }
+#page-home .home-product-image { width:104px; height:104px; flex:0 0 104px; align-self:center; overflow:hidden; margin-left:6px; border-radius:10px; background:#f7f7f8; }
+#page-home .home-product-image img { display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
+#page-home .home-product-body { min-width:0; flex:1; display:flex; flex-direction:column; padding:9px 10px 8px; }
+#page-home .home-product-heading { display:none; }
+#page-home .home-product-source { display:inline-block; flex:none; max-width:42px; overflow:hidden; margin:0; color:#6f747d; font-size:10px; font-weight:500; line-height:14px; text-overflow:ellipsis; white-space:nowrap; }
+#page-home .home-product-name { display:-webkit-box; overflow:hidden; min-height:36px; color:#30333a; font-size:13px; font-weight:600; line-height:18px; -webkit-box-orient:vertical; -webkit-line-clamp:2; }
+#page-home .home-product-tags { display:flex; gap:4px; min-height:18px; margin-top:5px; overflow:hidden; }
+#page-home .home-product-tags span { flex:none; padding:1px 4px; border:1px solid rgba(255,105,91,.35); border-radius:4px; color:#ee7468; font-size:10px; line-height:14px; white-space:nowrap; }
+#page-home .home-product-bottom { display:flex; align-items:baseline; justify-content:flex-start; gap:4px; margin-top:auto; padding-top:5px; }
+#page-home .home-product-price { min-width:0; overflow:hidden; color:#f15d55; font-size:17px; font-weight:800; line-height:21px; text-overflow:ellipsis; white-space:nowrap; }
+#page-home .home-product-price small { margin-right:1px; font-size:10px; font-weight:700; }
+#page-home .home-product-action { display:none; }
+#page-home .home-product-meta { display:flex; align-items:center; min-width:0; margin-top:3px; color:#a1a5ad; font-size:10px; line-height:14px; }
+#page-home .home-product-meta span { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+#page-home .home-product-meta .home-product-channel { display:inline-flex; align-items:center; min-width:0; overflow:hidden; }
+#page-home .home-product-meta .home-product-channel .home-product-source { max-width:42px; }
+#page-home .home-product-original { display:inline-block; margin-left:6px; color:#aeb2b9; font-size:12px; font-weight:400; text-decoration:line-through; text-decoration-thickness:1px; text-decoration-color:#aeb2b9; }
+#page-home .page-placeholder { margin:8px; padding:50px 16px; border-radius:12px; background:#fff; }
+#page-home #panel-hot, #page-home #panel-waimai, #page-home #panel-dache, #page-home #panel-taobao, #page-home #panel-jd, #page-home #panel-douyin, #page-home #panel-vip { touch-action:pan-y; user-select:none; }
+
+/* iOS 风格悬浮底部导航 */
+.bottom-nav {
+  bottom:calc(10px + env(safe-area-inset-bottom));
+  width:calc(100% - 20px);
+  max-width:370px;
+  min-height:62px;
+  padding:7px 6px 8px;
+  border:1px solid rgba(255,255,255,.82);
+  border-radius:32px;
+  background:rgba(255,255,255,.82);
+  box-shadow:0 8px 24px rgba(45,52,70,.12), 0 1px 4px rgba(45,52,70,.06), inset 0 1px 0 rgba(255,255,255,.78);
+  -webkit-backdrop-filter:saturate(135%) blur(20px);
+  backdrop-filter:saturate(135%) blur(20px);
+}
+.nav-tab {
+  min-width:0;
+  gap:2px;
+  padding:3px 2px 2px;
+  border-radius:24px;
+  transition:color .2s ease, background-color .2s ease, transform .2s ease;
+}
+.nav-tab svg {
+  width:23px;
+  height:23px;
+  color:#97999d;
+  transition:color .2s ease, transform .2s ease;
+}
+.nav-tab span {
+  max-width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  color:#85878b;
+  font-size:11px;
+  line-height:16px;
+}
+.nav-tab.active {
+  background:rgba(248,249,251,.78);
+  box-shadow:inset 0 1px 2px rgba(255,255,255,.82);
+}
+.nav-tab.active svg { color:#6d7075; transform:scale(1.04); }
+.nav-tab.active span { color:#696b70; font-weight:600; }
+.nav-badge { top:-3px; }
+
+/* 外卖福利中心 */
+#page-home .waimai-page { padding:0 8px 12px; background:#f7f5f8; }
+#page-home .waimai-titlebar { display:flex; align-items:center; gap:8px; height:42px; padding:0 8px; color:#27252a; }
+#page-home .waimai-back { width:28px; height:28px; display:flex; align-items:center; justify-content:center; color:#444; }
+#page-home .waimai-back svg { width:21px; height:21px; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+#page-home .waimai-title { font-size:18px; font-weight:700; letter-spacing:.2px; }
+#page-home .waimai-section { margin-top:8px; padding:12px; border-radius:14px; background:#fff; box-shadow:0 1px 4px rgba(50,35,45,.04); }
+#page-home .waimai-section-head { display:flex; align-items:center; gap:7px; margin-bottom:10px; color:#403c40; }
+#page-home .waimai-section-head strong { font-size:16px; line-height:21px; }
+#page-home .waimai-section-head small { color:#999; font-size:12px; }
+#page-home .waimai-head-icon { width:17px; height:17px; display:inline-flex; align-items:center; justify-content:center; color:#ff5638; }
+#page-home .waimai-head-icon svg { width:17px; height:17px; fill:currentColor; }
+#page-home .waimai-red-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+#page-home .waimai-red-card { position:relative; min-height:154px; overflow:hidden; padding:9px 10px 11px; border-radius:13px; color:#fff; background:linear-gradient(155deg,#e97887 0%,#dc596b 62%,#df6d7a 100%); }
+#page-home .waimai-red-card::after { content:""; position:absolute; left:-12%; right:-12%; bottom:-28px; height:66px; border-radius:50%; background:rgba(147,49,64,.18); }
+#page-home .waimai-brand { position:relative; z-index:1; display:inline-flex; align-items:center; gap:4px; min-height:23px; padding:3px 8px 3px 4px; border-radius:0 0 9px 9px; background:#fff5d9; color:#e45b27; font-size:12px; font-weight:700; }
+#page-home .waimai-brand img { width:18px; height:18px; object-fit:contain; filter:saturate(.5); }
+#page-home .waimai-red-copy { position:relative; z-index:1; margin-top:8px; padding-bottom:40px; }
+#page-home .waimai-red-copy .label { display:block; font-size:11px; opacity:.92; }
+#page-home .waimai-red-copy b { display:block; margin-top:1px; font-size:34px; line-height:38px; letter-spacing:-1px; }
+#page-home .waimai-red-copy b small { margin-right:2px; font-size:17px; letter-spacing:0; }
+#page-home .waimai-red-copy p { margin-top:1px; font-size:11px; }
+#page-home .waimai-claim { position:absolute; z-index:2; left:50%; bottom:10px; transform:translateX(-50%); width:78%; height:36px; padding:0 6px; border:0; border-radius:18px; background:linear-gradient(180deg,#fffdf0 0%,#ffe8a2 100%); color:#8a4b28; font-size:14px; font-weight:600; line-height:36px; text-align:center; box-shadow:0 2px 5px rgba(146,72,26,.12); appearance:none; }
+#page-home .waimai-today-grid { display:grid; grid-template-columns:1fr 1fr; gap:9px; }
+#page-home .waimai-feature { position:relative; min-height:174px; overflow:hidden; padding:12px; border-radius:12px; background:linear-gradient(145deg,#f2dfd0,#e9c7ad); color:#3d3030; }
+#page-home .waimai-feature::after { content:"饮品特惠"; position:absolute; right:8px; bottom:13px; color:rgba(255,125,69,.24); font-size:22px; font-weight:800; transform:rotate(-12deg); }
+#page-home .waimai-feature .waimai-brand { background:#fff4df; color:#c86d3c; }
+#page-home .waimai-feature strong { display:block; margin-top:11px; color:#f04a48; font-size:21px; line-height:24px; }
+#page-home .waimai-feature p { margin-top:3px; font-size:12px; color:#765c4e; }
+#page-home .waimai-feature-button { position:absolute; left:12px; bottom:12px; padding:6px 15px; border-radius:17px; background:rgba(255,255,255,.92); color:#f27b54; font-size:13px; font-weight:500; line-height:18px; box-shadow:0 1px 3px rgba(192,107,60,.08); }
+#page-home .waimai-side-grid { display:grid; gap:9px; }
+#page-home .waimai-side-card { position:relative; min-height:82px; overflow:hidden; padding:10px 11px; border-radius:12px; }
+#page-home .waimai-side-card.green { background:linear-gradient(135deg,#dce9c9,#c7dbad); color:#587047; }
+#page-home .waimai-side-card.yellow { background:linear-gradient(135deg,#f3edc8,#e8d995); color:#77663d; }
+#page-home .waimai-side-card .waimai-brand { padding:0; background:transparent; color:inherit; }
+#page-home .waimai-side-card strong { display:block; margin-top:5px; font-size:16px; line-height:20px; }
+#page-home .waimai-side-card .side-button { display:inline-block; margin-top:5px; padding:3px 10px; border-radius:13px; background:rgba(255,255,255,.78); font-size:11px; font-weight:500; line-height:15px; box-shadow:0 1px 2px rgba(74,102,32,.06); }
+#page-home .waimai-list { display:grid; gap:9px; }
+#page-home .waimai-list-card { min-height:72px; display:flex; align-items:center; gap:10px; overflow:hidden; padding:9px; border-radius:11px; background:#f4e6ed; }
+#page-home .waimai-list-card:nth-child(2) { background:#f3e7e9; }
+#page-home .waimai-list-card:nth-child(3) { background:#f2e5e7; }
+#page-home .waimai-list-art { width:74px; height:54px; flex:0 0 74px; display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:9px; color:#f26b75; font-size:25px; font-weight:800; }
+#page-home .waimai-list-art img { width:44px; height:44px; object-fit:contain; filter:saturate(.5); }
+#page-home .waimai-list-copy { min-width:0; flex:1; }
+#page-home .waimai-list-copy .source { display:block; color:#9e9299; font-size:11px; line-height:16px; font-weight:400; }
+#page-home .waimai-list-copy strong { display:block; margin-top:3px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#373238; font-size:14px; line-height:20px; font-weight:600; letter-spacing:0; }
+#page-home .waimai-list-button { flex:0 0 auto; min-width:66px; height:34px; padding:0 12px; border:0; border-radius:17px; background:#ff4d8a; color:#fff; font-size:12px; font-weight:600; line-height:34px; text-align:center; white-space:nowrap; box-shadow:0 2px 5px rgba(233,52,119,.16); appearance:none; }
+#page-home .waimai-list-button:active { transform:translateY(1px); box-shadow:0 1px 2px rgba(120,50,40,.12); }
+#page-home .waimai-claim:active { transform:translate(-50%,1px); box-shadow:0 1px 2px rgba(120,50,40,.12); }
+
+/* 柚子街商城页 */
+#page-haojia { --mall-card-radius:12px; --mall-image-radius:10px; --mall-gap:9px; --mall-shadow:0 1px 4px rgba(44,38,51,.045); background:#f5f4f8; }
+#page-haojia > .content { padding:0 0 88px; overflow-y:auto; }
+body.mall-active > .search-bar { padding:10px 14px 9px; }
+body.mall-active > .search-bar .search-inner { height:42px; padding:2px 4px 2px 12px; border:1px solid #ff5a1f; border-radius:15px; gap:8px; background:#fff; box-shadow:0 1px 3px rgba(255,90,31,.08); }
+body.mall-active > .search-bar .search-inner > svg:first-child { width:18px; height:18px; flex:none; color:#ff5a1f; stroke:#ff5a1f; }
+body.mall-active > .search-bar .search-inner input { min-width:0; height:32px; color:#333; font-size:14px; line-height:32px; }
+body.mall-active > .search-bar .search-inner input::placeholder { color:#65616a; opacity:1; }
+body.mall-active > .search-bar .search-camera { width:19px; height:19px; flex:none; color:#aeb8c3; }
+body.mall-active > .search-bar .search-btn { height:36px; padding:0 17px; border-radius:11px; background:#ff5a1f; font-size:14px; font-weight:600; line-height:36px; }
+body.mall-active > .search-bar {
+  position:sticky;
+  top:0;
+  z-index:112;
+}
+body.mall-active.mall-scroll-active > .search-bar {
+  position:fixed;
+  top:30px;
+  left:50%;
+  z-index:112;
+  width:min(390px,100%);
+  transform:translateX(-50%);
+  padding:4px 14px 5px;
+  background:rgba(255,255,255,.92);
+  border-bottom:1px solid rgba(205,211,222,.55);
+  -webkit-backdrop-filter:saturate(140%) blur(16px);
+  backdrop-filter:saturate(140%) blur(16px);
+}
+body.mall-active.mall-scroll-active > .search-bar .search-inner {
+  height:36px;
+  min-height:36px;
+  padding:2px 3px 2px 10px;
+  gap:6px;
+}
+body.mall-active.mall-scroll-active > .search-bar .search-inner > svg:first-child {
+  width:16px;
+  height:16px;
+}
+body.mall-active.mall-scroll-active > .search-bar .search-inner input {
+  height:28px;
+  font-size:12px;
+  line-height:28px;
+}
+body.mall-active.mall-scroll-active > .search-bar .search-btn {
+  height:30px;
+  line-height:30px;
+  padding-left:13px;
+  padding-right:13px;
+  border-radius:10px;
+  font-size:12px;
+}
+
+.mall-page { min-height:100vh; padding:0 10px 20px; }
+.mall-header { display:flex; align-items:center; gap:9px; padding:10px 4px 8px; }
+.mall-sign { position:relative; width:34px; height:34px; flex:none; display:flex; align-items:center; justify-content:center; border-radius:10px; background:#fff; color:#444; font-size:18px; font-weight:700; box-shadow:0 1px 3px rgba(45,40,55,.06); }
+.mall-sign::before { content:""; position:absolute; top:-2px; right:-1px; width:10px; height:10px; border-radius:50%; background:#ff6073; }
+.mall-search { min-width:0; height:42px; flex:1; display:flex; align-items:center; gap:8px; padding:0 13px; border-radius:22px; background:#e8e7eb; color:#999; }
+.mall-search svg { width:18px; height:18px; flex:none; }
+.mall-search span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:15px; }
+.mall-more { width:34px; flex:none; text-align:center; color:#333; font-size:21px; letter-spacing:2px; line-height:30px; }
+.mall-categories {
+  position:relative;
+  z-index:2;
+  display:flex;
+  gap:23px;
+  overflow-x:auto;
+  margin-top:8px;
+  padding:2px 4px 10px;
+  background:transparent;
+  scrollbar-width:none;
+  transition:background-color .2s ease, padding .2s ease, box-shadow .2s ease;
+}
+
+body.mall-active.mall-scroll-active .mall-categories {
+  -webkit-backdrop-filter:saturate(135%) blur(14px);
+  backdrop-filter:saturate(135%) blur(14px);
+  position:fixed;
+  top:75px;
+  left:50%;
+  z-index:110;
+  width:min(390px,100%);
+  margin:0;
+  padding:2px 14px 10px;
+  transform:translateX(-50%);
+  background:rgba(245,244,248,.96);
+}
+.mall-categories::-webkit-scrollbar { display:none; }
+.mall-category { position:relative; flex:none; padding:0 1px 8px; color:#666; font-size:15px; line-height:20px; white-space:nowrap; }
+.mall-category.active { color:#ff536f; font-weight:700; }
+.mall-category.active::after { content:""; position:absolute; left:50%; bottom:0; width:30px; height:3px; border-radius:3px; background:#ff536f; transform:translateX(-50%); }
+.mall-promo-grid { display:block; }
+.mall-promo { height:150px; overflow:hidden; padding:9px 12px 7px; border-radius:var(--mall-card-radius); background:#fff; box-shadow:var(--mall-shadow); }
+.mall-promo-head { display:flex; align-items:baseline; gap:5px; min-height:25px; color:#28242a; font-size:18px; font-weight:800; line-height:25px; white-space:nowrap; }
+.mall-promo-head em { overflow:hidden; text-overflow:ellipsis; color:#ff5f5f; font-size:12px; font-style:normal; font-weight:700; }
+.mall-promo-products { display:flex; gap:7px; margin-top:6px; overflow:hidden; }
+.mall-promo-product { min-width:0; flex:0 0 calc((100% - 28px) / 4.5); display:flex; flex-direction:column; align-items:flex-start; overflow:visible; }
+.mall-promo-product-image { position:relative; width:100%; height:68px; flex:none; display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:var(--mall-image-radius); background:#fafafa; }
+.mall-promo-product-image img { display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
+.mall-promo-product-info { position:relative; z-index:2; display:flex; align-items:center; gap:2px; min-width:0; width:100%; height:25px; flex:none; margin-top:6px; overflow:visible; white-space:nowrap; }
+.mall-promo-price { display:block; flex:0 1 auto; min-width:0; overflow:visible; color:#ff5363; font-size:13px; font-weight:800; line-height:21px; white-space:nowrap; }
+.mall-promo-label { flex:none; padding:1px 3px; border-radius:4px; background:#fff0ee; color:#ff5363; font-size:10px; line-height:16px; }
+.mall-promo-subsidy { position:absolute; left:2px; right:2px; bottom:2px; z-index:1; overflow:hidden; padding:2px 3px; border-radius:4px; background:rgba(255,91,73,.92); color:#fff; font-size:10px; line-height:16px; text-align:center; text-overflow:ellipsis; white-space:nowrap; }
+.mall-quick-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--mall-gap); margin-top:10px; }
+.mall-quick { min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; min-height:108px; padding:9px 3px 8px; border-radius:var(--mall-card-radius); background:#fff; box-shadow:var(--mall-shadow); }
+.mall-quick-icon { width:46px; height:46px; display:flex; align-items:center; justify-content:center; border-radius:var(--mall-image-radius); color:#ef625f; }
+.mall-quick-icon svg { width:29px; height:29px; display:block; }
+.mall-quick:nth-child(1) .mall-quick-icon { background:#fff1f0; }
+.mall-quick:nth-child(2) .mall-quick-icon { background:#fff0d9; }
+.mall-quick:nth-child(3) .mall-quick-icon { background:#fff0e2; }
+.mall-quick:nth-child(4) .mall-quick-icon { background:#e8f6ed; }
+.mall-quick strong { margin-top:6px; color:#363238; font-size:13px; font-weight:700; line-height:18px; white-space:nowrap; }
+.mall-quick small { margin-top:2px; color:#ff9868; font-size:11px; line-height:15px; white-space:nowrap; }
+.mall-feed { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--mall-gap); margin-top:10px; }
+.mall-product { min-width:0; overflow:hidden; border-radius:var(--mall-card-radius); background:#fff; box-shadow:var(--mall-shadow); }
+.mall-product-image { width:100%; aspect-ratio:1 / 1; min-height:0; margin:0; padding:0; display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:var(--mall-card-radius) var(--mall-card-radius) 0 0; background:#fafafa; }
+.mall-product-image img { display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
+.mall-product-body { min-width:0; padding:9px 10px 11px; }
+.mall-product-source { display:inline-block; margin-bottom:5px; padding:2px 5px; border-radius:4px; background:#f1f1f1; color:#999; font-size:10px; }
+.mall-product-name { display:-webkit-box; overflow:hidden; -webkit-box-orient:vertical; -webkit-line-clamp:2; min-height:38px; color:#333; font-size:13px; line-height:19px; font-weight:400; }
+.mall-product-tags { display:flex; gap:4px; margin-top:6px; }
+.mall-product-tags span { padding:2px 4px; border:1px solid #ffb0aa; border-radius:4px; color:#ff6b67; font-size:10px; white-space:nowrap; }
+.mall-product-price { margin-top:7px; color:#ff5363; font-size:18px; font-weight:800; }
+.mall-product-price small { margin-right:1px; font-size:11px; }
+.mall-product-meta { display:flex; justify-content:space-between; margin-top:3px; color:#aaa; font-size:10px; }
+
+/* 全局 iOS 风格毛玻璃材质：保留内容清晰度，只处理承载内容的表面 */
+:root {
+  --glass-white: rgba(255,255,255,.78);
+  --glass-soft: rgba(255,255,255,.62);
+  --glass-border: rgba(255,255,255,.72);
+  --glass-shadow: 0 8px 22px rgba(45,52,70,.07), inset 0 1px 0 rgba(255,255,255,.62);
+}
+
+body { background:#edf0f5; }
+.status-bar,
+.header,
+.search-bar,
+.bottom-nav {
+  background:rgba(255,255,255,.76);
+  border-color:rgba(205,211,222,.55);
+  -webkit-backdrop-filter:saturate(140%) blur(18px);
+  backdrop-filter:saturate(140%) blur(18px);
+}
+.status-bar { position:relative; z-index:101; }
+.header { border-bottom:1px solid rgba(215,219,228,.45); }
+.search-bar { border-bottom:1px solid rgba(215,219,228,.4); }
+/* 首页顶部信息区与搜索区连续衔接，不额外显示分隔线 */
+body:not(.life-active):not(.mall-active) > .header { border-bottom:0; }
+.bottom-nav {
+  border-top:1px solid rgba(205,211,222,.65);
+  box-shadow:0 -8px 24px rgba(45,52,70,.08);
+}
+
+#page-home,
+#page-life,
+#page-haojia { background:transparent; }
+#page-home > .content,
+#page-life > .content,
+#page-haojia > .content { background:transparent; }
+
+#page-home .quick-nav,
+#page-home .section-card,
+#page-home .alert-banner,
+#page-home .waimai-section,
+#page-home .waimai-list-card,
+.life-top,
+.life-tags,
+.life-filters,
+.life-help,
+.life-card,
+.mall-promo,
+.mall-quick,
+.mall-product {
+  background:var(--glass-white);
+  border:1px solid var(--glass-border);
+  box-shadow:var(--glass-shadow);
+  -webkit-backdrop-filter:saturate(135%) blur(16px);
+  backdrop-filter:saturate(135%) blur(16px);
+}
+
+#page-home .quick-nav,
+#page-home .section-card,
+#page-home .waimai-section,
+.mall-promo,
+.mall-quick,
+.mall-product { border-radius:14px; }
+
+#page-home .alert-banner,
+.life-help,
+.life-card { border-radius:12px; }
+
+.search-inner,
+.life-search,
+.life-filter,
+.mall-quick-icon,
+.mall-product-source,
+.mall-product-tags span {
+  border:1px solid rgba(255,255,255,.7);
+  -webkit-backdrop-filter:saturate(130%) blur(12px);
+  backdrop-filter:saturate(130%) blur(12px);
+}
+
+body.mall-active > .search-bar .search-inner {
+  background:rgba(255,255,255,.84);
+  -webkit-backdrop-filter:saturate(140%) blur(16px);
+  backdrop-filter:saturate(140%) blur(16px);
+}
+
+.life-top { background:rgba(255,255,255,.72); }
+.life-tags,
+.life-filters { background:rgba(255,255,255,.68); }
+.life-card-image,
+.mall-product-image,
+.mall-promo-product { background:rgba(248,249,252,.82); }
+
+
+@supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))) {
+  .status-bar,
+  .header,
+  .search-bar,
+  .bottom-nav,
+  #page-home .quick-nav,
+  #page-home .section-card,
+  #page-home .alert-banner,
+  #page-home .waimai-section,
+  #page-home .waimai-list-card,
+  .life-top,
+  .life-tags,
+  .life-filters,
+  .life-help,
+  .life-card,
+  .mall-promo,
+  .mall-quick,
+  .mall-product { background:#fff; }
+}
+
+/* 收紧生活服务筛选栏与优惠券模块的衔接间距 */
+#page-life .life-filters {
+  padding-bottom: 2px;
+}
+
+#page-life .life-coupon {
+  margin-top: 8px;
+}
+
+/* 生活服务：状态栏与定位搜索行始终作为一个整体吸顶 */
+body.life-active > .status-bar {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 113;
+  width: min(390px, 100%);
+  transform: translateX(-50%);
+}
+
+body.life-active #page-life > .content {
+  padding-top: 0 !important;
+}
+
+body.life-active #page-life .life-new,
+body.life-active.life-scroll-active #page-life .life-new {
+  padding-top: 92px !important;
+}
+
+body.life-active.life-scroll-active #page-life .life-new {
+  padding-top: 84px !important;
+}
+
+body.life-active.life-scroll-active #page-life .life-new {
+  padding-top: 84px !important;
+}
+
+body.life-active #page-life .life-top,
+body.life-active.life-scroll-active #page-life .life-top {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  z-index: 112;
+  width: min(390px, 100%);
+  transform: translateX(-50%);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: rgba(255,255,255,.94);
+  border-bottom: 1px solid rgba(215,219,228,.45);
+  box-shadow: 0 1px 5px rgba(45,52,70,.08);
+  -webkit-backdrop-filter: saturate(140%) blur(18px);
+  backdrop-filter: saturate(140%) blur(18px);
+  transition: padding .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+
+body.life-active #page-life .life-new,
+body.life-active.life-scroll-active #page-life .life-new {
+  padding-top: 92px !important;
+}
+
+/* 首页上滑后的紧凑顶部：搜索框接替已省信息的位置 */
+body.home-scroll-active > .status-bar {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 110;
+  width: min(390px, 100%);
+  transform: translateX(-50%);
+  min-height: 30px;
+  background: #fff;
+}
+
+body.home-scroll-active > .header {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  z-index: 108;
+  width: min(390px, 100%);
+  transform: translateX(-50%);
+  min-height: 47px;
+  background: #fff;
+  box-shadow: none;
+}
+
+body.home-scroll-active > .header .header-icons {
+  position: absolute;
+  top: 7px;
+  right: 18px;
+  height: 32px;
+  align-items: center;
+}
+
+body.home-scroll-active > .header .savings {
+  visibility: hidden;
+}
+
+body.home-scroll-active > .search-bar {
+  position: fixed;
+  top: 37px;
+  left: calc(50% - 195px + 22px);
+  z-index: 109;
+  right: calc(50% - 195px + 88px);
+  width: auto;
+  max-width: none;
+  height: 34px;
+  padding: 0 !important;
+  background: transparent;
+  border: 0;
+  pointer-events: none;
+}
+
+body.home-scroll-active:not(.life-active):not(.mall-active) > .search-bar .search-inner {
+  height: 34px;
+  min-height: 34px;
+  padding: 0 4px 0 10px;
+  gap: 6px;
+  border: 1px solid #ff5a1f;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(255,90,31,.08);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+body.home-scroll-active:not(.life-active):not(.mall-active) > .search-bar .search-inner input {
+  height: 32px;
+  min-width: 0;
+  font-size: 12px;
+  color: #555;
+  line-height: 32px;
+}
+
+body.home-scroll-active:not(.life-active):not(.mall-active) > .search-bar .search-camera {
+  display: none;
+}
+
+body.home-scroll-active:not(.life-active):not(.mall-active) > .search-bar .search-btn {
+  display: block;
+  flex: 0 0 auto;
+  height: 30px;
+  min-width: 48px;
+  padding: 0 10px;
+  border-radius: 11px;
+  background: #ff6b81;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 30px;
+}
+
+body.home-scroll-active:not(.life-active):not(.mall-active) > .search-bar .search-inner > svg:first-child {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  color: #ff5a1f;
+  stroke: #ff5a1f;
+}
+
+/* 搜索框统一为参考稿的白底橙色描边样式 */
+body:not(.life-active):not(.mall-active) > .search-bar .search-inner {
+  height: 42px;
+  min-height: 42px;
+  padding: 2px 4px 2px 12px;
+  gap: 8px;
+  border: 1px solid #ff5a1f;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(255,90,31,.08);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+body:not(.life-active):not(.mall-active) > .search-bar .search-inner > svg:first-child {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  color: #ff5a1f;
+  stroke: #ff5a1f;
+}
+
+body:not(.life-active):not(.mall-active) > .search-bar .search-inner input {
+  min-width: 0;
+  height: 32px;
+  color: #333;
+  font-size: 14px;
+  line-height: 32px;
+}
+
+body:not(.life-active):not(.mall-active) > .search-bar .search-btn {
+  height: 36px;
+  padding: 0 17px;
+  border-radius: 11px;
+  background: #ff5a1f;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 36px;
+}
+
+#page-life .life-search {
+  height: 42px;
+  padding: 2px 4px 2px 12px;
+  gap: 8px;
+  border: 1px solid #ff5a1f;
+  border-radius: 15px;
+  background: #fff;
+  color: #333;
+  box-shadow: 0 1px 3px rgba(255,90,31,.08);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+#page-life .life-search > svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  color: #ff5a1f;
+  stroke: #ff5a1f;
+}
+
+#page-life .life-search button {
+  width: 62px;
+  height: 36px;
+  padding: 0;
+  border-radius: 11px;
+  background: #ff5a1f;
+  font-size: 14px;
+  line-height: 36px;
+}
+
+/* 生活服务顶部整体吸顶：状态栏与定位/搜索行始终连续固定 */
+body.life-active > .status-bar {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 113;
+  width: min(390px, 100%);
+  transform: translateX(-50%);
+  background: #fff;
+}
+
+body.life-active #page-life > .content {
+  padding-top: 92px;
+}
+
+body.life-active .life-top,
+body.life-active.life-scroll-active .life-top {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  width: min(390px, 100%);
+  transform: translateX(-50%);
+  z-index: 112;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: rgba(255,255,255,.94);
+  border-bottom: 1px solid rgba(215,219,228,.45);
+  box-shadow: 0 1px 5px rgba(45,52,70,.08);
+  -webkit-backdrop-filter: saturate(140%) blur(18px);
+  backdrop-filter: saturate(140%) blur(18px);
+}
+
+body.life-active.life-scroll-active #page-life .life-search {
+  height: 34px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 10px;
+  gap: 6px;
+  border-radius: 13px;
+  font-size: 12px;
+}
+
+body.life-active.life-scroll-active .life-location {
+  gap: 3px;
+  font-size: 12px;
+}
+
+body.life-active.life-scroll-active .life-location > svg {
+  width: 15px;
+  height: 15px;
+}
+
+body.life-active.life-scroll-active .life-location-chevron {
+  width: 10px;
+  height: 14px;
+}
+
+body.life-active.life-scroll-active .life-location-chevron svg {
+  width: 10px;
+  height: 10px;
+}
+
+body.life-active.life-scroll-active #page-life .life-search > svg {
+  width: 15px;
+  height: 15px;
+}
+
+body.life-active.life-scroll-active #page-life .life-search {
+  font-size: 12px;
+}
+
+body.life-active.life-scroll-active #page-life .life-search button {
+  width: 52px;
+  height: 28px;
+  border-radius: 10px;
+  line-height: 28px;
+  font-size: 12px;
+}
+
+body.home-scroll-active:not(.life-active):not(.mall-active) > .search-bar .search-inner input {
+  height: 30px;
+  line-height: 30px;
+}
+
+body.home-scroll-active:not(.life-active):not(.mall-active) > .search-bar .search-inner > svg:first-child {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  color: #ff5a1f;
+  stroke: #ff5a1f;
+}
+
+body.home-scroll-active:not(.life-active):not(.mall-active) > .search-bar .search-btn {
+  height: 30px;
+  min-width: 48px;
+  padding: 0 10px;
+  border-radius: 11px;
+  background: #ff5a1f;
+  font-size: 12px;
+  line-height: 30px;
+}
+
+/* 生活服务上滑紧凑态：顶部行本身同步收高 */
+body.life-active #page-life .life-top {
+  height: 62px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+body.life-active.life-scroll-active #page-life .life-top {
+  height: 48px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+body.life-active.life-scroll-active #page-life .life-location {
+  font-size: 11px;
+}
+
+body.life-active.life-scroll-active #page-life .life-location > svg {
+  width: 13px;
+  height: 13px;
+}
+
+body.life-active.life-scroll-active #page-life .life-search {
+  height: 34px;
+  font-size: 11px;
+}
+
+body.life-active.life-scroll-active #page-life .life-search button {
+  width: 50px;
+  height: 26px;
+  font-size: 11px;
+  line-height: 26px;
+}
+
+/* 柚子街上滑紧凑态：搜索栏整体收紧 */
+body.mall-active > .search-bar,
+body.mall-active > .search-bar .search-inner,
+body.mall-active > .search-bar .search-btn,
+body.mall-active > .search-bar .search-inner > svg:first-child,
+body.mall-active > .search-bar .search-inner input,
+body.mall-active > .search-bar .search-camera {
+  transition:all .2s ease;
+}
+
+body.mall-active.mall-scroll-active > .search-bar {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  z-index: 112;
+  width: min(390px, 100%);
+  height: 45px;
+  padding: 4px 14px 5px;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,.94);
+  border-bottom: 1px solid rgba(205,211,222,.55);
+  box-sizing: border-box;
+  -webkit-backdrop-filter: saturate(140%) blur(16px);
+  backdrop-filter: saturate(140%) blur(16px);
+}
+
+body.mall-active.mall-scroll-active > .search-bar .search-inner {
+  height: 36px;
+  min-height: 36px;
+  padding: 2px 3px 2px 10px;
+  gap: 6px;
+  border-radius: 12px;
+}
+
+body.mall-active.mall-scroll-active > .search-bar .search-inner > svg:first-child {
+  width: 16px;
+  height: 16px;
+}
+
+body.mall-active.mall-scroll-active > .search-bar .search-inner input {
+  height: 28px;
+  font-size: 12px;
+  line-height: 28px;
+}
+
+body.mall-active.mall-scroll-active > .search-bar .search-camera {
+  width: 16px;
+  height: 16px;
+}
+
+body.mall-active.mall-scroll-active > .search-bar .search-btn {
+  width: 52px;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 30px;
+}
+
+/* 柚子街：状态栏与搜索栏连续吸顶，顶部不留空白 */
+body.mall-active > .status-bar {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 113;
+  width: min(390px, 100%);
+  transform: translateX(-50%);
+  background: rgba(255,255,255,.96);
+  border-bottom: 0;
+  -webkit-backdrop-filter: saturate(140%) blur(18px);
+  backdrop-filter: saturate(140%) blur(18px);
+}
+
+body.mall-active > .search-bar,
+body.mall-active.mall-scroll-active > .search-bar {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  z-index: 112;
+  width: min(390px, 100%);
+  height: 64px;
+  padding: 8px 14px 14px;
+  margin: 0;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  border-bottom: 0;
+}
+
+body.mall-active > #page-haojia > .content {
+  padding-top: 96px !important;
+}
+
+body.mall-active:not(.mall-scroll-active) > .search-bar {
+  height: 64px;
+  padding: 8px 14px 14px;
+}
+
+body.mall-active.mall-scroll-active > #page-haojia > .content {
+  padding-top: 82px !important;
+}
+
+body.mall-active.mall-scroll-active > .search-bar {
+  height: 45px;
+  padding: 4px 14px 5px;
+}
+</style>
+</head>
+<body>
+
+<div class="status-bar">
+  <span>9:41</span>
+  <div class="status-icons">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><rect x="2" y="10" width="3" height="10" rx="1"/><rect x="7" y="7" width="3" height="13" rx="1"/><rect x="12" y="4" width="3" height="16" rx="1"/><rect x="17" y="1" width="3" height="19" rx="1"/></svg>
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>
+    <svg viewBox="0 0 24 24" width="20" height="16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="6" width="18" height="12" rx="2"/><rect x="3" y="8" width="13" height="8" rx="1" fill="currentColor" stroke="none"/><path d="M21 10v4a2 2 0 000-4z" fill="currentColor" stroke="none"/></svg>
+  </div>
+</div>
+
+<div class="header">
+  <div class="savings">已省: <strong>8762.52元</strong> &gt;</div>
+  <div class="header-icons">
+    <div class="header-action">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-label="订单"><path d="M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M8 7h8M8 11h8M8 15h5"/><path d="m8 18 1.5 1.5L12 17"/></svg>
+    </div>
+    <div class="header-action">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-label="消息"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </div>
+  </div>
+</div>
+
+<div class="search-bar">
+  <div class="search-inner">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#aaa" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" placeholder="搜全网商品，查隐藏优惠" readonly>
+    <svg class="search-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-label="拍照搜索"><path d="M4 7h3l1.5-2h7L17 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z"/><circle cx="12" cy="13" r="3.5"/></svg>
+    <button class="search-btn">搜索</button>
+  </div>
+</div>
+
+<!-- 底部导航对应的页面内容 -->
+<div id="page-home" class="tab-page active">
+<div class="content">
+
+<div class="quick-nav">
+  <div class="quick-nav-grid">
+    <div class="nav-item">
+      <div class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-label="我的红包"><path d="M5 5.5 12 3l7 2.5v13A2.5 2.5 0 0 1 16.5 21h-9A2.5 2.5 0 0 1 5 18.5v-13Z"/><path d="M5 9h14M12 3v6M9.5 6.2c0-1 .8-1.8 1.8-1.8.3 0 .5.1.7.2.2-.1.4-.2.7-.2 1 0 1.8.8 1.8 1.8 0 1.2-1.5 1.8-2.5 2-1-.2-2.5-.8-2.5-2Z"/><path d="M12 12.2v4.2M10.5 13.2c.4-.7 1-.9 1.5-.9.8 0 1.5.5 1.5 1.2s-.7 1.2-1.5 1.2-1.5.5-1.5 1.2.7 1.2 1.5 1.2c.6 0 1.2-.3 1.5-.9"/></svg>
+        <span class="badge">3</span>
+      </div>
+      <span class="nav-label">我的红包</span>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <span class="nav-label">商品收藏</span>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+      </div>
+      <span class="nav-label">购物车返现</span>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h13A2.5 2.5 0 0 1 21 7.5v9a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 16.5z"/><path d="M3 8h14.5A2.5 2.5 0 0 1 20 10.5V16h-5a3 3 0 0 1 0-6h6M15 13h.01"/></svg>
+      </div>
+      <span class="nav-label">领现金</span>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-label="省钱秘籍"><path d="M9 18h6M10 21h4"/><path d="M8.3 14.5A7 7 0 1 1 15.7 14.5c-.9.7-1.5 1.5-1.7 2.5h-4c-.2-1-.8-1.8-1.7-2.5Z"/><path d="M12 5v3M5.6 8.2l2.1 1.2M18.4 8.2l-2.1 1.2M12 11.5l1.2 1.2 2.3-2.4"/></svg>
+      </div>
+      <span class="nav-label">省钱秘籍</span>
+    </div>
+  </div>
+</div>
+
+<div class="alert-banner">
+  <span class="alert-text"><span class="alert-icon alert-coupon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v2a2 2 0 0 0 0 4v2a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 4 14.5v-2a2 2 0 0 0 0-4v-2Z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></span>有3个红包即将过期，去查看 &gt;</span>
+  <span class="alert-time">23:45 后过期</span>
+</div>
+
+<div class="category-tabs">
+  <div class="tabs-row" id="categoryTabs">
+    <span class="tab active" data-panel="panel-hot">热门</span>
+    <span class="tab" data-panel="panel-waimai">外卖</span>
+    <span class="tab" data-panel="panel-dache">打车</span>
+    <span class="tab" data-panel="panel-taobao">淘宝</span>
+    <span class="tab" data-panel="panel-jd">京东</span>
+    <span class="tab" data-panel="panel-douyin">抖音</span>
+    <span class="tab" data-panel="panel-vip">唯品会</span>
+  </div>
+</div>
+
+<div id="panel-hot" class="tab-page active">
+  <div class="section-card platform-entry-card">
+    <div class="icon-grid">
+      <div class="icon-item"><div class="app-icon platform-icon"><img class="user-svg-icon" src="taobao.svg" alt="淘宝领福利"></div><span class="icon-label">淘宝领福利</span></div>
+      <div class="icon-item"><div class="app-icon platform-icon"><img class="user-svg-icon" src="jd.svg" alt="京东隐藏券"></div><span class="icon-label">京东隐藏券</span></div>
+      <div class="icon-item"><div class="app-icon platform-icon"><img class="user-svg-icon" src="douyin.svg" alt="抖音试用"></div><span class="icon-label">抖音试用</span></div>
+      <div class="icon-item"><div class="app-icon platform-icon"><img class="user-svg-icon" src="vip.svg" alt="唯品会"></div><span class="icon-label">唯品会</span></div>
+      <div class="icon-item"><div class="app-icon platform-icon"><img class="user-svg-icon" src="pinduoduo.svg" alt="拼多多补贴"></div><span class="icon-label">拼多多补贴</span></div>
+    </div>
+    <div class="icon-grid platform-entry-grid-second-row">
+      <div class="icon-item"><div class="app-icon platform-icon"><img class="user-svg-icon" src="taobao-shanggou.svg" alt="闪购隐藏券"></div><span class="icon-label">闪购隐藏券</span></div>
+      <div class="icon-item"><div class="app-icon platform-icon"><img class="user-svg-icon" src="meituan-waimai.svg" alt="抢大额神券"></div><span class="icon-label">抢大额神券</span></div>
+      <div class="icon-item"><div class="app-icon platform-icon"><img class="user-svg-icon" src="jd-waimai.svg" alt="天天餐补"></div><span class="icon-label">天天餐补</span></div>
+      <div class="icon-item"><div class="app-icon platform-icon"><img class="user-svg-icon" src="didi.svg" alt="打车特惠券"></div><span class="icon-label">打车特惠券</span></div>
+      <div class="icon-item"><div class="app-icon platform-icon"><img class="user-svg-icon" src="gaode-dache.svg" alt="高德打车"></div><span class="icon-label">高德打车</span></div>
+    </div>
+  </div>
+  <div class="section-card">
+    <div class="section-title">今日值得买</div>
+    <div class="home-product-feed">
+      <article class="home-product-card">
+        <div class="home-product-image"><img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="维生素营养片"></div>
+        <div class="home-product-body">
+          <div class="home-product-name">复合维生素营养片，日常轻松补充多种营养</div>
+          <div class="home-product-tags"><span>满30-5元</span><span>补贴0.7元</span></div>
+          <div class="home-product-bottom"><div class="home-product-price"><small>到手¥</small>16.8 <span class="home-product-original">¥29.9</span></div></div>
+          <div class="home-product-meta"><span class="home-product-channel"><span class="home-product-source">天猫</span></span></div>
+        </div>
+      </article>
+      <article class="home-product-card">
+        <div class="home-product-image"><img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="轻薄防晒衣"></div>
+        <div class="home-product-body">
+          <div class="home-product-name">夏季轻薄防晒衣，透气舒适日常通勤可穿</div>
+          <div class="home-product-tags"><span>满60-8元</span><span>补贴1.6元</span></div>
+          <div class="home-product-bottom"><div class="home-product-price"><small>到手¥</small>39.9 <span class="home-product-original">¥79</span></div></div>
+          <div class="home-product-meta"><span class="home-product-channel"><span class="home-product-source">淘宝</span></span></div>
+        </div>
+      </article>
+      <article class="home-product-card">
+        <div class="home-product-image"><img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="护肤洁面套装"></div>
+        <div class="home-product-body">
+          <div class="home-product-name">温和洁面护肤套装，清爽不紧绷适合日常使用</div>
+          <div class="home-product-tags"><span>满80-10元</span><span>补贴2元</span></div>
+          <div class="home-product-bottom"><div class="home-product-price"><small>到手¥</small>49 <span class="home-product-original">¥89</span></div></div>
+          <div class="home-product-meta"><span class="home-product-channel"><span class="home-product-source">京东</span></span></div>
+        </div>
+      </article>
+      <article class="home-product-card">
+        <div class="home-product-image"><img src="https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="家居收纳用品"></div>
+        <div class="home-product-body">
+          <div class="home-product-name">桌面收纳盒组合，简洁好用让小空间更整齐</div>
+          <div class="home-product-tags"><span>满20-3元</span><span>补贴0.5元</span></div>
+          <div class="home-product-bottom"><div class="home-product-price"><small>到手¥</small>12.9 <span class="home-product-original">¥25.9</span></div></div>
+          <div class="home-product-meta"><span class="home-product-channel"><span class="home-product-source">拼多多</span></span></div>
+        </div>
+      </article>
+      <article class="home-product-card">
+        <div class="home-product-image"><img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="身体护理乳"></div>
+        <div class="home-product-body">
+          <div class="home-product-name">清爽身体乳，细腻滋润不黏腻的日常护理选择</div>
+          <div class="home-product-tags"><span>满50-6元</span><span>补贴1.3元</span></div>
+          <div class="home-product-bottom"><div class="home-product-price"><small>到手¥</small>32.5 <span class="home-product-original">¥59</span></div></div>
+          <div class="home-product-meta"><span class="home-product-channel"><span class="home-product-source">唯品会</span></span></div>
+        </div>
+      </article>
+      <article class="home-product-card">
+        <div class="home-product-image"><img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="休闲零食组合"></div>
+        <div class="home-product-body">
+          <div class="home-product-name">办公室休闲零食组合，追剧分享装方便囤货</div>
+          <div class="home-product-tags"><span>满35-5元</span><span>补贴1元</span></div>
+          <div class="home-product-bottom"><div class="home-product-price"><small>到手¥</small>24.9 <span class="home-product-original">¥45</span></div></div>
+          <div class="home-product-meta"><span class="home-product-channel"><span class="home-product-source">抖音</span></span></div>
+        </div>
+      </article>
+      <article class="home-product-card">
+        <div class="home-product-image"><img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="厨房收纳用品"></div>
+        <div class="home-product-body">
+          <div class="home-product-name">厨房置物收纳架，台面整洁好拿取不占空间</div>
+          <div class="home-product-tags"><span>满30-4元</span><span>补贴0.8元</span></div>
+          <div class="home-product-bottom"><div class="home-product-price"><small>到手¥</small>18.9 <span class="home-product-original">¥39.9</span></div></div>
+          <div class="home-product-meta"><span class="home-product-channel"><span class="home-product-source">淘宝闪购</span></span></div>
+        </div>
+      </article>
+      <article class="home-product-card">
+        <div class="home-product-image"><img src="https://images.unsplash.com/photo-1585232351009-aa87416fca90?auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="便携保温杯"></div>
+        <div class="home-product-body">
+          <div class="home-product-name">便携保温杯，通勤随身携带轻巧不漏水</div>
+          <div class="home-product-tags"><span>满50-6元</span><span>补贴1.2元</span></div>
+          <div class="home-product-bottom"><div class="home-product-price"><small>到手¥</small>29.9 <span class="home-product-original">¥69</span></div></div>
+          <div class="home-product-meta"><span class="home-product-channel"><span class="home-product-source">京东</span></span></div>
+        </div>
+      </article>
+      <article class="home-product-card">
+        <div class="home-product-image"><img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="护手霜礼盒"></div>
+        <div class="home-product-body">
+          <div class="home-product-name">滋润护手霜礼盒，清新香气适合随身补涂</div>
+          <div class="home-product-tags"><span>满40-5元</span><span>补贴1元</span></div>
+          <div class="home-product-bottom"><div class="home-product-price"><small>到手¥</small>25 <span class="home-product-original">¥49</span></div></div>
+          <div class="home-product-meta"><span class="home-product-channel"><span class="home-product-source">唯品会</span></span></div>
+        </div>
+      </article>
+      <article class="home-product-card">
+        <div class="home-product-image"><img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="柔软家居四件套"></div>
+        <div class="home-product-body">
+          <div class="home-product-name">柔软亲肤家居四件套，舒适睡眠换季好选择</div>
+          <div class="home-product-tags"><span>满100-15元</span><span>补贴2.4元</span></div>
+          <div class="home-product-bottom"><div class="home-product-price"><small>到手¥</small>59.9 <span class="home-product-original">¥129</span></div></div>
+          <div class="home-product-meta"><span class="home-product-channel"><span class="home-product-source">拼多多</span></span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</div>
+
+<div id="panel-waimai" class="tab-page">
+  <div class="waimai-page">
+    <section class="waimai-section">
+      <div class="waimai-section-head"><span class="waimai-head-icon"><svg viewBox="0 0 24 24"><path d="M7 3h10l2 3v14H5V6l2-3Zm0 5h10M9 3v5m6-5v5"/></svg></span><strong>天降红包</strong><small>手慢无</small></div>
+      <div class="waimai-red-grid">
+        <article class="waimai-red-card">
+          <span class="waimai-brand"><img src="taobao-shanggou.svg" alt="淘宝闪购">淘宝闪购</span>
+          <div class="waimai-red-copy"><span class="label">最高</span><b><small>¥</small>14</b><p>满15元立减</p></div>
+          <button class="waimai-claim" type="button">马上抢</button>
+        </article>
+        <article class="waimai-red-card">
+          <span class="waimai-brand"><img src="meituan-waimai.svg" alt="美团外卖">美团外卖</span>
+          <div class="waimai-red-copy"><span class="label">最高</span><b><small>¥</small>288</b><p>惊喜红包</p></div>
+          <button class="waimai-claim" type="button">马上抢</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="waimai-section">
+      <div class="waimai-section-head"><span class="waimai-head-icon" style="color:#ff6436;">🔥</span><strong>今日必抢</strong></div>
+      <div class="waimai-today-grid">
+        <article class="waimai-feature">
+          <span class="waimai-brand"><img src="meituan-waimai.svg" alt="甄选好店">甄选好店</span>
+          <strong>¥13 <small style="font-size:11px;color:#a07e6c;">满28可用</small></strong>
+          <p>大额神券直降</p>
+          <span class="waimai-feature-button">GO ›</span>
+        </article>
+        <div class="waimai-side-grid">
+          <article class="waimai-side-card green">
+            <span class="waimai-brand"><img src="taobao-shanggou.svg" alt="奶茶免单卡">奶茶免单卡</span>
+            <strong>限时立减</strong><span class="side-button">去看看 ›</span>
+          </article>
+          <article class="waimai-side-card yellow">
+            <span class="waimai-brand"><img src="meituan-waimai.svg" alt="零食专场">零食专场</span>
+            <strong>满18减18元</strong><span class="side-button">去看看 ›</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="waimai-section" style="padding:9px;">
+      <div class="waimai-list">
+        <article class="waimai-list-card">
+          <div class="waimai-list-art"><img src="jd-waimai.svg" alt="京东外卖"></div>
+          <div class="waimai-list-copy"><span class="source">京东外卖</span><strong>满15立减10元红包</strong></div>
+          <button class="waimai-list-button" type="button">马上抢</button>
+        </article>
+        <article class="waimai-list-card">
+          <div class="waimai-list-art"><img src="taobao-shanggou.svg" alt="淘宝闪购"></div>
+          <div class="waimai-list-copy"><span class="source">淘宝闪购</span><strong>超市好物，爆款低价</strong></div>
+          <button class="waimai-list-button" type="button">去捡漏</button>
+        </article>
+        <article class="waimai-list-card">
+          <div class="waimai-list-art"><img src="taobao-shanggou.svg" alt="淘宝闪购"></div>
+          <div class="waimai-list-copy"><span class="source">淘宝闪购</span><strong>夜宵免单，20:00开抢</strong></div>
+          <button class="waimai-list-button" type="button">去看看</button>
+        </article>
+      </div>
+    </section>
+  </div>
+</div>
+<div id="panel-dache" class="tab-page">
+  <div class="page-placeholder">打车优惠内容</div>
+</div>
+<div id="panel-taobao" class="tab-page">
+  <div class="page-placeholder">淘宝专区内容</div>
+</div>
+<div id="panel-jd" class="tab-page">
+  <div class="page-placeholder">京东专区内容</div>
+</div>
+<div id="panel-douyin" class="tab-page">
+  <div class="page-placeholder">抖音专区内容</div>
+</div>
+<div id="panel-vip" class="tab-page">
+  <div class="page-placeholder">唯品会专区内容</div>
+</div>
+
+</div><!-- end content -->
+</div><!-- end page-home -->
+
+<div id="page-life" class="tab-page">
+  <div class="content" style="padding:0;background:#f5f5f5;overflow-y:auto;">
+    <div class="life-new">
+      <div class="life-top">
+        <div class="life-location" id="lifeLocation" role="button" tabindex="0">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <span id="locationText">集美区</span><span class="life-location-chevron" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="m3 4.5 3 3 3-3"/></svg></span>
+        </div>
+        <div class="life-search" role="search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4-4"/></svg>
+          <span id="lifeSearchText">搜附近商家和外卖</span>
+          <button id="lifeSearchButton" type="button">搜索</button>
+        </div>
+      </div>
+
+      <div class="life-banner">
+        <div>
+          <div class="life-banner-title">点外卖 全额返利</div>
+          <div class="life-banner-sub">报名返利活动 · 去点外卖 · 回小蚁领返利</div>
+        </div>
+        <div class="life-banner-action" id="bannerAction">立即领</div>
+      </div>
+
+      <div class="life-tags">
+        <div class="life-tags-row" id="lifeTags">
+          <span class="life-tag active" data-type="全部">全部</span>
+          <span class="life-tag" data-type="快餐简餐">快餐简餐</span>
+          <span class="life-tag" data-type="全球美食">全球美食</span>
+          <span class="life-tag" data-type="地方菜系">地方菜系</span>
+          <span class="life-tag" data-type="火锅烧烤">火锅烧烤</span>
+          <span class="life-tag" data-type="甜品饮品">甜品饮品</span>
+        </div>
+      </div>
+
+      <div class="life-filters" id="lifeFilters">
+        <span class="life-filter active" data-filter="推荐"><span>推荐</span><span class="life-filter-chevron" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="m3 4.5 3 3 3-3"/></svg></span></span>
+        <span class="life-filter" data-filter="高返利">🔥 高返利</span>
+        <span class="life-filter" data-filter="无需评价">无需评价</span>
+        <span class="life-filter" data-filter="附近3km">附近3km</span>
+        <span class="life-filter-spacer"></span>
+        <span class="life-filter" data-filter="筛选"><span>筛选</span><span class="life-filter-chevron" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none"><path d="m3 4.5 3 3 3-3"/></svg></span></span>
+      </div>
+
+      <div class="life-coupon">
+        <div class="life-coupon-price">20<small style="font-size:12px;">元</small></div>
+        <div class="life-coupon-copy"><strong>外卖美食大额券发放中</strong><small>领券下单餐餐省</small></div>
+        <div class="life-coupon-button" id="couponButton">立即领取</div>
+      </div>
+
+      <div class="life-section-title">附近商家 <span style="color:#ff6b35;font-size:12px;font-weight:500;">5元吃外卖</span></div>
+      <div class="life-feed" id="lifeFeed">
+        <div class="life-card" data-type="快餐简餐">
+          <div class="life-card-image"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=180&q=80" alt="披萨美食"></div>
+          <div class="life-card-main"><div class="life-card-name">灶北北·炖罐·盖码饭（软三店）</div><div class="life-card-meta"><span>京东外卖 · 17:00-20:00可抢</span><span>距您2.0km</span></div><div class="life-card-tags"><span class="life-card-tag">新人全额返</span><span class="life-card-tag">满20返20</span></div><div class="life-card-footer"><span class="life-card-return">还剩 <b>1份</b></span><button class="life-card-button" type="button">报名返利</button></div></div>
+        </div>
+        <div class="life-card" data-type="地方菜系">
+          <div class="life-card-image"><img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=180&q=80" alt="米粉美食"></div>
+          <div class="life-card-main"><div class="life-card-name">黄采采·桂林米粉（集美软件园店）</div><div class="life-card-meta"><span>美团 · 全天可抢</span><span>距您2.5km</span></div><div class="life-card-tags"><span class="life-card-tag">无实付要求</span><span class="life-card-tag green">新人返利</span></div><div class="life-card-footer"><span class="life-card-return">共 <b>2个活动</b></span><button class="life-card-button" type="button">报名返利</button></div></div>
+        </div>
+        <div class="life-card" data-type="火锅烧烤">
+          <div class="life-card-image"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=180&q=80" alt="烧烤美食"></div>
+          <div class="life-card-main"><div class="life-card-name">炭火烧烤·夜宵专场</div><div class="life-card-meta"><span>饿了么 · 18:00-23:59</span><span>距您1.8km</span></div><div class="life-card-tags"><span class="life-card-tag">满30返10</span><span class="life-card-tag green">高返利</span></div><div class="life-card-footer"><span class="life-card-return">还剩 <b>4份</b></span><button class="life-card-button" type="button">报名返利</button></div></div>
+        </div>
+        <div class="life-card" data-type="全球美食">
+          <div class="life-card-image"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=180&q=80" alt="意式披萨"></div>
+          <div class="life-card-main"><div class="life-card-name">芝士工厂·手作披萨（万达店）</div><div class="life-card-meta"><span>美团 · 11:00-22:00可抢</span><span>距您2.2km</span></div><div class="life-card-tags"><span class="life-card-tag">满50返15</span><span class="life-card-tag green">高返利</span></div><div class="life-card-footer"><span class="life-card-return">还剩 <b>6份</b></span><button class="life-card-button" type="button">报名返利</button></div></div>
+        </div>
+        <div class="life-card" data-type="快餐简餐">
+          <div class="life-card-image"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=180&q=80" alt="汉堡套餐"></div>
+          <div class="life-card-main"><div class="life-card-name">麦香汉堡·超值双人套餐</div><div class="life-card-meta"><span>京东外卖 · 全天可抢</span><span>距您1.2km</span></div><div class="life-card-tags"><span class="life-card-tag">新人全额返</span><span class="life-card-tag green">无需评价</span></div><div class="life-card-footer"><span class="life-card-return">共 <b>3个活动</b></span><button class="life-card-button" type="button">报名返利</button></div></div>
+        </div>
+        <div class="life-card" data-type="甜品饮品">
+          <div class="life-card-image"><img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=180&q=80" alt="甜品蛋糕"></div>
+          <div class="life-card-main"><div class="life-card-name">甜心烘焙·下午茶蛋糕专场</div><div class="life-card-meta"><span>饿了么 · 12:00-21:30</span><span>距您2.8km</span></div><div class="life-card-tags"><span class="life-card-tag">满35返12</span><span class="life-card-tag green">新人返利</span></div><div class="life-card-footer"><span class="life-card-return">还剩 <b>8份</b></span><button class="life-card-button" type="button">报名返利</button></div></div>
+        </div>
+        <div class="life-card" data-type="地方菜系">
+          <div class="life-card-image"><img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=180&q=80" alt="地方小吃"></div>
+          <div class="life-card-main"><div class="life-card-name">老街小馆·家常菜外卖精选</div><div class="life-card-meta"><span>美团 · 10:30-20:30</span><span>距您3.0km</span></div><div class="life-card-tags"><span class="life-card-tag">满40返16</span><span class="life-card-tag green">无需评价</span></div><div class="life-card-footer"><span class="life-card-return">共 <b>2个活动</b></span><button class="life-card-button" type="button">报名返利</button></div></div>
+        </div>
+        <div class="life-card" data-type="火锅烧烤">
+          <div class="life-card-image"><img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=180&q=80" alt="火锅餐厅"></div>
+          <div class="life-card-main"><div class="life-card-name">沸腾火锅·双人套餐限时返</div><div class="life-card-meta"><span>京东外卖 · 16:00-22:00</span><span>距您2.6km</span></div><div class="life-card-tags"><span class="life-card-tag">满80返25</span><span class="life-card-tag green">高返利</span></div><div class="life-card-footer"><span class="life-card-return">还剩 <b>2份</b></span><button class="life-card-button" type="button">报名返利</button></div></div>
+        </div>
+        <div class="life-card" data-type="全球美食">
+          <div class="life-card-image"><img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=180&q=80" alt="意面美食"></div>
+          <div class="life-card-main"><div class="life-card-name">意面时光·经典意式套餐</div><div class="life-card-meta"><span>饿了么 · 11:30-21:00</span><span>距您1.6km</span></div><div class="life-card-tags"><span class="life-card-tag">满45返15</span><span class="life-card-tag green">新人返利</span></div><div class="life-card-footer"><span class="life-card-return">还剩 <b>5份</b></span><button class="life-card-button" type="button">报名返利</button></div></div>
+        </div>
+      </div>
+    </div>
+    <!-- 搜索栏 -->
+    <div style="background:#fff;padding:12px 16px 10px;display:flex;align-items:center;gap:10px;">
+      <div style="flex:1;background:#f2f2f2;border-radius:20px;display:flex;align-items:center;padding:8px 12px;gap:6px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <span style="font-size:14px;color:#999;">搜索生活服务</span>
+      </div>
+    </div>
+    <!-- 主要服务图标 -->
+    <div style="background:#fff;margin-top:8px;padding:16px 8px;">
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px 0;">
+        <!-- 外卖 -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#ff6b35,#ff8c42);display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          </div>
+          <span style="font-size:12px;color:#333;">外卖</span>
+        </div>
+        <!-- 打车 -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#4facfe,#00f2fe);display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+          </div>
+          <span style="font-size:12px;color:#333;">打车</span>
+        </div>
+        <!-- 酒店 -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#f093fb,#f5576c);display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z"/></svg>
+          </div>
+          <span style="font-size:12px;color:#333;">酒店</span>
+        </div>
+        <!-- 机票 -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#43e97b,#38f9d7);display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+          </div>
+          <span style="font-size:12px;color:#333;">机票</span>
+        </div>
+        <!-- 火车票 -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#fa709a,#fee140);display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h12v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-3.58-4-8-4zm0 2c3.71 0 5.13.46 5.67 1H6.43C6.96 4.46 8.29 4 12 4zM6 7h5v3H6V7zm7 0h5v3h-5V7zm-7 5.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5S4.5 14.83 4.5 14 5.17 12.5 6 12.5zm12 0c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5-1.5-.67-1.5-1.5.67-1.5 1.5-1.5z"/></svg>
+          </div>
+          <span style="font-size:12px;color:#333;">火车票</span>
+        </div>
+        <!-- 电影 -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#a18cd1,#fbc2eb);display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"/></svg>
+          </div>
+          <span style="font-size:12px;color:#333;">电影</span>
+        </div>
+        <!-- 美食 -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#ffecd2,#fcb69f);display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#e8703a"><path d="M18.06 22.99h1.66c.84 0 1.53-.64 1.63-1.46L23 5.05h-5V1h-1.97v4.05h-4.97l.3 2.34c1.71.47 3.31 1.32 4.27 2.26 1.44 1.42 2.43 2.89 2.43 5.29v8.05zM1 21.99V21h15.03v.99c0 .55-.45 1-1.01 1H2.01c-.56 0-1.01-.45-1.01-1zm15.03-7c0-8-15.03-8-15.03 0h15.03zM1.02 17h15v2H1.02v-2z"/></svg>
+          </div>
+          <span style="font-size:12px;color:#333;">美食</span>
+        </div>
+        <!-- 超市 -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#84fab0,#8fd3f4);display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 6.9 18 9 18h12v-2H9.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H19c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0 0 23.45 5H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+          </div>
+          <span style="font-size:12px;color:#333;">超市</span>
+        </div>
+        <!-- 充值 -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#f6d365,#fda085);display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+          </div>
+          <span style="font-size:12px;color:#333;">充值</span>
+        </div>
+        <!-- 更多 -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:#f2f2f2;display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#999"><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+          </div>
+          <span style="font-size:12px;color:#333;">更多</span>
+        </div>
+      </div>
+    </div>
+    <!-- 广告横幅 -->
+    <div style="margin:8px 12px;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,#ff6b81,#ff8e53);padding:16px;display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <div style="color:#fff;font-size:16px;font-weight:700;">会员专享优惠</div>
+        <div style="color:rgba(255,255,255,0.85);font-size:13px;margin-top:4px;">外卖·打车·酒店 全场8折</div>
+      </div>
+      <div style="background:#fff;color:#ff6b81;border-radius:20px;padding:8px 16px;font-size:13px;font-weight:600;">立即领取</div>
+    </div>
+    <!-- 附近服务 -->
+    <div style="background:#fff;margin-top:8px;padding:14px 16px;">
+      <div style="font-size:15px;font-weight:600;color:#333;margin-bottom:12px;">附近服务</div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid #f5f5f5;">
+          <div style="width:56px;height:56px;border-radius:10px;background:#ffe8e8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="#ff6b81"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:14px;font-weight:500;color:#333;">美食广场</div>
+            <div style="font-size:12px;color:#999;margin-top:2px;">距您 320m · 营业中</div>
+          </div>
+          <div style="font-size:13px;color:#ff6b81;font-weight:500;">去逛逛</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid #f5f5f5;">
+          <div style="width:56px;height:56px;border-radius:10px;background:#e8f4ff;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="#4facfe"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:14px;font-weight:500;color:#333;">生活超市</div>
+            <div style="font-size:12px;color:#999;margin-top:2px;">距您 580m · 营业中</div>
+          </div>
+          <div style="font-size:13px;color:#ff6b81;font-weight:500;">去逛逛</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:56px;height:56px;border-radius:10px;background:#e8fff4;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="#43e97b"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:14px;font-weight:500;color:#333;">健康药房</div>
+            <div style="font-size:12px;color:#999;margin-top:2px;">距您 1.2km · 营业中</div>
+          </div>
+          <div style="font-size:13px;color:#ff6b81;font-weight:500;">去逛逛</div>
+        </div>
+      </div>
+    </div>
+    <!-- 热门活动 -->
+    <div style="background:#fff;margin-top:8px;padding:14px 16px 16px;">
+      <div style="font-size:15px;font-weight:600;color:#333;margin-bottom:12px;">热门活动</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div style="border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#667eea,#764ba2);padding:14px;min-height:80px;display:flex;flex-direction:column;justify-content:space-between;">
+          <div style="color:#fff;font-size:14px;font-weight:600;">外卖红包</div>
+          <div style="color:rgba(255,255,255,0.8);font-size:12px;">满20减5</div>
+        </div>
+        <div style="border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#f093fb,#f5576c);padding:14px;min-height:80px;display:flex;flex-direction:column;justify-content:space-between;">
+          <div style="color:#fff;font-size:14px;font-weight:600;">打车优惠</div>
+          <div style="color:rgba(255,255,255,0.8);font-size:12px;">新用户立减10元</div>
+        </div>
+        <div style="border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#4facfe,#00f2fe);padding:14px;min-height:80px;display:flex;flex-direction:column;justify-content:space-between;">
+          <div style="color:#fff;font-size:14px;font-weight:600;">酒店特惠</div>
+          <div style="color:rgba(255,255,255,0.8);font-size:12px;">周末低至5折</div>
+        </div>
+        <div style="border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#43e97b,#38f9d7);padding:14px;min-height:80px;display:flex;flex-direction:column;justify-content:space-between;">
+          <div style="color:#fff;font-size:14px;font-weight:600;">机票特价</div>
+          <div style="color:rgba(255,255,255,0.8);font-size:12px;">提前预订更优惠</div>
+        </div>
+      </div>
+    </div>
+    <div style="height:16px;"></div>
+  </div>
+</div>
+<div id="page-haojia" class="tab-page">
+  <div class="content">
+    <div class="mall-page">
+      <div class="mall-categories" aria-label="商城分类">
+        <span class="mall-category active">推荐</span><span class="mall-category">母婴</span><span class="mall-category">美食</span><span class="mall-category">卫生巾</span><span class="mall-category">美妆</span><span class="mall-category">洗护</span><span class="mall-category">母婴好物</span>
+      </div>
+      <div class="mall-promo-grid">
+        <article class="mall-promo"><div class="mall-promo-head">限时抢购 <em>早10晚8抢</em></div><div class="mall-promo-products"><div class="mall-promo-product"><div class="mall-promo-product-image"><img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=240&q=80" alt="洗护商品"></div><div class="mall-promo-product-info"><strong class="mall-promo-price">¥15.77</strong><span class="mall-promo-label">0.5折</span></div></div><div class="mall-promo-product"><div class="mall-promo-product-image"><img src="https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&fit=crop&w=240&q=80" alt="家居商品"></div><div class="mall-promo-product-info"><strong class="mall-promo-price">¥35.4</strong><span class="mall-promo-label">2折</span></div></div><div class="mall-promo-product"><div class="mall-promo-product-image"><img src="https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?auto=format&fit=crop&w=240&q=80" alt="香水商品"></div><div class="mall-promo-product-info"><strong class="mall-promo-price">¥29.9</strong><span class="mall-promo-label">1.9折</span></div></div><div class="mall-promo-product"><div class="mall-promo-product-image"><img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=240&q=80" alt="个护商品"></div><div class="mall-promo-product-info"><strong class="mall-promo-price">¥30.5</strong><span class="mall-promo-label">2.4折</span></div></div><div class="mall-promo-product"><div class="mall-promo-product-image"><img src="https://images.unsplash.com/photo-1585232351009-aa87416fca90?auto=format&fit=crop&w=240&q=80" alt="保温杯商品"></div><div class="mall-promo-product-info"><strong class="mall-promo-price">¥24.8</strong><span class="mall-promo-label">限时价</span></div></div></div></article>
+      </div>
+      <div class="mall-quick-grid">
+        <div class="mall-quick"><div class="mall-quick-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v13H4z"/><path d="M7 3v6M17 3v6M4 10h16"/><path d="M8 14h3M8 17h5"/></svg></div><strong>领优惠券</strong><small>低价秒杀</small></div>
+        <div class="mall-quick"><div class="mall-quick-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14v11H5z"/><path d="M12 8v11M5 12h14"/><path d="M6 8c-1.7 0-2.5-1-2.5-2.2S4.4 4 5.8 4c2.1 0 3.6 2.3 6.2 4H6ZM18 8c1.7 0 2.5-1 2.5-2.2S19.6 4 18.2 4C16.1 4 14.6 6.3 12 8h6Z"/></svg></div><strong>签到红包</strong><small>天天可领</small></div>
+        <div class="mall-quick"><div class="mall-quick-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="M8 6v12M16 6v12"/><path d="M10 10h4M10 14h3"/></svg></div><strong>领券中心</strong><small>大额补贴</small></div>
+        <div class="mall-quick"><div class="mall-quick-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="19" r="1.5"/><circle cx="18" cy="19" r="1.5"/><path d="M3 4h2l2.2 10.2a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 1.9-1.5L21 8H6"/><path d="M9 8h8"/></svg></div><strong>福利攻略</strong><small>领超市红包</small></div>
+      </div>
+      <div class="mall-feed">
+        <article class="mall-product"><div class="mall-product-image"><img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80" alt="妇炎洁凝胶"></div><div class="mall-product-body"><span class="mall-product-source">天猫</span><div class="mall-product-name">妇炎洁医用妇科凝胶抑菌正品 温和清洁护理</div><div class="mall-product-tags"><span>3.07元补贴</span><span>150元券</span></div><div class="mall-product-price"><small>到手¥</small>16.83</div><div class="mall-product-meta"><span>¥169.9</span><span>已售1000+</span></div></div></article>
+        <article class="mall-product"><div class="mall-product-image"><img src="https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?auto=format&fit=crop&w=500&q=80" alt="洗衣液商品"></div><div class="mall-product-body"><span class="mall-product-source">天猫</span><div class="mall-product-name">奥妙除菌除螨酵素洗衣液家庭装组合</div><div class="mall-product-tags"><span>1元补贴</span><span>16元券</span></div><div class="mall-product-price"><small>到手¥</small>35.01</div><div class="mall-product-meta"><span>¥62.9</span><span>已售20万+</span></div></div></article>
+        <article class="mall-product"><div class="mall-product-image"><img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=500&q=80" alt="护肤商品"></div><div class="mall-product-body"><span class="mall-product-source">唯品会</span><div class="mall-product-name">温和保湿护肤套装，补水修护好价专享</div><div class="mall-product-tags"><span>限时特惠</span></div><div class="mall-product-price"><small>到手¥</small>49.9</div><div class="mall-product-meta"><span>¥99</span><span>已售8000+</span></div></div></article>
+        <article class="mall-product"><div class="mall-product-image"><img src="https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&fit=crop&w=500&q=80" alt="纸品商品"></div><div class="mall-product-body"><span class="mall-product-source">京东</span><div class="mall-product-name">家庭装柔韧抽纸，整箱囤货日用纸品</div><div class="mall-product-tags"><span>大额优惠券</span></div><div class="mall-product-price"><small>到手¥</small>29.9</div><div class="mall-product-meta"><span>¥59</span><span>已售3万+</span></div></div></article>
+        <article class="mall-product"><div class="mall-product-image"><img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=500&q=80" alt="洁面护肤商品"></div><div class="mall-product-body"><span class="mall-product-source">淘宝</span><div class="mall-product-name">温和氨基酸洁面乳，清爽控油不紧绷日常护理</div><div class="mall-product-tags"><span>隐藏券</span><span>限时立减</span></div><div class="mall-product-price"><small>到手¥</small>24.8</div><div class="mall-product-meta"><span>¥49.9</span><span>已售1万+</span></div></div></article>
+        <article class="mall-product"><div class="mall-product-image"><img src="https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?auto=format&fit=crop&w=500&q=80" alt="香水商品"></div><div class="mall-product-body"><span class="mall-product-source">唯品会</span><div class="mall-product-name">清新淡香香水礼盒，轻盈花香适合日常通勤</div><div class="mall-product-tags"><span>品牌特卖</span><span>低至5折</span></div><div class="mall-product-price"><small>到手¥</small>59</div><div class="mall-product-meta"><span>¥129</span><span>已售5000+</span></div></div></article>
+        <article class="mall-product"><div class="mall-product-image"><img src="https://images.unsplash.com/photo-1585232351009-aa87416fca90?auto=format&fit=crop&w=500&q=80" alt="保温杯商品"></div><div class="mall-product-body"><span class="mall-product-source">京东</span><div class="mall-product-name">便携保温杯，轻量设计通勤随身携带不漏水</div><div class="mall-product-tags"><span>京东补贴</span><span>满减</span></div><div class="mall-product-price"><small>到手¥</small>29.9</div><div class="mall-product-meta"><span>¥69</span><span>已售9000+</span></div></div></article>
+        <article class="mall-product"><div class="mall-product-image"><img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=500&q=80" alt="厨房收纳商品"></div><div class="mall-product-body"><span class="mall-product-source">淘宝闪购</span><div class="mall-product-name">厨房置物收纳架，台面整洁好拿取不占空间</div><div class="mall-product-tags"><span>1元补贴</span><span>包邮</span></div><div class="mall-product-price"><small>到手¥</small>18.9</div><div class="mall-product-meta"><span>¥39.9</span><span>已售6000+</span></div></div></article>
+        <article class="mall-product"><div class="mall-product-image"><img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=500&q=80" alt="休闲零食商品"></div><div class="mall-product-body"><span class="mall-product-source">抖音</span><div class="mall-product-name">办公室休闲零食组合，追剧分享装方便囤货</div><div class="mall-product-tags"><span>直播专享</span><span>立减</span></div><div class="mall-product-price"><small>到手¥</small>24.9</div><div class="mall-product-meta"><span>¥45</span><span>已售1万+</span></div></div></article>
+        <article class="mall-product"><div class="mall-product-image"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=80" alt="时尚手表商品"></div><div class="mall-product-body"><span class="mall-product-source">拼多多</span><div class="mall-product-name">简约时尚石英手表，轻便百搭适合日常通勤</div><div class="mall-product-tags"><span>百亿补贴</span><span>限时特价</span></div><div class="mall-product-price"><small>到手¥</small>39.9</div><div class="mall-product-meta"><span>¥89</span><span>已售7000+</span></div></div></article>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="page-butie" class="tab-page">
+  <div class="content"><div class="page-placeholder">天天补贴页面</div></div>
+</div>
+<div id="page-mine" class="tab-page">
+  <div class="content"><div class="page-placeholder">我的页面</div></div>
+</div>
+
+<div class="bottom-nav" id="bottomNav">
+  <div class="nav-tab active" data-page="page-home">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+    <span>美柚省钱</span>
+  </div>
+  <div class="nav-tab" data-page="page-life" style="position:relative;">
+    <span class="nav-badge">外卖神券</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-label="生活服务"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+    <span>生活服务</span>
+  </div>
+  <div class="nav-tab" data-page="page-haojia">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-label="柚子街"><path d="M5 8h14l-1 13H6L5 8Z"/><path d="M8 8a4 4 0 0 1 8 0"/><path d="M9 12h.01M15 12h.01"/></svg>
+    <span>柚子街</span>
+  </div>
+  <div class="nav-tab" data-page="page-butie">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    <span>天天补贴</span>
+  </div>
+  <div class="nav-tab" data-page="page-mine">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span>我的</span>
+  </div>
+</div>
+
+<script>
+// 底部导航切换
+document.getElementById('bottomNav').addEventListener('click', function(e) {
+  const tab = e.target.closest('.nav-tab');
+  if (!tab) return;
+  const pageId = tab.dataset.page;
+  if (!pageId) return;
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  document.body.classList.toggle('life-active', pageId === 'page-life');
+  document.body.classList.toggle('mall-active', pageId === 'page-haojia');
+  document.body.classList.remove('home-scroll-active');
+  document.body.classList.remove('life-scroll-active');
+  document.body.classList.remove('mall-scroll-active');
+  document.querySelectorAll('body > .tab-page, body > div.tab-page').forEach(p => p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  if (pageId === 'page-home') updateHomeHeader(window.scrollY);
+  if (pageId === 'page-life') {
+    const lifeContent = document.querySelector('#page-life > .content');
+    updateLifeHeader(lifeContent ? lifeContent.scrollTop : window.scrollY);
+  }
+  if (pageId === 'page-haojia') {
+    const mallContent = document.querySelector('#page-haojia > .content');
+    updateMallHeader(mallContent ? mallContent.scrollTop : window.scrollY);
+  }
+});
+
+// 首页上滑时收起已省信息，并将搜索框放入顶部左侧；回到顶部后恢复。
+function updateHomeHeader(scrollTop) {
+  const isHome = document.querySelector('.nav-tab.active')?.dataset.page === 'page-home';
+  // 完整越过原始顶部区域后才切换固定态，回到页面顶部立即恢复，避免临界位置出现叠层。
+  const topShellHeight = 30 + 47 + 60;
+  document.body.classList.toggle('home-scroll-active', isHome && scrollTop >= topShellHeight);
+}
+
+window.addEventListener('scroll', function() {
+  updateHomeHeader(window.scrollY);
+  updateLifeHeader(window.scrollY);
+  updateMallHeader(window.scrollY);
+}, {passive:true});
+
+const lifeContent = document.querySelector('#page-life > .content');
+
+function updateLifeHeader(scrollTop) {
+  const isLife = document.querySelector('.nav-tab.active')?.dataset.page === 'page-life';
+  document.body.classList.toggle('life-scroll-active', isLife && scrollTop > 8);
+}
+
+if (lifeContent) {
+  lifeContent.addEventListener('scroll', function() {
+    updateLifeHeader(this.scrollTop);
+  }, {passive:true});
+}
+
+const mallContent = document.querySelector('#page-haojia > .content');
+
+function updateMallHeader(scrollTop) {
+  const isMall = document.querySelector('.nav-tab.active')?.dataset.page === 'page-haojia';
+  document.body.classList.toggle('mall-scroll-active', isMall && scrollTop >= 30);
+}
+
+if (mallContent) {
+  mallContent.addEventListener('scroll', function() {
+    updateMallHeader(this.scrollTop);
+  }, {passive:true});
+}
+
+// 分类 tab 切换
+const categoryPanelIds = ['panel-hot', 'panel-waimai', 'panel-dache', 'panel-taobao', 'panel-jd', 'panel-douyin', 'panel-vip'];
+
+function switchCategoryPanel(panelId) {
+  if (!categoryPanelIds.includes(panelId)) return;
+  const tab = document.querySelector(`#categoryTabs .tab[data-panel="${panelId}"]`);
+  document.querySelectorAll('#categoryTabs .tab').forEach(t => t.classList.remove('active'));
+  if (tab) {
+    tab.classList.add('active');
+    tab.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+  }
+  categoryPanelIds.forEach(id => document.getElementById(id).classList.toggle('active', id === panelId));
+}
+
+document.getElementById('categoryTabs').addEventListener('click', function(e) {
+  const tab = e.target.closest('.tab');
+  if (tab?.dataset.panel) switchCategoryPanel(tab.dataset.panel);
+});
+
+categoryPanelIds.forEach(panelId => {
+  const panel = document.getElementById(panelId);
+  let gesture = null;
+
+  function finishCategorySwipe(endX, endY) {
+    if (!gesture) return;
+    const deltaX = endX - gesture.x;
+    const deltaY = endY - gesture.y;
+    gesture = null;
+    if (Math.abs(deltaX) < 44 || Math.abs(deltaX) <= Math.abs(deltaY) * 1.15) return;
+    const currentIndex = categoryPanelIds.indexOf(panelId);
+    const nextIndex = currentIndex + (deltaX < 0 ? 1 : -1);
+    if (nextIndex >= 0 && nextIndex < categoryPanelIds.length) {
+      switchCategoryPanel(categoryPanelIds[nextIndex]);
+    }
+  }
+
+  panel.addEventListener('pointerdown', function(e) {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    gesture = {x:e.clientX, y:e.clientY, pointerId:e.pointerId};
+  });
+  panel.addEventListener('pointerup', function(e) {
+    if (gesture && gesture.pointerId === e.pointerId) finishCategorySwipe(e.clientX, e.clientY);
+  });
+  panel.addEventListener('pointercancel', function() { gesture = null; });
+});
+
+// 触摸板横向滑动直接切换分类 Tab。
+const categoryContent = document.getElementById('page-home');
+
+categoryContent.addEventListener('wheel', function(e) {
+  const activePanel = e.target.closest('.tab-page.active');
+  if (!activePanel || !categoryPanelIds.includes(activePanel.id)) return;
+  if (Math.abs(e.deltaX) <= Math.abs(e.deltaY) || Math.abs(e.deltaX) < 1) return;
+  e.preventDefault();
+
+  const direction = e.deltaX > 0 ? 1 : -1;
+  const currentIndex = categoryPanelIds.indexOf(activePanel.id);
+  const nextIndex = currentIndex + direction;
+  if (nextIndex < 0 || nextIndex >= categoryPanelIds.length) return;
+  switchCategoryPanel(categoryPanelIds[nextIndex]);
+}, {passive:false});
+
+// 生活服务页交互
+document.getElementById('lifeTags').addEventListener('click', function(e) {
+  const tag = e.target.closest('.life-tag');
+  if (!tag) return;
+  document.querySelectorAll('.life-tag').forEach(item => item.classList.remove('active'));
+  tag.classList.add('active');
+  const type = tag.dataset.type;
+  document.querySelectorAll('.life-card').forEach(card => {
+    card.style.display = type === '全部' || card.dataset.type === type ? 'flex' : 'none';
+  });
+});
+
+document.getElementById('lifeFilters').addEventListener('click', function(e) {
+  const filter = e.target.closest('.life-filter');
+  if (!filter) return;
+  document.querySelectorAll('#lifeFilters .life-filter').forEach(item => item.classList.remove('active'));
+  filter.classList.add('active');
+});
+
+document.getElementById('lifeLocation').addEventListener('click', function() {
+  const locationText = document.getElementById('locationText');
+  locationText.textContent = locationText.textContent === '集美区' ? '厦门市' : '集美区';
+});
+
+document.getElementById('lifeSearchButton').addEventListener('click', function() {
+  const text = document.getElementById('lifeSearchText');
+  text.textContent = text.textContent === '搜附近商家和外卖' ? '正在搜索附近商家...' : '搜附近商家和外卖';
+});
+
+document.querySelectorAll('.life-card-button, #couponButton, #bannerAction').forEach(button => {
+  button.addEventListener('click', function() {
+    const original = this.textContent;
+    this.textContent = '已领取';
+    setTimeout(() => { this.textContent = original; }, 1200);
+  });
+});
+</script>
+</body>
+</html>
+<!--
+/* ===== 生活服务 ===== */
+.life-search-row { background:#fff; padding:10px 16px 10px; display:flex; align-items:center; gap:8px; }
+.life-loc { display:flex; align-items:center; gap:3px; font-size:13px; color:#333; font-weight:600; white-space:nowrap; cursor:pointer; }
+.life-loc svg { flex-shrink:0; }
+.life-sbox { flex:1; background:#f2f2f2; border-radius:20px; display:flex; align-items:center; padding:8px 12px; gap:6px; }
+.life-sbox span { font-size:13px; color:#999; }
+.life-banner { margin:8px 12px; border-radius:10px; background:linear-gradient(135deg,#ff4e50,#fc913a); height:96px; display:flex; align-items:center; justify-content:space-between; padding:0 20px; overflow:hidden; position:relative; }
+.life-banner-txt { color:#fff; }
+.life-banner-txt .bt1 { font-size:22px; font-weight:900; letter-spacing:1px; }
+.life-banner-txt .bt2 { font-size:12px; margin-top:4px; opacity:.9; display:flex; gap:6px; }
+.life-banner-txt .bt2 span { background:rgba(255,255,255,.22); border-radius:10px; padding:2px 8px; }
+.life-banner-cta { background:rgba(255,255,255,.2); border:2px solid rgba(255,255,255,.6); border-radius:50%; width:52px; height:52px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:13px; font-weight:700; flex-shrink:0; }
+.life-tags-wrap { background:#fff; }
+.life-tags-row { display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding:10px 12px; }
+.life-tags-row::-webkit-scrollbar { display:none; }
+.life-tag { font-size:13px; color:#666; white-space:nowrap; padding:5px 14px; border-radius:20px; background:#f5f5f5; cursor:pointer; border:1.5px solid transparent; flex-shrink:0; }
+.life-tag.active { color:#ff6b35; background:#fff3ee; border-color:#ff6b35; font-weight:600; }
+.life-filter { background:#fff; padding:6px 12px 8px; display:flex; gap:8px; align-items:center; border-bottom:1px solid #f0f0f0; }
+.lf-btn { font-size:12px; color:#555; padding:4px 10px; border-radius:14px; background:#f5f5f5; cursor:pointer; display:flex; align-items:center; gap:3px; white-space:nowrap; }
+.lf-btn.hot { color:#ff6b35; background:#fff3ee; }
+.lf-sep { flex:1; }
+.lf-right { font-size:12px; color:#888; display:flex; align-items:center; gap:3px; cursor:pointer; }
+.life-coupon { margin:4px 12px 8px; background:linear-gradient(90deg,#ff6b35,#ff9a3c); border-radius:8px; padding:10px 14px; display:flex; align-items:center; gap:10px; }
+.lc-amt { color:#fff; font-size:24px; font-weight:900; line-height:1; }
+.lc-amt sup { font-size:13px; vertical-align:top; margin-top:3px; }
+.lc-info { flex:1; color:#fff; }
+.lc-info .lci1 { font-size:14px; font-weight:700; }
+.lc-info .lci2 { font-size:11px; opacity:.85; margin-top:2px; }
+.lc-btn { background:#fff; color:#ff6b35; font-size:13px; font-weight:700; border-radius:20px; padding:6px 14px; white-space:nowrap; cursor:pointer; }
+.life-sec-title { font-size:14px; font-weight:700; color:#222; padding:10px 12px 4px; }
+.life-feed { padding:0 12px 8px; display:flex; flex-direction:column; gap:10px; }
+.lcard { background:#fff; border-radius:10px; overflow:hidden; display:flex; gap:12px; padding:12px; }
+.lcard-img { width:88px; height:88px; border-radius:8px; background:#eee; flex-shrink:0; overflow:hidden; display:flex; align-items:center; justify-content:center; font-size:11px; color:#bbb; }
+.lcard-img img { width:100%; height:100%; object-fit:cover; }
+.lcard-body { flex:1; min-width:0; display:flex; flex-direction:column; justify-content:space-between; }
+.lcard-name { font-size:14px; font-weight:600; color:#222; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.lcard-meta { display:flex; align-items:center; gap:6px; margin-top:3px; }
+.lcard-platform { font-size:11px; color:#888; display:flex; align-items:center; gap:3px; }
+.lcard-dist { font-size:11px; color:#bbb; margin-left:auto; }
+.lcard-tags { display:flex; gap:5px; margin-top:6px; flex-wrap:wrap; }
+.ltag { font-size:11px; padding:2px 7px; border-radius:4px; font-weight:500; }
+.ltag-new { background:#fff0f3; color:#ff4d6d; border:1px solid #ffb3c1; }
+.ltag-promo { background:#fff7e6; color:#fa8c16; border:1px solid #ffd591; }
+.ltag-cash { background:#f6ffed; color:#52c41a; border:1px solid #b7eb8f; }
+.lcard-bottom { display:flex; align-items:center; justify-content:space-between; margin-top:8px; }
+.lcard-quota { font-size:11px; color:#bbb; }
+.lcard-quota em { color:#ff6b35; font-style:normal; font-weight:600; }
+.lcard-action { background:#ff6b35; color:#fff; font-size:13px; font-weight:600; border-radius:20px; padding:5px 14px; cursor:pointer; white-space:nowrap; }
+.life-help { margin:8px 12px 0; background:#fff8f2; border-radius:8px; padding:10px 14px; display:flex; align-items:center; justify-content:space-between; cursor:pointer; border:1px solid #ffe5d0; }
+.life-help-l { display:flex; align-items:center; gap:8px; font-size:13px; color:#333; }
+.life-help-r { font-size:12px; color:#ff6b35; display:flex; align-items:center; gap:2px; }
+-->

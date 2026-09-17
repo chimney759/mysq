@@ -1,0 +1,46 @@
+body.pending-orders-active { background:#f5f6f8; }
+body.pending-orders-active > .status-bar,
+body.pending-orders-active > .header,
+body.pending-orders-active > .search-bar,
+body.pending-orders-active > #bottomNav { display:none; }
+.pending-orders-page { min-height:100vh; background:#f5f6f8; }
+.pending-orders-page-content { min-height:100vh; color:var(--my-text-primary,#323232); background:#f5f6f8; letter-spacing:0; }
+.pending-orders-header { display:flex; height:46px; align-items:center; justify-content:space-between; padding:0 14px 0 10px; background:#f5f6f8; }
+.pending-orders-header h1 { color:var(--my-text-primary,#323232); font-size:17px; font-weight:500; line-height:24px; }
+.pending-orders-back, .pending-orders-help { display:flex; width:30px; height:30px; align-items:center; justify-content:center; padding:0; border:0; color:#343840; background:transparent; }
+.pending-orders-back svg { width:23px; height:23px; }
+.pending-orders-help svg { width:24px; height:24px; }
+.pending-orders-tabs { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); height:38px; background:#f5f6f8; }
+.pending-orders-tabs button { position:relative; padding:0; border:0; color:var(--my-text-secondary,#666); background:transparent; font:inherit; font-size:15px; font-weight:400; line-height:22px; }
+.pending-orders-tabs button.active { color:var(--my-brand-red,#ff4d88); font-weight:500; }
+.pending-orders-tabs button.active::after { position:absolute; right:calc(50% - 18px); bottom:0; left:calc(50% - 18px); height:3px; border-radius:3px 3px 0 0; background:var(--my-brand-red,#ff4d88); content:""; }
+.pending-orders-notice { display:flex; height:43px; align-items:center; gap:8px; padding:0 14px; color:#ff4d88; background:#ffd8e6; }
+.pending-orders-notice-icon { display:flex; width:24px; height:24px; align-items:center; justify-content:center; flex:none; }
+.pending-orders-notice-icon svg { width:23px; height:23px; }
+.pending-orders-notice strong { min-width:0; flex:1; overflow:hidden; font-size:13px; font-weight:400; line-height:18px; text-overflow:ellipsis; white-space:nowrap; }
+.pending-orders-notice button { flex:none; height:28px; padding:0 14px; border:1px solid rgba(255,77,136,.5); border-radius:15px; color:var(--my-brand-red,#ff4d88); background:transparent; font:inherit; font-size:12px; font-weight:400; line-height:18px; }
+.pending-orders-list { padding:9px 8px 24px; }
+.pending-orders-empty { padding:52px 0; color:var(--my-text-tertiary,#999); font-size:14px; line-height:20px; text-align:center; }
+.pending-order-card { margin-bottom:9px; padding:11px 12px 12px; border-radius:13px; background:#fff; }
+.pending-order-meta { display:flex; min-width:0; height:22px; align-items:center; gap:5px; color:var(--my-text-tertiary,#999); font-size:12px; font-weight:400; line-height:17px; }
+.pending-order-meta > span:not(.pending-order-platform) { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.pending-order-meta b { margin-left:auto; flex:none; color:var(--my-brand-red,#ff4d88); font-size:12px; font-weight:500; line-height:17px; }
+.pending-order-platform { display:inline-flex; width:18px; height:18px; align-items:center; justify-content:center; flex:none; border-radius:5px; color:#fff; font-size:11px; font-weight:500; line-height:18px; }
+.platform-yellow { background:#f3c20d; }
+.platform-red { background:#ed3e55; }
+.platform-orange { background:#ef6a36; }
+.pending-order-body { display:flex; gap:12px; margin-top:7px; }
+.pending-order-image { display:flex; width:122px; height:122px; flex:none; align-items:center; justify-content:center; overflow:hidden; border-radius:17px; color:#fff; text-align:center; }
+.pending-order-image img { display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
+.pending-order-image span { font-size:44px; font-weight:800; line-height:43px; text-shadow:0 2px 1px rgba(0,0,0,.16); }
+.pending-order-image small { display:block; font-size:13px; line-height:19px; }
+.pending-order-image-one { background:radial-gradient(circle at 48% 38%,#ffdc00 0 27%,transparent 28%), linear-gradient(145deg,#f6f6f6,#fff); color:#111; }
+.pending-order-image-one span { color:#171717; text-shadow:none; }
+.pending-order-image-two { align-items:flex-start; padding-top:15px; background:linear-gradient(145deg,#252b31,#d9a34e 46%,#56606a); }
+.pending-order-image-two span { font-size:27px; line-height:28px; }
+.pending-order-image-three { align-items:flex-start; padding-top:17px; background:linear-gradient(145deg,#b98d6b,#f0d9bc 56%,#8b5b42); }
+.pending-order-image-three span { font-size:26px; line-height:28px; }
+.pending-order-copy { min-width:0; flex:1; display:flex; flex-direction:column; padding-top:3px; }
+.pending-order-copy strong { display:-webkit-box; overflow:hidden; color:var(--my-text-primary,#323232); font-size:13px; font-weight:400; line-height:20px; -webkit-box-orient:vertical; -webkit-line-clamp:2; }
+.pending-order-copy em { margin-top:8px; color:var(--my-brand-red,#ff4d88); font-size:15px; font-style:normal; font-weight:600; line-height:20px; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.pending-order-copy small { margin-top:7px; color:var(--my-text-tertiary,#999); font-size:13px; font-weight:400; line-height:18px; white-space:nowrap; }

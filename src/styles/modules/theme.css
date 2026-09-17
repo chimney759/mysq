@@ -1,0 +1,1331 @@
+/* 全局 iOS 风格毛玻璃材质：保留内容清晰度，只处理承载内容的表面 */
+:root {
+  --my-brand-red:#ff4d88;
+  --my-brand-soft:rgba(255,77,136,.08);
+  --my-bg:#f2f2f5;
+  --my-surface:#fff;
+  --my-text-primary:#323232;
+  --my-text-secondary:#666;
+  --my-text-tertiary:#999;
+  --my-line:rgba(0,0,0,.08);
+  --my-radius-sm:8px;
+  --my-radius-md:12px;
+  --my-shadow-1:0 2px 10px rgba(50,50,50,.08);
+  --my-control-ease:cubic-bezier(.2,0,0,1);
+  --glass-white:rgba(255,255,255,.82);
+  --glass-border:rgba(255,255,255,.72);
+  --glass-shadow:0 2px 10px rgba(45,52,70,.07),inset 0 1px 0 rgba(255,255,255,.62);
+}
+
+body { background:var(--my-bg); color:var(--my-text-primary); }
+.status-bar,
+.header,
+.search-bar,
+.bottom-nav {
+  background:rgba(255,255,255,.76);
+  border-color:rgba(205,211,222,.55);
+  -webkit-backdrop-filter:saturate(140%) blur(18px);
+  backdrop-filter:saturate(140%) blur(18px);
+}
+
+/* 美柚基础视觉基线：保留轻毛玻璃，使用透白、弱模糊和细边界承载内容 */
+.status-bar,
+.header,
+.search-bar { background:rgba(255,255,255,.94); }
+
+.status-bar,
+.header,
+.search-bar,
+.bottom-nav { border-color:var(--my-line); }
+
+#page-home,
+#page-life,
+#page-haojia,
+#page-butie { background:var(--my-bg); }
+
+#page-home .quick-nav,
+#page-home .section-card,
+#page-home .alert-banner,
+.life-top,
+.life-tags,
+.life-filters,
+.life-card,
+.mall-promo,
+.mall-quick,
+.mall-product,
+.subsidy-checkin,
+.subsidy-benefits {
+  border-radius:var(--my-radius-md);
+  box-shadow:var(--my-shadow-1);
+}
+
+.status-bar,
+.header,
+.search-bar,
+.bottom-nav,
+#page-home .quick-nav,
+#page-home .section-card,
+#page-home .alert-banner,
+.life-top,
+.life-tags,
+.life-filters,
+.life-card,
+.mall-promo,
+.mall-quick,
+.mall-product,
+.subsidy-checkin,
+.subsidy-benefits {
+  -webkit-backdrop-filter:saturate(135%) blur(16px);
+  backdrop-filter:saturate(135%) blur(16px);
+}
+
+.nav-tab.active {
+  background:var(--my-brand-soft);
+}
+
+.nav-tab.active svg,
+.nav-tab.active span { color:var(--my-brand-red); }
+
+/* 组件细化：减少同屏竞争，让主操作和内容层级更清楚 */
+#page-home .tab,
+#page-home .tab.active {
+  font-size:15px;
+  font-weight:500;
+}
+
+#page-home .tab.active { color:var(--my-text-primary); }
+#page-home .tab.active::after { background:var(--my-brand-red); }
+
+#page-home .quick-nav,
+#page-home .section-card,
+#page-home .alert-banner,
+.life-top,
+.life-tags,
+.life-filters,
+.mall-promo,
+.mall-quick,
+.mall-product,
+.subsidy-checkin,
+.subsidy-benefits { border-color:rgba(255,255,255,.82); }
+
+.life-banner {
+  height:96px;
+  border-radius:var(--my-radius-md);
+  background:linear-gradient(135deg,#f28b72 0%,#e96c78 100%);
+  box-shadow:var(--my-shadow-1);
+}
+
+.life-banner-title { font-size:20px; letter-spacing:0; }
+.life-banner-action { width:48px; height:48px; font-size:12px; }
+.life-tag.active,
+.life-filter.active { color:var(--my-brand-red); background:var(--my-brand-soft); border-color:rgba(255,77,136,.28); }
+
+.life-card-name,
+.mall-product-name { font-weight:500; }
+.life-card-button,
+.life-search button,
+.mall-quick + .mall-quick,
+.subsidy-order-button { transition:transform .16s ease, opacity .16s ease, box-shadow .16s ease; }
+.life-card-button:active,
+.life-search button:active,
+.subsidy-order-button:active { transform:translateY(1px); opacity:.9; }
+
+.mall-promo-head { font-size:16px; font-weight:600; }
+.mall-quick { min-height:96px; }
+.mall-quick strong { font-weight:500; }
+.mall-product-price { font-weight:600; }
+
+button:focus-visible,
+[role="button"]:focus-visible,
+.nav-tab:focus-visible,
+.tab:focus-visible {
+  outline:2px solid rgba(255,77,136,.48);
+  outline-offset:2px;
+}
+.status-bar { position:relative; z-index:101; }
+.header { border-bottom:1px solid rgba(215,219,228,.45); }
+.search-bar { border-bottom:1px solid rgba(215,219,228,.4); }
+/* 首页顶部信息区与搜索区连续衔接，不额外显示分隔线 */
+body:not(.life-active):not(.mall-active) > .header { border-bottom:0; }
+.bottom-nav {
+  border-top:1px solid rgba(205,211,222,.65);
+  box-shadow:0 -8px 24px rgba(45,52,70,.08);
+}
+
+#page-home,
+#page-life,
+#page-haojia { background:transparent; }
+#page-home > .content,
+#page-life > .content,
+#page-haojia > .content { background:transparent; }
+
+#page-home .quick-nav,
+#page-home .section-card,
+#page-home .alert-banner,
+#page-home .waimai-section,
+#page-home .waimai-list-card,
+.life-top,
+.life-tags,
+.life-filters,
+.life-help,
+.life-card,
+.mall-promo,
+.mall-quick,
+.mall-product {
+  background:var(--glass-white);
+  border:1px solid var(--glass-border);
+  box-shadow:var(--glass-shadow);
+  -webkit-backdrop-filter:saturate(135%) blur(16px);
+  backdrop-filter:saturate(135%) blur(16px);
+}
+
+#page-home .quick-nav,
+#page-home .section-card,
+#page-home .waimai-section,
+.mall-promo,
+.mall-quick,
+.mall-product { border-radius:14px; }
+
+#page-home .alert-banner,
+.life-help,
+.life-card { border-radius:12px; }
+
+.search-inner,
+.life-search,
+.life-filter,
+.mall-quick-icon,
+.mall-product-source,
+.mall-product-tags span {
+  border:1px solid rgba(255,255,255,.7);
+  -webkit-backdrop-filter:saturate(130%) blur(12px);
+  backdrop-filter:saturate(130%) blur(12px);
+}
+
+body.mall-active > .search-bar .search-inner {
+  background:rgba(255,255,255,.84);
+  -webkit-backdrop-filter:saturate(140%) blur(16px);
+  backdrop-filter:saturate(140%) blur(16px);
+}
+
+.life-top { background:rgba(255,255,255,.72); }
+.life-tags,
+.life-filters { background:rgba(255,255,255,.68); }
+.life-card-image,
+.mall-product-image,
+.mall-promo-product { background:rgba(248,249,252,.82); }
+
+
+@supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))) {
+  .status-bar,
+  .header,
+  .search-bar,
+  .bottom-nav,
+  #page-home .quick-nav,
+  #page-home .section-card,
+  #page-home .alert-banner,
+  #page-home .waimai-section,
+  #page-home .waimai-list-card,
+  .life-top,
+  .life-tags,
+  .life-filters,
+  .life-help,
+  .life-card,
+  .mall-promo,
+  .mall-quick,
+  .mall-product { background:#fff; }
+}
+
+/* 统一品牌主题：参考附件的浅粉页面、玫红主操作和深莓紫文字 */
+:root {
+  --my-brand-red:#ff3f7f;
+  --my-brand-strong:#ff2f73;
+  --my-brand-soft:#fff0f5;
+  --my-brand-wash:#fff6f8;
+  --my-bg:#f7f8fa;
+  --my-surface:#fff;
+  --my-text-primary:#452331;
+  --my-text-secondary:#6f5c64;
+  --my-text-tertiary:#a7989e;
+  --my-line:#f0e4e8;
+  --my-orange:#ff9f2f;
+  --my-success:#31b889;
+  --my-shadow-1:0 2px 12px rgba(76,32,50,.06);
+  --glass-white:rgba(255,255,255,.96);
+  --glass-border:rgba(255,231,238,.92);
+  --glass-shadow:0 2px 12px rgba(76,32,50,.06);
+}
+
+body,
+#page-home,
+#page-life,
+#page-haojia,
+#page-butie,
+.subsidy-page { background:var(--my-bg); color:var(--my-text-primary); }
+
+.status-bar,
+.header,
+.search-bar,
+.bottom-nav { background:rgba(255,246,249,.96); border-color:var(--my-line); }
+
+.header,
+.status-bar,
+.section-card,
+.quick-nav,
+.life-top,
+.life-tags,
+.life-filters,
+.life-card,
+.mall-promo,
+.mall-quick,
+.mall-product,
+.subsidy-checkin,
+.subsidy-benefits,
+#page-home .waimai-section { box-shadow:var(--my-shadow-1); }
+
+.savings,
+.section-title,
+.subsidy-section-title strong,
+.subsidy-benefits h2,
+.life-section-title,
+.mall-promo-head,
+.mall-product-name { color:var(--my-text-primary); }
+
+.search-inner,
+.life-search { background:#fff; border:1px solid #ffd2df; }
+.search-inner:focus-within,
+.life-search:focus-within { border-color:var(--my-brand-red); box-shadow:0 0 0 3px rgba(255,63,127,.1); }
+.search-inner input { color:var(--my-text-primary); }
+.search-btn,
+.life-search button,
+.life-card-button,
+.life-coupon-button,
+.life-coupon,
+.subsidy-order-button,
+.benefit-row button,
+.mall-product-button,
+.mall-quick-button { background:var(--my-brand-red); color:#fff; }
+.search-btn:hover,
+.life-search button:hover,
+.life-card-button:hover,
+.subsidy-order-button:hover,
+.benefit-row button:hover { background:var(--my-brand-strong); }
+
+.category-tabs { background:var(--my-surface); border-radius:20px 20px 0 0; }
+
+/* The sticky category bar meets the viewport edge with square top corners. */
+body.home-scroll-active #page-home .category-tabs {
+  border-top-left-radius:0 !important;
+  border-top-right-radius:0 !important;
+}
+.tab { color:#8f8087; }
+.tab.active { color:var(--my-text-primary); }
+.tab.active::after { background:var(--my-brand-red); }
+.nav-tab.active { background:var(--my-brand-soft); }
+.nav-tab.active svg,
+.nav-tab.active span { color:var(--my-brand-red); }
+.nav-badge,
+.badge { background:var(--my-brand-red); }
+
+.alert-banner { background:var(--my-brand-soft); border-color:#ffd7e3; }
+.alert-text,
+.alert-time,
+#page-home .alert-text,
+#page-home .alert-time { color:var(--my-brand-red); }
+.alert-time { border-color:#ffc1d2; }
+
+.life-banner { background:linear-gradient(135deg,#ff5b86 0%,#ff3f7f 100%); }
+.life-location svg,
+.life-tag.active,
+.life-filter.active,
+.life-help-link,
+.life-card-return b { color:var(--my-brand-red); }
+.life-tag.active,
+.life-filter.active { background:var(--my-brand-soft); border-color:#ffc3d4; }
+.life-help { background:var(--my-brand-wash); border-color:#ffd9e4; }
+.life-coupon { background:linear-gradient(90deg,#ff4c82,#ff759a); }
+.life-coupon-button { color:var(--my-brand-red); }
+.life-card-tag { color:var(--my-brand-red); background:var(--my-brand-soft); border-color:#ffd2df; }
+.life-card-tag.green { color:var(--my-success); background:#edfbf5; border-color:#bcebd9; }
+
+.mall-promo,
+.mall-quick,
+.mall-product { border-color:#f0e3e8; }
+.mall-product-tags span,
+#page-home .home-product-tags span,
+.rebate-rate { color:var(--my-brand-red); background:var(--my-brand-soft); border-color:#ffc7d7; }
+.mall-product-price,
+#page-home .home-product-price { color:var(--my-brand-red); }
+
+.subsidy-hero { background:linear-gradient(180deg,#fff8fa 0%,#ffdbe5 28%,#f5a0ad 72%,#ed7f93 100%); color:#5c2f3d; }
+.subsidy-hero-copy > span,
+.subsidy-hero-copy > strong,
+.subsidy-hero-copy > strong small,
+.subsidy-hero-copy p,
+.subsidy-hero-copy p span { color:#693646; }
+.subsidy-hero-copy em { color:#9b5e24; background:#fff0bd; }
+.subsidy-section-title span { color:var(--my-brand-red); }
+.subsidy-day-card { background:var(--my-brand-soft); }
+.subsidy-days i { background:var(--my-brand-red); }
+.subsidy-order-button { box-shadow:0 3px 0 rgba(220,35,94,.12); }
+.benefit-row { border-color:var(--my-line); }
+.benefit-copy strong { color:var(--my-text-primary); }
+.benefit-copy strong em { color:var(--my-orange); }
+.benefit-copy span { color:var(--my-text-tertiary); }
+.benefit-icon-blue { color:#5d94e8; background:#edf5ff; }
+.benefit-icon-gold { color:#e9962d; background:#fff6e7; }
+.benefit-icon-coral { color:var(--my-brand-red); background:var(--my-brand-soft); }
+.benefit-row .benefit-button-muted { color:var(--my-brand-red); background:var(--my-brand-soft); border:1px solid #ffd0de; }
+
+/* 首页快捷入口和旧内联业务样式的色彩收口 */
+#page-home .nav-label,
+#page-home .icon-label { color:var(--my-text-primary); }
+#page-home .home-section-more:active { color:var(--my-brand-red); }
+#page-home .platform-entry-card,
+#page-home .section-card { border-color:#f0e3e8; }
+#page-home .waimai-list-button { background:var(--my-brand-red); box-shadow:0 2px 5px rgba(233,52,119,.14); }
+#page-home .waimai-head-icon,
+#page-home .waimai-feature strong { color:var(--my-brand-red); }
+
+button:focus-visible,
+[role="button"]:focus-visible,
+.nav-tab:focus-visible,
+.tab:focus-visible { outline-color:rgba(255,63,127,.55); }
+
+:root {
+  --my-control-height-sm:32px;
+  --my-control-height-md:36px;
+  --my-control-height-lg:40px;
+  --my-radius-xs:4px;
+  --my-radius-control:8px;
+  --my-radius-pill:999px;
+  --my-border-soft:1px solid rgba(0,0,0,.08);
+  --my-control-ease:cubic-bezier(.2,0,0,1);
+}
+
+button,
+[role="button"] {
+  -webkit-tap-highlight-color:transparent;
+  font-family:inherit;
+}
+
+.search-btn,
+.life-search button,
+.life-coupon-button,
+.life-card-button,
+.waimai-claim,
+.waimai-feature-button,
+.waimai-list-button,
+.side-button,
+.benefit-row button,
+.subsidy-order-button,
+.mall-sign,
+.mall-more {
+  box-sizing:border-box;
+  border:0;
+  transition:transform .16s var(--my-control-ease), background-color .16s ease,
+    border-color .16s ease, box-shadow .16s ease, opacity .16s ease;
+}
+
+.search-btn,
+.life-search button,
+.life-coupon-button,
+.life-card-button,
+.benefit-row button {
+  min-height:var(--my-control-height-sm);
+  border-radius:var(--my-radius-control);
+  font-size:12px;
+  font-weight:500;
+  line-height:1;
+}
+
+.search-btn {
+  min-height:var(--my-control-height-md);
+  padding:0 16px;
+  border-radius:var(--my-radius-pill);
+  font-size:13px;
+  font-weight:500;
+  line-height:var(--my-control-height-md);
+}
+
+.life-search button {
+  height:var(--my-control-height-sm);
+  padding:0 12px;
+  border-radius:var(--my-radius-pill);
+  font-weight:500;
+  line-height:var(--my-control-height-sm);
+}
+
+.life-coupon-button,
+.life-card-button {
+  padding:0 12px;
+  border-radius:var(--my-radius-control);
+  font-weight:500;
+  line-height:var(--my-control-height-sm);
+}
+
+.life-coupon-button {
+  color:#e96935;
+  background:#fff;
+  box-shadow:0 1px 3px rgba(174,84,39,.12);
+}
+
+.life-card-button { line-height:var(--my-control-height-sm); }
+
+.waimai-claim,
+.waimai-list-button {
+  min-height:var(--my-control-height-md);
+  border-radius:var(--my-radius-control);
+  font-size:12px;
+  font-weight:500;
+  line-height:var(--my-control-height-md);
+}
+
+.waimai-feature-button,
+.side-button {
+  min-height:var(--my-control-height-sm);
+  padding:0 12px;
+  border-radius:var(--my-radius-control);
+  font-size:11px;
+  font-weight:500;
+  line-height:var(--my-control-height-sm);
+}
+
+.benefit-row button {
+  min-width:76px;
+  height:35px;
+  padding:0 12px;
+  border-radius:var(--my-radius-control);
+  font-weight:500;
+  line-height:35px;
+}
+
+.benefit-row .benefit-button-muted {
+  border:var(--my-border-soft);
+  color:#d97950;
+  background:#fff8f4;
+}
+
+.subsidy-order-button {
+  min-height:var(--my-control-height-lg);
+  border-radius:var(--my-radius-control);
+  box-shadow:0 3px 8px rgba(225,74,119,.14);
+}
+
+.subsidy-order-button strong {
+  font-weight:500;
+}
+
+.subsidy-order-button span { font-weight:500; }
+
+.mall-sign {
+  border:var(--my-border-soft);
+  border-radius:var(--my-radius-control);
+}
+
+.mall-search,
+.life-search,
+.life-filter,
+.life-tag,
+.mall-product-source,
+.mall-product-tags span,
+.mall-promo-label {
+  border-radius:var(--my-radius-control);
+}
+
+.life-filter,
+.life-tag {
+  border-color:transparent;
+}
+
+.life-filter.active,
+.life-tag.active {
+  border-color:rgba(255,107,53,.24);
+}
+
+.mall-product-tags span,
+.mall-promo-label {
+  border-radius:var(--my-radius-xs);
+}
+
+.search-inner,
+.mall-search,
+.life-search {
+  border-color:rgba(0,0,0,.06);
+}
+
+.search-btn:active,
+.life-search button:active,
+.life-coupon-button:active,
+.life-card-button:active,
+.waimai-claim:active,
+.waimai-feature-button:active,
+.waimai-list-button:active,
+.side-button:active,
+.benefit-row button:active,
+.subsidy-order-button:active,
+.mall-sign:active {
+  transform:translateY(1px);
+  opacity:.9;
+}
+
+button:disabled,
+[role="button"][aria-disabled="true"] {
+  cursor:not-allowed;
+  opacity:.48;
+  box-shadow:none;
+}
+
+/* 全局视觉收口：统一层级、尺寸与节奏，保留各业务的语意色 */
+:root {
+  --my-business-orange:#ff5a1f;
+  --my-business-soft:#fff3ed;
+  --my-primary-button:#ff5a1f;
+  --my-control-text:#fff;
+  --my-control-height-xs:32px;
+  --my-control-height-sm:36px;
+  --my-control-height-md:40px;
+  --my-space-section:12px;
+}
+
+body {
+  font-family:"PingFang SC","SF Pro Text","Helvetica Neue",Arial,sans-serif;
+  color:var(--my-text-primary);
+}
+
+button,
+[role="button"] {
+  min-width:0;
+  font-weight:500;
+}
+
+/* 同层级主操作统一品牌红；生活服务和补贴操作保留业务橙 */
+body:not(.life-active):not(.mall-active) > .search-bar .search-btn,
+#page-home .waimai-list-button {
+  background:var(--my-primary-button);
+  color:var(--my-control-text);
+  box-shadow:0 2px 6px rgba(255,96,119,.18);
+}
+
+#page-mine .mine-checkin-button {
+  background:var(--my-brand-red);
+  color:var(--my-control-text);
+  box-shadow:0 2px 6px rgba(255,77,136,.18);
+}
+
+#page-life .life-search button,
+#page-life .life-card-button,
+#page-life .life-coupon-button,
+#page-butie .benefit-row button,
+#page-butie .subsidy-order-button {
+  background:var(--my-primary-button);
+  color:var(--my-control-text);
+  box-shadow:0 2px 6px rgba(255,96,119,.18);
+}
+
+#page-life .life-coupon-button {
+  color:var(--my-business-orange);
+  background:var(--my-surface);
+  border:1px solid rgba(255,96,119,.24);
+  box-shadow:none;
+}
+
+#page-butie .benefit-row .benefit-button-muted {
+  color:var(--my-business-orange);
+  background:var(--my-business-soft);
+  border:1px solid rgba(255,96,119,.12);
+  box-shadow:none;
+}
+
+#page-life .life-coupon-button {
+  background:var(--my-surface);
+  box-shadow:none;
+}
+
+#page-home .waimai-list-button,
+#page-life .life-search button,
+#page-life .life-card-button,
+#page-butie .benefit-row button,
+#page-butie .subsidy-order-button,
+#page-mine .mine-checkin-button {
+  border-radius:var(--my-radius-control);
+  font-size:12px;
+  font-weight:500;
+}
+
+#page-home .waimai-list-button { min-height:var(--my-control-height-xs); height:var(--my-control-height-xs); line-height:var(--my-control-height-xs); }
+#page-life .life-search button { min-height:var(--my-control-height-xs); height:var(--my-control-height-xs); line-height:var(--my-control-height-xs); }
+#page-life .life-card-button,
+#page-butie .benefit-row button { min-height:var(--my-control-height-xs); height:var(--my-control-height-xs); line-height:var(--my-control-height-xs); }
+#page-butie .subsidy-order-button { min-height:var(--my-control-height-md); height:var(--my-control-height-md); border-radius:var(--my-radius-control); }
+#page-mine .mine-checkin-button { min-height:var(--my-control-height-xs); height:var(--my-control-height-xs); line-height:var(--my-control-height-xs); border-radius:var(--my-radius-pill); }
+
+/* 卡片与列表统一使用 12px 外轮廓，模块间用 12px 留白 */
+#page-home .quick-nav,
+#page-home .section-card,
+#page-home .alert-banner,
+#page-home .waimai-section,
+#page-home .waimai-list-card,
+#page-life .life-top,
+#page-life .life-tags,
+#page-life .life-filters,
+#page-life .life-help,
+#page-life .life-card,
+#page-haojia .mall-promo,
+#page-haojia .mall-quick,
+#page-haojia .mall-product,
+#page-mine .mine-benefits-card,
+#page-mine .mine-orders,
+#page-mine .mine-entry-grid,
+#page-mine .mine-list,
+#page-butie .subsidy-checkin,
+#page-butie .subsidy-benefits {
+  border-radius:var(--my-radius-md);
+}
+
+#page-mine .mine-benefits-card,
+#page-mine .mine-orders,
+#page-mine .mine-entry-grid,
+#page-mine .mine-list,
+#page-butie .subsidy-checkin,
+#page-butie .subsidy-benefits { margin-bottom:var(--my-space-section); }
+
+/* 文字层级：标题克制，正文和关键数据保持清晰对比 */
+#page-mine .mine-orders-header strong,
+#page-mine .mine-row,
+#page-mine .mine-entry,
+#page-mine .mine-benefit-item em { color:var(--my-text-primary); }
+
+#page-mine .mine-orders-header strong,
+#page-mine .mine-benefit-item strong,
+#page-mine .mine-row,
+#page-mine .mine-entry { font-weight:400; }
+
+#page-mine .mine-benefit-item em { font-weight:600; font-variant-numeric:tabular-nums; }
+#page-mine .mine-benefit-item strong { color:var(--my-text-secondary); font-size:13px; line-height:18px; }
+#page-mine .mine-entry,
+#page-mine .mine-row { font-size:15px; line-height:22px; }
+#page-mine .mine-entry small,
+#page-mine .mine-row small { color:var(--my-text-tertiary); font-size:13px; }
+
+#page-butie .subsidy-section-title strong,
+#page-butie .subsidy-benefits h2 { font-size:16px; font-weight:500; line-height:22px; }
+#page-butie .benefit-copy strong { font-size:13px; font-weight:400; line-height:20px; }
+#page-butie .benefit-copy strong em { font-size:13px; }
+#page-butie .benefit-copy span { color:var(--my-text-tertiary); font-size:11px; line-height:17px; }
+
+#page-home .waimai-head-icon-fire svg,
+#page-butie .subsidy-calendar svg,
+#page-butie .subsidy-coins svg,
+#page-butie .benefit-icon svg {
+  display:block;
+  width:20px;
+  height:20px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+#page-home .waimai-head-icon-fire { color:#ee875f; }
+#page-butie .subsidy-calendar svg { width:32px; height:32px; }
+#page-butie .subsidy-coins svg { width:24px; height:24px; }
+#page-butie .benefit-icon { font-size:0; }
+#page-butie .benefit-icon-blue { color:#6e9dd7; background:#edf5ff; }
+#page-butie .benefit-icon-gold { color:#d99935; background:#fff5e5; }
+#page-butie .benefit-icon-coral { color:#e48263; background:#fff0ea; }
+
+#page-life .life-filter-icon {
+  display:inline-block;
+  width:13px;
+  height:13px;
+  margin-right:3px;
+  vertical-align:-2px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+#page-life .life-filter,
+#page-life .life-card-main,
+#page-butie .benefit-copy { min-width:0; }
+
+#page-life .life-card-button,
+#page-butie .benefit-row button { white-space:nowrap; }
+
+#page-life .life-banner {
+  position:relative;
+  height:96px;
+  margin:8px 12px;
+  padding:0 18px;
+  overflow:hidden;
+  border:0;
+  border-radius:12px;
+  background:linear-gradient(110deg,#ff7887 0%,#ff6077 58%,#f58b86 100%);
+  box-shadow:0 4px 12px rgba(255,96,119,.18);
+}
+
+#page-life .life-ad-copy {
+  position:relative;
+  z-index:1;
+}
+
+#page-life .life-ad-kicker {
+  display:block;
+  margin-bottom:3px;
+  color:rgba(255,255,255,.82);
+  font-size:11px;
+  line-height:16px;
+}
+
+#page-life .life-banner-title {
+  color:#fff;
+  font-size:20px;
+  font-weight:600;
+  line-height:26px;
+  letter-spacing:0;
+}
+
+#page-life .life-banner-sub {
+  margin-top:2px;
+  color:rgba(255,255,255,.9);
+  font-size:12px;
+  line-height:18px;
+}
+
+#page-life .life-ad-art {
+  position:absolute;
+  right:8px;
+  bottom:-2px;
+  width:120px;
+  height:92px;
+  opacity:.95;
+}
+
+#page-life .life-ad-art svg {
+  display:block;
+  width:100%;
+  height:100%;
+}
+
+#page-life .life-card-footer:has(.life-card-return:only-child) {
+  justify-content:flex-start;
+}
+
+@media (max-width:360px) {
+  #page-butie .benefit-row { gap:8px; }
+  #page-butie .benefit-icon { width:36px; height:36px; border-radius:10px; }
+  #page-butie .benefit-row button { min-width:68px; padding:0 8px; }
+  #page-butie .benefit-copy strong { font-size:13px; }
+  #page-butie .benefit-copy span { font-size:11px; }
+  #page-mine .mine-entry,
+  #page-mine .mine-row { padding-left:16px; padding-right:12px; }
+}
+
+/* 统一交互反馈与可见焦点 */
+button,
+[role="button"] { transition:transform .16s var(--my-control-ease),background-color .16s ease,border-color .16s ease,box-shadow .16s ease,opacity .16s ease; }
+button:focus-visible,
+[role="button"]:focus-visible { outline:2px solid rgba(255,77,136,.42); outline-offset:2px; }
+
+/* 最终主题覆盖：theme.css 作为最后一层加载，收口旧版整合样式 */
+body { background:var(--my-bg); color:var(--my-text-primary); }
+.search-btn,
+.life-search button,
+.life-card-button,
+.life-coupon-button,
+.life-coupon,
+.subsidy-order-button,
+.benefit-row button,
+.lcard-action,
+.lc-btn { background:var(--my-brand-red) !important; color:#fff !important; }
+.life-coupon-button,
+.lc-btn { background:#fff !important; color:var(--my-brand-red) !important; }
+.search-inner,
+.life-search,
+.life-sbox { background:#fff !important; border:1px solid #ffd2df !important; }
+.nav-tab.active { background:var(--my-brand-soft) !important; }
+.nav-tab.active svg,
+.nav-tab.active span,
+.nav-badge,
+.badge { color:var(--my-brand-red) !important; }
+.nav-badge,
+.badge { background:var(--my-brand-red) !important; color:#fff !important; }
+.alert-banner { background:var(--my-brand-soft) !important; border-color:#ffd7e3 !important; }
+.alert-text,
+.alert-time,
+.life-tag.active,
+.life-filter.active,
+.life-help-link,
+.life-card-return b,
+.life-location svg,
+.life-section-title span,
+.lcard-quota em,
+.life-help-r { color:var(--my-brand-red) !important; }
+.tab.active::after { background:var(--my-brand-red) !important; }
+.life-banner { background:linear-gradient(135deg,#ff5b86 0%,#ff3f7f 100%) !important; }
+.life-tag.active,
+.life-filter.active { background:var(--my-brand-soft) !important; border-color:#ffc3d4 !important; }
+.life-help { background:var(--my-brand-wash) !important; border-color:#ffd9e4 !important; }
+.life-card-tag,
+.ltag-new { color:var(--my-brand-red) !important; background:var(--my-brand-soft) !important; border-color:#ffd2df !important; }
+.life-card-tag.green,
+.ltag-cash { color:var(--my-success) !important; background:#edfbf5 !important; border-color:#bcebd9 !important; }
+.life-card-button,
+.lcard-action { border-radius:8px; }
+.subsidy-hero { background:linear-gradient(180deg,#fff8fa 0%,#ffdbe5 28%,#f5a0ad 72%,#ed7f93 100%) !important; }
+.subsidy-days i { background:var(--my-brand-red) !important; }
+.benefit-icon-coral { color:var(--my-brand-red); background:var(--my-brand-soft); }
+.benefit-row .benefit-button-muted { color:var(--my-brand-red) !important; background:var(--my-brand-soft) !important; border:1px solid #ffd0de !important; }
+
+/* 生活服务旧版内联块：只统一承载色，不改变图标本身的业务识别 */
+#page-life [style*="background:#ff6b35"],
+#page-life [style*="background:linear-gradient(135deg,#ff6b35"],
+#page-life [style*="background:linear-gradient(90deg,#ff6b35"] { background:var(--my-brand-red) !important; }
+#page-life [style*="color:#ff6b35"],
+#page-life [style*="color:#ff6b81"] { color:var(--my-brand-red) !important; }
+#page-life [style*="background:#fff3ee"],
+#page-life [style*="background:#fff8f2"] { background:var(--my-brand-soft) !important; }
+
+/* 首页顶部状态栏不显示上边界分隔线。 */
+.status-bar {
+  box-shadow:none !important;
+}
+
+body.home-active > .status-bar {
+  border-top:0 !important;
+  border-bottom:0 !important;
+}
+
+/* 首页信息区与搜索区连续衔接，不显示两块之间的分隔线。 */
+body.home-active > .search-bar {
+  border-bottom:0 !important;
+}
+
+/* 首页顶部三段承载区保持纯白，避免玻璃透明色叠加页面底色。 */
+body.home-active > .status-bar,
+body.home-active > .header,
+body.home-active > .search-bar {
+  background:#fff !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+
+/* 快捷入口与首页搜索区连续衔接。 */
+#page-home .quick-nav {
+  width:100% !important;
+  margin:0 !important;
+  padding-top:4px !important;
+  background:#fff !important;
+  border:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  -webkit-backdrop-filter:none !important;
+  backdrop-filter:none !important;
+}
+
+/* 首页内容区：商城入口与商品推荐外层融入页面，不显示卡片轮廓。 */
+#page-home .platform-entry-card,
+#page-home #panel-hot > .section-card:nth-of-type(2) {
+  border:0 !important;
+  box-shadow:none !important;
+  -webkit-backdrop-filter:none !important;
+  backdrop-filter:none !important;
+}
+
+#page-home #panel-hot > .section-card:nth-of-type(2) {
+  background:#fff !important;
+  border-radius:0 !important;
+}
+
+/* 今日值得买：白色模块内使用浅灰白商品卡，拉开内容层次。 */
+#page-home #panel-hot > .section-card:nth-of-type(2) .home-product-card {
+  background:#fff !important;
+  border:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+}
+
+#page-home #panel-hot > .section-card:nth-of-type(2) .home-product-card + .home-product-card {
+  border-top:0 !important;
+}
+
+/* 补贴页顶部保持白色状态栏，并收紧首屏补贴卡高度。 */
+body.butie-active > .status-bar {
+  background:#fff !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+
+/* 商城页状态栏移除底部阴影。 */
+body.mall-active > .status-bar {
+  box-shadow:none !important;
+}
+
+body.butie-active .subsidy-hero {
+  min-height:128px;
+  padding-top:4px;
+  padding-bottom:4px;
+}
+
+body.butie-active .subsidy-hero-copy {
+  margin-top:8px;
+}
+
+body.butie-active .subsidy-hero-art {
+  width:94px;
+  height:94px;
+}
+
+/* 补贴页顶部从白色平滑过渡到品牌粉，消除顶部色彩断层。 */
+body.butie-active .subsidy-hero {
+  background:linear-gradient(180deg,#fff 0%,#fff9fb 16%,#ffe8ee 34%,#f8b2bf 68%,#ed7f93 100%) !important;
+}
+
+/* 商城搜索栏从白色平滑过渡到页面浅灰，避免顶部出现色彩断层。 */
+body.mall-active > .search-bar,
+body.mall-active.mall-scroll-active > .search-bar {
+  background:linear-gradient(180deg,#fff 0%,#fff 42%,#f5f4f8 100%) !important;
+  border-bottom:0;
+}
+
+/* 商城页促销模块和商品卡移除外层边框。 */
+body.mall-active .mall-promo,
+body.mall-active .mall-product {
+  border:0 !important;
+}
+
+/* 商城页恢复限时抢购模块的外框，商品卡保持无外框瀑布流。 */
+body.mall-active .mall-promo {
+  border:1px solid #f0e3e8 !important;
+}
+
+body.mall-active .mall-feed {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:var(--mall-gap);
+  align-items:start;
+}
+
+body.mall-active .mall-product {
+  display:block;
+  width:auto;
+  margin:0;
+}
+
+/* 首页红包过期提醒移除外层边框。 */
+#page-home .alert-banner {
+  border:0 !important;
+}
+
+/* 外卖 Tab 按附件规范统一为白底、浅灰分区与粉色强调。 */
+#page-home .category-tabs {
+  background:#fff !important;
+}
+
+#page-home .tab {
+  color:#777 !important;
+}
+
+#page-home .tab.active {
+  color:var(--my-brand-red) !important;
+}
+
+#page-home .tab.active::after {
+  background:var(--my-brand-red) !important;
+}
+
+#page-home #panel-waimai .waimai-page {
+  padding:0 8px 12px;
+  background:#f6f7fa;
+}
+
+#page-home #panel-waimai .waimai-section {
+  border:0;
+  background:#fff;
+  box-shadow:none;
+}
+
+#page-home #panel-waimai .waimai-section-head {
+  color:#333;
+}
+
+#page-home #panel-waimai .waimai-head-icon {
+  color:var(--my-brand-red);
+}
+
+#page-home #panel-waimai .waimai-red-card {
+  background:#fff0f4;
+  color:#4a3038;
+  box-shadow:inset 0 0 0 1px #ffe0e8;
+}
+
+#page-home #panel-waimai .waimai-red-card::after {
+  background:rgba(255,77,136,.08);
+}
+
+#page-home #panel-waimai .waimai-brand {
+  background:#fff;
+  color:var(--my-brand-red);
+}
+
+#page-home #panel-waimai .waimai-red-copy b {
+  color:var(--my-brand-red);
+}
+
+#page-home #panel-waimai .waimai-claim {
+  background:var(--my-brand-red);
+  color:#fff;
+  box-shadow:0 2px 5px rgba(233,52,119,.14);
+}
+
+#page-home #panel-waimai .waimai-feature {
+  background:#fff5f7;
+  color:#4a3038;
+  box-shadow:inset 0 0 0 1px #ffe3ea;
+}
+
+#page-home #panel-waimai .waimai-feature::after {
+  color:rgba(255,77,136,.12);
+}
+
+#page-home #panel-waimai .waimai-feature strong {
+  color:var(--my-brand-red);
+}
+
+#page-home #panel-waimai .waimai-feature p,
+#page-home #panel-waimai .waimai-side-card,
+#page-home #panel-waimai .waimai-list-copy .source {
+  color:#8c7e85;
+}
+
+#page-home #panel-waimai .waimai-side-card.green {
+  background:#eef8f1;
+  color:#5a8068;
+}
+
+#page-home #panel-waimai .waimai-side-card.yellow {
+  background:#fff8e9;
+  color:#8a7040;
+}
+
+#page-home #panel-waimai .waimai-side-card .waimai-brand {
+  background:transparent;
+  color:inherit;
+}
+
+#page-home #panel-waimai .waimai-side-card .side-button,
+#page-home #panel-waimai .waimai-feature-button {
+  background:#fff;
+  color:var(--my-brand-red);
+  box-shadow:none;
+}
+
+#page-home #panel-waimai .waimai-list-card {
+  background:#fff;
+  box-shadow:inset 0 0 0 1px #f0e7eb;
+}
+
+#page-home #panel-waimai .waimai-list-card:nth-child(2),
+#page-home #panel-waimai .waimai-list-card:nth-child(3) {
+  background:#fff;
+}
+
+#page-home #panel-waimai .waimai-list-button {
+  background:var(--my-brand-red);
+  box-shadow:0 2px 5px rgba(233,52,119,.14);
+}
+
+/* 首页分类导航去除背景色，直接融入页面底色。 */
+#page-home .category-tabs,
+#page-home #categoryTabs {
+  background:transparent !important;
+}
+
+/* 热门导航与商城返现首个模块收紧间距。 */
+#page-home .category-tabs .tabs-row {
+  padding-bottom:4px;
+}
+
+#page-home #panel-hot > .section-card:first-child {
+  margin-top:4px;
+}
+
+/* 首页导航吸顶时使用通栏白色承载层。 */
+body.home-scroll-active #page-home .category-tabs {
+  width:100vw !important;
+  margin-left:calc(50% - 50vw) !important;
+  margin-right:calc(50% - 50vw) !important;
+  background:rgba(255,255,255,.9) !important;
+  -webkit-backdrop-filter:saturate(120%) blur(10px);
+  backdrop-filter:saturate(120%) blur(10px);
+}
+
+/* 独立红包提醒恢复浅粉色边框。 */
+#page-home .alert-banner {
+  margin-left:18px;
+  margin-right:18px;
+  border:1px solid #ffd6de !important;
+}
+
+/* 补贴页签到卡优化信息层级与间距。 */
+#page-butie .subsidy-checkin {
+  margin-top:10px;
+  padding:15px 12px 13px;
+  border:1px solid #f5dfe6;
+  border-radius:14px;
+  background:#fff;
+  box-shadow:0 2px 8px rgba(227,82,126,.06);
+}
+
+#page-butie .subsidy-section-title {
+  align-items:center;
+  gap:10px;
+}
+
+#page-butie .subsidy-section-title strong {
+  font-size:16px;
+  line-height:21px;
+}
+
+#page-butie .subsidy-section-title span {
+  margin-top:2px;
+  color:#a17c88;
+  font-size:12px;
+  line-height:18px;
+}
+
+#page-butie .subsidy-section-title button {
+  display:inline-flex;
+  align-items:center;
+  gap:2px;
+  padding:2px 0;
+  color:#999;
+  font-size:12px;
+  white-space:nowrap;
+}
+
+#page-butie .subsidy-section-title button b {
+  width:18px;
+  height:18px;
+  margin-left:0;
+  border-color:#c6c0c4;
+  font-size:12px;
+}
+
+#page-butie .subsidy-days {
+  gap:3px;
+  margin-top:13px;
+}
+
+#page-butie .subsidy-day-card {
+  height:46px;
+  padding:4px 1px 3px;
+  border-radius:10px;
+  background:#fff4f7;
+  box-shadow:inset 0 0 0 1px rgba(251,131,173,.08);
+}
+
+#page-butie .subsidy-days strong {
+  font-size:11px;
+  line-height:16px;
+}
+
+#page-butie .subsidy-days i {
+  width:16px;
+  height:16px;
+  margin-top:3px;
+}
+
+#page-butie .subsidy-days .missed .subsidy-day-card {
+  background:#f2f2f4;
+  box-shadow:none;
+}
+
+#page-butie .subsidy-days .missed .subsidy-day-card i {
+  display:none;
+}
+
+#page-butie .subsidy-days .subsidy-day-status {
+  display:none;
+}
+
+#page-butie .subsidy-days .missed .subsidy-day-status {
+  display:block;
+  width:100%;
+  height:16px;
+  margin-top:3px;
+  color:#aaa;
+  font-size:11px;
+  line-height:16px;
+  white-space:nowrap;
+}
+
+#page-butie .subsidy-days span {
+  height:17px;
+  color:#83777e;
+  font-size:11px;
+  line-height:17px;
+}
+
+#page-butie .subsidy-days .today span {
+  color:#4b4147;
+}
+
+#page-butie .subsidy-order-button {
+  height:44px;
+  margin-top:14px;
+  border-radius:10px;
+  box-shadow:0 3px 7px rgba(238,58,115,.16);
+}
+
+#page-butie .subsidy-order-button strong {
+  font-size:15px;
+  line-height:18px;
+}
+
+#page-butie .subsidy-order-button span {
+  margin-top:0;
+  font-size:10px;
+  line-height:13px;
+}
+
+/* 我的页面状态栏移除底部阴影。 */
+body.mine-active > .status-bar {
+  background:#fff !important;
+  box-shadow:none !important;
+}
+
+/* 底部导航按附件恢复白色胶囊与浅灰选中态。 */
+.bottom-nav {
+  background:rgba(255,255,255,.94) !important;
+  border:0 !important;
+  box-shadow:0 2px 6px rgba(45,52,70,.06) !important;
+  -webkit-backdrop-filter:saturate(120%) blur(14px) !important;
+  backdrop-filter:saturate(120%) blur(14px) !important;
+}
+
+.bottom-nav .nav-tab.active {
+  background:#f0f1f3 !important;
+  box-shadow:none !important;
+}
+
+.bottom-nav .nav-tab.active svg,
+.bottom-nav .nav-tab.active span {
+  color:var(--my-brand-red) !important;
+}
+
+/* 商城渠道与优惠券并列展示，使用不同底色区分信息类型。 */
+#page-haojia .mall-product-source {
+  border-color:#e8e8e8;
+  background:#f1f1f1;
+  color:#999;
+}
+
+#page-haojia .mall-product-identity .mall-product-tag-coupon {
+  border-color:#ffd8bd;
+  background:#fff4eb;
+  color:#c98254;
+}
