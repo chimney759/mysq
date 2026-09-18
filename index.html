@@ -743,7 +743,7 @@
   </div>
 </div>
 
-<div id="page-product-detail" class="tab-page product-detail-page" aria-label="商品详情">
+<div id="page-product-detail" class="tab-page product-detail-page" aria-label="商城详情">
   <div class="product-detail-content">
     <header class="product-detail-header">
       <div id="productDetailCarousel" class="product-detail-carousel" aria-label="商品图片轮播">
@@ -785,13 +785,19 @@
       <p class="product-saving-tip"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M766.848 966.784H272.128c-112.256 0-203.392-91.008-203.392-203.392V268.672C68.736 156.288 159.872 65.28 272.128 65.28h494.72C879.232 65.28 970.24 156.288 970.24 268.672v494.72c0 112.256-91.008 203.392-203.392 203.392z" fill="#FFBC31"/><path d="M741.376 389.888c0-118.528-99.328-214.528-221.824-214.528-122.496 0-221.824 96-221.824 214.528 0 69.504 34.176 131.2 87.168 170.368 42.88 31.744 67.84 82.048 67.84 135.296 0 12.16 9.856 22.016 22.016 22.016h89.6c12.16 0 22.016-9.856 22.016-22.016 0-53.248 24.96-103.68 67.84-135.296 52.992-39.168 87.168-100.864 87.168-170.368zM577.792 765.568h-116.608c-8.576 0-15.488-6.912-15.488-15.488 0-8.576 6.912-15.488 15.488-15.488h116.608c8.576 0 15.488 6.912 15.488 15.488 0 8.576-6.912 15.488-15.488 15.488z" fill="#FFFFFF"/><path d="M608 434.688H431.104c-8.576 0-15.488 6.912-15.488 15.488 0 8.576 6.912 15.488 15.488 15.488h72.96v192.384c0 8.576 6.912 15.488 15.488 15.488 8.576 0 15.488-6.912 15.488-15.488V465.664h72.96c8.576 0 15.488-6.912 15.488-15.488 0-8.576-6.912-15.488-15.488-15.488z" fill="#FFBC31"/><path d="M563.584 813.568h-88.192c-8.576 0-15.488-6.912-15.488-15.488 0-8.576 6.912-15.488 15.488-15.488h88.192c8.576 0 15.488 6.912 15.488 15.488 0 8.576-6.912 15.488-15.488 15.488zM545.664 856.704h-52.224c-8.576 0-15.488-6.912-15.488-15.488 0-8.576 6.912-15.488 15.488-15.488h52.224c8.576 0 15.488 6.912 15.488 15.488 0 8.448-6.912 15.488-15.488 15.488z" fill="#FFFFFF"/></svg><span>省钱技巧：先领专享礼金，再领优惠，叠加更省钱</span></p>
 
       <section class="product-offers" aria-label="优惠信息">
-        <div class="product-offers-heading"><strong>找到8个隐藏优惠</strong></div>
+        <div class="product-offers-heading">
+          <strong>找到8个隐藏优惠</strong>
+          <button id="productCouponTipsTrigger" class="product-coupon-tips-trigger" type="button" aria-haspopup="dialog" aria-controls="productCouponTipsPage">
+            <span>领券技巧</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
         <div class="product-coupon-shell">
           <div class="product-coupon-group" aria-label="当前可领取的优惠券">
-            <div class="product-coupon-row product-coupon-row-required"><i class="product-coupon-badge">必领</i><strong class="product-coupon-discount"><span><i>¥</i>7</span><small>满9元可用</small></strong><span><b>商品券</b><small class="product-coupon-required-copy">在商品详情页中领取<br>数量：10张</small></span></div>
+            <div class="product-coupon-row product-coupon-row-required"><i class="product-coupon-badge">必领</i><strong class="product-coupon-discount"><span><i>¥</i>7</span><small>满9元可用</small></strong><span><b>商品券</b><small class="product-coupon-required-copy">在商城详情页中领取<br>数量：10张</small></span></div>
             <div class="product-coupon-row"><strong class="product-coupon-discount"><span><i>¥</i>5</span><small>满39可用</small></strong><span><b>店铺关注券</b><small>关注店铺后领取</small></span></div>
-            <div class="product-coupon-row"><strong class="product-coupon-discount"><span><i>¥</i>2</span><small>无使用门槛</small></strong><span><b>店铺券</b><small>在商品详情页中领取<br>数量：5张</small></span></div>
-            <div class="product-coupon-row"><strong>15%</strong><span><b>政府补贴</b><small>是否可使用以实际页面为准</small></span></div>
+            <div class="product-coupon-row"><strong class="product-coupon-discount"><span><i>¥</i>2</span><small>无使用门槛</small></strong><span><b>店铺券</b><small>在商城详情页中领取<br>数量：5张</small></span></div>
+            <div class="product-coupon-row"><strong class="product-coupon-discount"><span><i>¥</i>120</span><small>满120可用</small></strong><span><b>超市加补购物券</b><small>部分用户可领，在商城详情页中领取</small></span></div>
           </div>
           <div id="productMoreCouponsList" class="product-more-coupons-list" hidden>
             <div class="product-coupon-row"><strong class="product-coupon-discount"><span><i>¥</i>5</span><small>无使用门槛</small></strong><span><b>超市加补购物券</b><small>部分用户可领，面额以实际领取为准</small></span></div>
@@ -837,16 +843,16 @@
   </header>
   <main class="product-offer-rules-content">
     <section>
-      <h2>优惠领取</h2>
-      <p>点击“去抢券”后，将前往商品详情页查看并领取对应优惠。页面展示的优惠券可按实际情况领取和使用。</p>
+      <h2>领取方法</h2>
+      <p>点击“去抢券”，将前往商城详情页查看并领取对应优惠。</p>
+      <p class="product-offer-rules-note">由于活动变动、活动到期或优惠券到期等情况，可能出现优惠券无法领取的情况；优惠券以商城详情页实际可领取为准。</p>
     </section>
     <section>
-      <h2>金额与资格</h2>
-      <p>商家可能临时调整优惠金额、使用门槛或领取资格；部分优惠仅对符合条件的用户开放，具体以商品详情页展示为准。</p>
-    </section>
-    <section>
-      <h2>参与活动</h2>
-      <p>商品参与的活动及具体优惠，以商品详情页和结算页实际展示为准。</p>
+      <h2>领取资格</h2>
+      <ol class="product-offer-rules-list">
+        <li>从“美柚省钱”跳转到商城领取优惠券时，点击商城详情页面的优惠领取相关按钮，即有机会领取购物优惠。<br>不同优惠活动的按钮名称可能有所不同，如“去领取”“去抵扣”“入会领”“关注领”等。<br>成功领取后，购买商品时可按照商城的相关优惠使用规则享受优惠。</li>
+        <li>不同隐藏优惠活动可领取的优惠类型、领取规则可能有所不同，包括领取次数限制、领取条件等。具体以点击商城对应页面优惠领取按钮后，或跳转至相应优惠活动页面后，系统提示的优惠领取情况及领取到的优惠类型、金额为准。<br>美柚省钱并非各优惠活动主办方，具体主办方请以活动相关说明或权益规则为准。</li>
+      </ol>
     </section>
   </main>
 </section>
@@ -865,6 +871,48 @@
     </div>
   </section>
 </div>
+
+<section id="productCouponTipsPage" class="product-coupon-tips-page" role="dialog" aria-modal="true" aria-labelledby="productCouponTipsTitle" hidden>
+  <header class="product-coupon-tips-header">
+    <button id="productCouponTipsBack" type="button" aria-label="返回商城详情">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    <h1 id="productCouponTipsTitle">优惠领取技巧</h1>
+  </header>
+  <main class="product-coupon-tips-content">
+    <ol class="product-coupon-tips-steps">
+      <li class="product-coupon-tips-step-entry">
+        <i>1</i>
+        <div>
+          <strong>点击“去抢券”</strong>
+          <span>商品券、店铺券、加补券等，从“美柚省钱”跳转后，可在商城详情页面的“可再享”栏中找到优惠券。</span>
+          <div class="product-coupon-tips-images">
+            <img src="src/assets/coupon-tips-entry.png" alt="商城详情页的可再享栏示意">
+            <img src="src/assets/coupon-tips-more-offers.png" alt="商城详情页更多优惠示意">
+          </div>
+        </div>
+      </li>
+      <li class="product-coupon-tips-step-claim">
+        <i>2</i>
+        <div>
+          <strong>点击领取优惠</strong>
+          <span>由于活动会变动、限时或优惠到期等情况，具体优惠券以实际详情展示为准。</span>
+          <img src="src/assets/coupon-tips-claim.png" alt="商城详情页领取优惠券示意">
+        </div>
+      </li>
+      <li><i>3</i><div><strong>领券后再下单</strong><span>下单时系统会按规则自动抵扣；部分相同类型的优惠券如存在多张，可手动选择优惠券。</span></div></li>
+    </ol>
+    <section class="product-coupon-tips-store-coupons" aria-labelledby="storeCouponTipsTitle">
+      <h2 id="storeCouponTipsTitle">店铺隐藏券领取</h2>
+      <p class="product-coupon-tips-store-intro">通过美柚省钱发现的店铺关注券、店铺专属券及店铺会员券，可按以下方式尝试领取。</p>
+      <ol>
+        <li>店铺关注券、店铺粉丝券：进入店铺页面并关注，即有机会领取专属优惠券。实际可领取的优惠以商城页面展示为准。</li>
+        <li>店铺会员券：进入店铺页面并开通店铺会员，即有机会领取会员专属优惠券。实际可领取的优惠以商城页面展示为准。</li>
+      </ol>
+    </section>
+    <p class="product-coupon-tips-note">不同商品的优惠入口位置可能略有不同，以页面展示为准。</p>
+  </main>
+</section>
 
 <div class="bottom-nav" id="bottomNav">
   <div class="nav-tab active" data-page="page-home">

@@ -6,6 +6,9 @@
 .global-order-badge { position:absolute; top:-7px; right:-9px; display:flex; min-width:18px; height:18px; align-items:center; justify-content:center; padding:0 4px; border:2px solid #fff; border-radius:10px; background:var(--my-brand-red,#ff4d88); color:#fff; font-size:10px; font-weight:600; line-height:14px; white-space:nowrap; }
 .global-message-badge { position:absolute; top:-3px; right:-5px; display:block; width:8px; min-width:8px; height:8px; border:1.5px solid #fff; border-radius:50%; background:var(--my-brand-red,#ff4d88); }
 
+/* 首页上滑后，快捷入口与紧凑搜索栏共用 30-77px 工具栏。 */
+body.home-scroll-active > .global-header-actions { top:30px; z-index:1201; }
+
 /* 柚子街中的组件位置属于组件自身，页面模块不覆盖组件基础样式。 */
 body.mall-active > .global-header-actions .global-header-action[aria-label="消息"] { display:none; }
 body.mall-active:not(.mall-scroll-active) > .global-header-actions { top:38px; }

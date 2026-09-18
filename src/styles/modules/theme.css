@@ -1153,11 +1153,11 @@ body.mall-active .mall-product {
   margin-top:4px;
 }
 
-/* 首页导航吸顶时使用通栏白色承载层。 */
+/* 首页导航吸顶时保持在原型容器内，避免宽屏预览出现横向坐标偏移。 */
 body.home-scroll-active #page-home .category-tabs {
-  width:100vw !important;
-  margin-left:calc(50% - 50vw) !important;
-  margin-right:calc(50% - 50vw) !important;
+  width:100% !important;
+  margin-left:0 !important;
+  margin-right:0 !important;
   background:rgba(255,255,255,.9) !important;
   -webkit-backdrop-filter:saturate(120%) blur(10px);
   backdrop-filter:saturate(120%) blur(10px);

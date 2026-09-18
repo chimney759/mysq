@@ -160,6 +160,9 @@ const productOfferRulesTrigger = document.getElementById('productOfferRulesTrigg
 const productOfferRulesBack = document.getElementById('productOfferRulesBack');
 const productRebateSheet = document.getElementById('productRebateSheet');
 const productRebateTrigger = document.getElementById('productRebateTrigger');
+const productCouponTipsPage = document.getElementById('productCouponTipsPage');
+const productCouponTipsTrigger = document.getElementById('productCouponTipsTrigger');
+const productCouponTipsBack = document.getElementById('productCouponTipsBack');
 const productMoreCouponsList = document.getElementById('productMoreCouponsList');
 const productMoreCouponsTrigger = document.getElementById('productMoreCouponsTrigger');
 const productOrderButton = document.getElementById('productOrderButton');
@@ -290,6 +293,7 @@ function openProductDetail(card) {
 
 function closeProductDetail() {
   productRebateSheet.hidden = true;
+  closeProductCouponTips();
   if (productOfferRulesPage) productOfferRulesPage.hidden = true;
   productDetailPage.classList.remove('active');
   document.getElementById('page-haojia').classList.add('active');
@@ -339,6 +343,17 @@ if (productDetailCarousel) {
 }
 if (productRebateTrigger) productRebateTrigger.addEventListener('click', () => { productRebateSheet.hidden = false; });
 document.querySelectorAll('[data-rebate-close]').forEach(button => button.addEventListener('click', () => { productRebateSheet.hidden = true; }));
+function closeProductCouponTips() {
+  if (!productCouponTipsPage) return;
+  productCouponTipsPage.hidden = true;
+  productCouponTipsTrigger?.focus();
+}
+if (productCouponTipsTrigger && productCouponTipsPage) productCouponTipsTrigger.addEventListener('click', () => {
+  productCouponTipsPage.hidden = false;
+  productCouponTipsPage.scrollTop = 0;
+  productCouponTipsBack?.focus();
+});
+if (productCouponTipsBack) productCouponTipsBack.addEventListener('click', closeProductCouponTips);
 if (productMoreCouponsTrigger && productMoreCouponsList) productMoreCouponsTrigger.addEventListener('click', () => {
   const isExpanded = productMoreCouponsTrigger.getAttribute('aria-expanded') === 'true';
   productMoreCouponsList.hidden = isExpanded;
@@ -359,6 +374,7 @@ if (productFavoriteButton) {
 if (productHomeButton) {
   productHomeButton.addEventListener('click', () => {
     productRebateSheet.hidden = true;
+    closeProductCouponTips();
     productDetailPage.classList.remove('active');
     document.querySelector('#bottomNav .nav-tab[data-page="page-home"]')?.click();
   });
@@ -375,6 +391,10 @@ document.addEventListener('keydown', (event) => {
   }
   if (productRebateSheet && !productRebateSheet.hidden) {
     productRebateSheet.hidden = true;
+    return;
+  }
+  if (productCouponTipsPage && !productCouponTipsPage.hidden) {
+    closeProductCouponTips();
     return;
   }
   if (productDetailPage?.classList.contains('active')) closeProductDetail();
